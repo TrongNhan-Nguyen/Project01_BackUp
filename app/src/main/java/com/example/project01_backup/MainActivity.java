@@ -23,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        runtimePermission();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Project01");
+
+        myRef.setValue("Nguyễn Trọng Nhân");
 
     }
 
