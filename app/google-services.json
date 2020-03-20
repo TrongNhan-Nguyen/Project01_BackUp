@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "297247731085",
+    "firebase_url": "https://project-1-backup.firebaseio.com",
+    "project_id": "project-1-backup",
+    "storage_bucket": "project-1-backup.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297247731085:android:aa48d83214d3546e19e1c4",
+        "android_client_info": {
+          "package_name": "com.example.project01_backup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297247731085-ofr46avd1kcq5jbog66e768jd6j3p3s3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5378EVJWEt3mYEBtAunr2eUjRtydmqno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297247731085-ofr46avd1kcq5jbog66e768jd6j3p3s3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
