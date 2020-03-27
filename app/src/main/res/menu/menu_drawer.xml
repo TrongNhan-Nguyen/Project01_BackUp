@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/menu_drawer_Restaurant"
+            android:title="Places to Eat"/>
+        <item
+            android:id="@+id/menu_drawer_Accommodations"
+            android:title="Accommodations"/>
+        <item
+            android:id="@+id/menu_drawer_CheckIn"
+            android:title="Beautiful Places"/>
+        <item
+            android:id="@+id/menu_drawer_Blog"
+            android:title="Journey Diary"/>
+        <item
+            android:id="@+id/menu_drawer_Admin"
+            android:title="Administrators"/>
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/menu_drawer_Information"
+                android:title="User Information"/>
+            <item
+                android:id="@+id/menu_drawer_LogOut"
+                android:title="Log Out"/>
+            <item
+                android:id="@+id/menu_drawer_About"
+                android:title="About"/>
+            <item
+                android:id="@+id/menu_drawer_Exit"
+                android:title="Exit"/>
+        </menu>
+
+    </item>
+</menu>
