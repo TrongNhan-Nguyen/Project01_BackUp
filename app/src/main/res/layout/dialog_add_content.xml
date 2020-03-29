@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/dAddContent_tvTitle"
+        android:text="ADD CONTENT"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/dAddContent_imgContent"
+        android:layout_below="@+id/dAddContent_tvTitle"
+        android:background="#ff0"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"/>
+    <ImageView
+        android:id="@+id/dAddContent_imgChooseImg"
+        android:src="@drawable/ic_camera_black_24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/dAddContent_imgContent"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+    <EditText
+        android:id="@+id/dAddContent_etDescriptions"
+        android:hint="Add Description"
+        android:layout_below="@+id/dAddContent_imgChooseImg"
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_below="@+id/dAddContent_etDescriptions"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/dAddContent_btnAdd"
+            android:text="Add"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/dAddContent_btnClear"
+            android:text="Clear"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/dAddContent_btnCancel"
+            android:text="Cancel"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</RelativeLayout>

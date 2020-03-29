@@ -8,23 +8,30 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
-import com.example.project01_backup.dao.DAO_Places;
-import com.example.project01_backup.fragment.Fragment_Accomodations;
+import com.example.project01_backup.fragment.Fragment_Accommodations;
+import com.example.project01_backup.fragment.Fragment_AddPost;
 import com.example.project01_backup.fragment.Fragment_BeautifulPlaces;
 import com.example.project01_backup.fragment.Fragment_Blog;
 import com.example.project01_backup.fragment.Fragment_Restaurant;
-import com.example.project01_backup.model.Places;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
-    DAO_Places dao_places;
+    private FirebaseUser firebaseUser;
+    public static final String POINT_TO_NODE = "point to node";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,18 +50,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initView() {
-//        dao_places = new DAO_Places(this);
-//        dao_places.insert(new Places("Da Lat"));
-//        dao_places.insert(new Places("Ca Mau"));
-//        dao_places.insert(new Places("Ha Long"));
-//        dao_places.insert(new Places("Can Tho"));
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         drawerLayout = (DrawerLayout) findViewById(R.id.main_Drawer);
         navigationView = (NavigationView) findViewById(R.id.main_Navigation);
         toggle = new ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close);
         navigationView.setNavigationItemSelectedListener(this);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        replaceFragment(new Fragment_Restaurant());
+        replaceFragment(new Fragment_AddPost());
+        showInfo();
+    }
+
+    private void showInfo(){
+        if (firebaseUser != null){
+            View headerView = navigationView.getHeaderView(0);
+            ImageView imgAvatar = (ImageView) headerView.findViewById(R.id.header_imgAvatar);
+            TextView tvDisplayName = (TextView) headerView.findViewById(R.id.header_tvDisplayName);
+            TextView tvEmail = (TextView) headerView.findViewById(R.id.header_tvEmail);
+            Uri uriAvatar = firebaseUser.getPhotoUrl();
+            Picasso.get().load(uriAvatar).into(imgAvatar);
+            tvDisplayName.setText(firebaseUser.getDisplayName());
+            tvEmail.setText(firebaseUser.getEmail());
+        }
     }
 
     private void runtimePermission(){
@@ -93,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment(new Fragment_Restaurant());
                 break;
             case R.id.menu_drawer_Accommodations:
-                replaceFragment(new Fragment_Accomodations());
+                replaceFragment(new Fragment_Accommodations());
                 break;
             case R.id.menu_drawer_CheckIn:
                 replaceFragment(new Fragment_BeautifulPlaces());
@@ -106,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_drawer_Information:
                 break;
             case R.id.menu_drawer_LogOut:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
                 break;
             case R.id.menu_drawer_About:
                 break;

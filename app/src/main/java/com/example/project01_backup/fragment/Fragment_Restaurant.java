@@ -19,13 +19,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
+import com.example.project01_backup.activities.MainActivity;
+import com.example.project01_backup.adapter.Adapter_LV_Post;
 import com.example.project01_backup.dao.DAO_Places;
 import com.example.project01_backup.model.FirebaseCallback;
 import com.example.project01_backup.model.Places;
+import com.example.project01_backup.model.Post;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +51,11 @@ public class Fragment_Restaurant extends Fragment {
     private DAO_Places dao_places;
     private List<String> placeNames;
     private TextView tvTitle;
+    private ListView listView;
+    private Adapter_LV_Post adapterPost;
+    private List<Post> postList;
+    private FirebaseUser user;
+    private FloatingActionButton fbaAdd;
 
     public Fragment_Restaurant() {
         // Required empty public constructor
@@ -54,8 +72,53 @@ public class Fragment_Restaurant extends Fragment {
     }
 
     private void initView() {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference dbRes = FirebaseDatabase.getInstance().getReference("restaurant");
+
         dao_places = new DAO_Places(getActivity(),this);
         tvTitle = (TextView) view.findViewById(R.id.fRestaurant_tvTitle);
+        fbaAdd = (FloatingActionButton) view.findViewById(R.id.fRestaurant_fabAddPost);
+        listView = (ListView) view.findViewById(R.id.fRestaurant_lvPost);
+        postList = new ArrayList<>();
+
+        dbRes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                postList.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    for (DataSnapshot ds1 : ds.getChildren()){
+                        Post post = ds1.getValue(Post.class);
+                        log(post.getUrlAvatarUser());
+                        postList.add(post);
+                    }
+                }
+                adapterPost = new Adapter_LV_Post(getActivity(),postList);
+                listView.setAdapter(adapterPost);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        if (user == null){
+            fbaAdd.setVisibility(View.GONE);
+        }
+
+        fbaAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment_AddPost addPost = new Fragment_AddPost();
+                Bundle bundle = new Bundle();
+                bundle.putString(MainActivity.POINT_TO_NODE,"restaurants");
+                addPost.setArguments(bundle);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_FrameLayout,addPost)
+                        .commit();
+            }
+        });
 
         placeNames = new ArrayList<>();
 

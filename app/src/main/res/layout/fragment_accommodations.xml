@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.Fragment_Restaurant">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/fAccommodation_tvTitle"
+        android:text="Fragment Restaurant"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Fragment Accommodations" />
-
-</FrameLayout>
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fAccommodation_fabAddPost"
+        android:background="#34A8FF"
+        android:src="@drawable/add_post"
+        android:layout_marginBottom="3dp"
+        android:layout_marginRight="3dp"
+        app:fabSize="mini"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

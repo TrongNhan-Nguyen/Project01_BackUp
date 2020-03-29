@@ -57,12 +57,12 @@ public class RegisterActivity extends AppCompatActivity {
     private void initView() {
         dao_user = new DAO_User(this);
         mAuth = FirebaseAuth.getInstance();
-        etDisplayName = (EditText) findViewById(R.id.login_etDisplayName);
-        etEmail = (EditText) findViewById(R.id.login_etEmail);
-        etPassword = (EditText) findViewById(R.id.login_etPassword);
-        imgAvatar = (ImageView) findViewById(R.id.login_imgAvatar);
-        imgChangeAvatar = (ImageView) findViewById(R.id.login_imgChangeAvatar);
-        btnResister = (Button) findViewById(R.id.login_btnRegister);
+        etDisplayName = (EditText) findViewById(R.id.register_etDisplayName);
+        etEmail = (EditText) findViewById(R.id.register_etEmail);
+        etPassword = (EditText) findViewById(R.id.register_etPassword);
+        imgAvatar = (ImageView) findViewById(R.id.register_imgAvatar);
+        imgChangeAvatar = (ImageView) findViewById(R.id.register_imgChangeAvatar);
+        btnResister = (Button) findViewById(R.id.register_btnRegister);
 
         dialog = new SpotsDialog(this);
 
@@ -79,11 +79,16 @@ public class RegisterActivity extends AppCompatActivity {
         btnResister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
                 String displayName = etDisplayName.getText().toString();
                 String email = etEmail.getText().toString();
                 String pass = etPassword.getText().toString();
-                createUser(displayName,email,pass);
+                if (displayName.isEmpty() || email.isEmpty() || pass.isEmpty()){
+                    toast("Vui lòng diền đầy đủ thông tin");
+                }else {
+                    dialog.show();
+                    createUser(displayName,email,pass);
+                }
+
 
             }
         });
@@ -149,8 +154,10 @@ public class RegisterActivity extends AppCompatActivity {
                             insert.setId(currentUser.getUid());
                             insert.setType("Admin");
                             dao_user.insert(insert);
-                            toast("Register complete");
                             dialog.dismiss();
+                            toast("Register complete");
+                            finish();
+                            startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
                         }
                     }
                 });
