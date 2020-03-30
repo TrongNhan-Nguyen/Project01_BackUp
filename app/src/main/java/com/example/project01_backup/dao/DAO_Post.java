@@ -25,19 +25,19 @@ import java.util.Calendar;
 public class DAO_Post {
     private Context context;
     private Fragment fragment;
-    private DatabaseReference dbPost;
+    private DatabaseReference df, dbPost;
     private String node;
     private StorageReference storagePost;
 
     public DAO_Post(Context context, Fragment fragment) {
         this.context = context;
         this.fragment = fragment;
-        this.dbPost = FirebaseDatabase.getInstance().getReference("restaurant").child("Ca Mau");
+        this.df = FirebaseDatabase.getInstance().getReference();
     }
 
-    public void insert(final Post post, ImageView imageView){
+    public void insert(String categoryNode, String placeNode, final Post post, ImageView imageView){
         Calendar calendar = Calendar.getInstance();
-
+        dbPost = df.child(categoryNode).child(placeNode);
         final String id = dbPost.push().getKey();
         final StorageReference storageReference = FirebaseStorage.getInstance()
                 .getReference("Post/" + id);

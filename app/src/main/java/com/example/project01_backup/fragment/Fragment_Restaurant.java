@@ -73,7 +73,7 @@ public class Fragment_Restaurant extends Fragment {
 
     private void initView() {
         user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference dbRes = FirebaseDatabase.getInstance().getReference("restaurant");
+        DatabaseReference dbRes = FirebaseDatabase.getInstance().getReference("restaurants");
 
         dao_places = new DAO_Places(getActivity(),this);
         tvTitle = (TextView) view.findViewById(R.id.fRestaurant_tvTitle);
@@ -88,7 +88,6 @@ public class Fragment_Restaurant extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     for (DataSnapshot ds1 : ds.getChildren()){
                         Post post = ds1.getValue(Post.class);
-                        log(post.getUrlAvatarUser());
                         postList.add(post);
                     }
                 }

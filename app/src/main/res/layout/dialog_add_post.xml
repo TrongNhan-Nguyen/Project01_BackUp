@@ -16,15 +16,16 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="30dp">
+        android:layout_height="40dp">
         <AutoCompleteTextView
             android:id="@+id/dAddPost_acPlaces"
-            android:layout_weight="6"
+            android:hint="Add Place"
+            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <Spinner
-            android:id="@+id/dAddPost_spnKind"
-            android:layout_weight="4"
+            android:id="@+id/dAddPost_spnCategory"
+            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
     </LinearLayout>

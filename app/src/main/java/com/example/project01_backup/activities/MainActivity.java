@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        replaceFragment(new Fragment_AddPost());
+        replaceFragment(new Fragment_Restaurant());
         showInfo();
     }
 

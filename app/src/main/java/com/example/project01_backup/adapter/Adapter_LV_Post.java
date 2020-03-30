@@ -2,6 +2,9 @@ package com.example.project01_backup.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.project01_backup.R;
+import com.example.project01_backup.activities.MainActivity;
+import com.example.project01_backup.fragment.Fragment_Post_Detail;
 import com.example.project01_backup.model.Post;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class Adapter_LV_Post extends BaseAdapter {
-    Context context;
-    List<Post> postList;
+    private Context context;
+    private List<Post> postList;
+    public static final String POST = "post";
+
 
     public Adapter_LV_Post(Context context, List<Post> postList) {
         this.context = context;
@@ -48,14 +56,27 @@ public class Adapter_LV_Post extends BaseAdapter {
         TextView tvDescription = (TextView) convertView.findViewById(R.id.raw_post_tvDescription);
         ImageView imgPost = (ImageView) convertView.findViewById(R.id.raw_post_imgPost);
         ImageView imgAvatar = (ImageView) convertView.findViewById(R.id.raw_post_imgAvatarUser);
-        Post post = postList.get(position);
+        final Post post = postList.get(position);
 
         tvPubDate.setText(post.getPubDate());
         tvTitle.setText(post.getTittle());
         tvDescription.setText(post.getDescription());
         Picasso.get().load(Uri.parse(post.getUrlAvatarUser())).into(imgAvatar);
         Picasso.get().load(Uri.parse(post.getUrlImage())).into(imgPost);
-
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment_Post_Detail fragment_post_detail = new Fragment_Post_Detail();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(POST, post);
+                fragment_post_detail.setArguments(bundle);
+                ((MainActivity)context).getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_FrameLayout, fragment_post_detail)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         return convertView;
     }

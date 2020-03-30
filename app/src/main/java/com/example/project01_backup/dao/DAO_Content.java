@@ -8,13 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.project01_backup.model.Content;
+import com.example.project01_backup.model.FirebaseCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DAO_Content {
     Context context;
@@ -51,6 +58,29 @@ public class DAO_Content {
                 });
             }
         });
+
+    }
+
+    public void getData (String idPost, final FirebaseCallback firebaseCallback){
+        final List<Content> contentList = new ArrayList<>();
+        dbContent.child(idPost).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                contentList.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    Content content = ds.getValue(Content.class);
+                    contentList.add(content);
+                }
+                firebaseCallback.contentList(contentList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
     }
     private void toast(String s){

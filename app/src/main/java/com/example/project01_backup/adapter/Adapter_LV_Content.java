@@ -1,6 +1,7 @@
 package com.example.project01_backup.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.project01_backup.R;
 import com.example.project01_backup.model.Content;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -45,9 +47,13 @@ public class Adapter_LV_Content extends BaseAdapter {
         ImageView imgContent = (ImageView) convertView.findViewById(R.id.raw_content_imgContent);
 
         Content content = contentList.get(position);
-
         tvDescription.setText(content.getDescription());
-        imgContent.setImageURI(content.getUriImage());
+        if (content.getUrlImage() != null){
+            Picasso.get().load(Uri.parse(content.getUrlImage())).into(imgContent);
+        }else {
+            imgContent.setImageURI(content.getUriImage());
+        }
+
 
 
         return convertView;

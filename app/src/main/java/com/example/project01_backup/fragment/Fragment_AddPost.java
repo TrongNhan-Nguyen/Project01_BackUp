@@ -19,27 +19,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.project01_backup.R;
-import com.example.project01_backup.activities.MainActivity;
 import com.example.project01_backup.adapter.Adapter_LV_Content;
 import com.example.project01_backup.dao.DAO_Content;
+import com.example.project01_backup.dao.DAO_Places;
 import com.example.project01_backup.dao.DAO_Post;
 import com.example.project01_backup.model.Content;
+import com.example.project01_backup.model.FirebaseCallback;
+import com.example.project01_backup.model.Places;
 import com.example.project01_backup.model.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -52,20 +55,22 @@ import java.util.List;
  */
 public class Fragment_AddPost extends Fragment {
     private View view;
-    private TextView tvNode, tvTitle, tvUser, tvPubDate, tvAddress, tvDescription;
+    private TextView tvPlace, tvCategory, tvTitle, tvUser, tvPubDate, tvAddress, tvDescription;
     private FloatingActionButton fabAddPost, fabAddContent;
     private ImageView imgPost, imgAvatarUser,dImagePost, dImgAvatar, imgContent;
     private ListView lvContent;
     private FirebaseUser user;
-    private Bundle bundle;
     private DAO_Post dao_post;
     private DAO_Content dao_content;
+    private DAO_Places dao_places;
     private Post post;
     private RelativeLayout container;
     private List<Content> contentList;
+    private List<String> nameList;
     private Adapter_LV_Content adapterContent;
     public static final int CHOOSE_IMAGE_POST = 2;
     public static final int CHOOSE_IMAGE_CONTENT = 3;
+    private int index = -1;
     private Content content;
 
     public Fragment_AddPost() {
@@ -86,21 +91,31 @@ public class Fragment_AddPost extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         dao_post = new DAO_Post(getActivity(), this);
         dao_content = new DAO_Content(getActivity(),this);
+        dao_places = new DAO_Places(getActivity(),this);
         post = new Post();
         contentList = new ArrayList<>();
         container = (RelativeLayout) view.findViewById(R.id.fAddPost_layoutContainer);
-        tvNode = (TextView) view.findViewById(R.id.fAddPost_tvNode);
+        tvDescription = (TextView) view.findViewById(R.id.fAddPost_tvDescription);
+        tvCategory = (TextView) view.findViewById(R.id.fAddPost_tvCategory);
+        tvPlace = (TextView) view.findViewById(R.id.fAddPost_tvPlace);
+        tvPlace = (TextView) view.findViewById(R.id.fAddPost_tvPlace);
         tvUser = (TextView) view.findViewById(R.id.fAddPost_tvUser);
         tvPubDate = (TextView) view.findViewById(R.id.fAddPost_tvPubDate);
         tvTitle = (TextView) view.findViewById(R.id.fAddPost_tvTitle);
         tvAddress = (TextView) view.findViewById(R.id.fAddPost_tvAddress);
         tvDescription = (TextView) view.findViewById(R.id.fAddPost_tvDescription);
+
         fabAddPost = (FloatingActionButton) view.findViewById(R.id.fAddPost_fabAddPost);
         fabAddContent = (FloatingActionButton) view.findViewById(R.id.fAddPost_fabAddContent);
         imgPost = (ImageView) view.findViewById(R.id.fAddPost_imgPost);
         imgAvatarUser = (ImageView) view.findViewById(R.id.fAddPost_imgAvatarUser);
         lvContent = (ListView) view.findViewById(R.id.fAddPost_lvContent);
         contentList = new ArrayList<>();
+
+        setPubDate(tvPubDate);
+        tvUser.setText(user.getEmail());
+        Picasso.get().load(user.getPhotoUrl()).into(imgAvatarUser);
+        container.setVisibility(View.GONE);
         container.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -109,15 +124,14 @@ public class Fragment_AddPost extends Fragment {
             }
         });
 
-        setPubDate(tvPubDate);
-        tvUser.setText(user.getEmail());
-        Picasso.get().load(user.getPhotoUrl()).into(imgAvatarUser);
-        container.setVisibility(View.GONE);
-//        fabAddContent.setVisibility(View.GONE);
-        bundle = getArguments();
-        if (bundle != null){
-            tvNode.setText(bundle.getString(MainActivity.POINT_TO_NODE));
-        }
+        lvContent.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                index = position;
+                dialogLongClick();
+                return true;
+            }
+        });
 
         fabAddPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,12 +160,36 @@ public class Fragment_AddPost extends Fragment {
         final EditText etTitle = (EditText) dialog.findViewById(R.id.dAddPost_etTitle);
         final EditText etDescription = (EditText) dialog.findViewById(R.id.dAddPost_etDescription);
         final EditText etAddress = (EditText) dialog.findViewById(R.id.dAddPost_etAddress);
+        final AutoCompleteTextView acPlace = (AutoCompleteTextView) dialog.findViewById(R.id.dAddPost_acPlaces);
+        final Spinner spnCategory = (Spinner) dialog.findViewById(R.id.dAddPost_spnCategory);
         dImagePost  = (ImageView) dialog.findViewById(R.id.dAddPost_imgPost);
         ImageView imgAdd = (ImageView) dialog.findViewById(R.id.dAddPost_imgAddImage);
         dImgAvatar = (ImageView)  (ImageView) dialog.findViewById(R.id.dAddPost_imgAvatar);
         Button btnPost = (Button) dialog.findViewById(R.id.dAddPost_btnPost);
         Button btnClear = (Button) dialog.findViewById(R.id.dAddPost_btnClear);
         Button btnCancel = (Button) dialog.findViewById(R.id.dAddPost_btnCancel);
+
+        nameList = new ArrayList<>();
+        String[] categoryList = {"Ăn Uống", "Chỗ Ở", "Check in", " Trải Nghiệm"};
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line, categoryList);
+        final ArrayAdapter<String> adapterPlace = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, nameList);
+        acPlace.setAdapter(adapterPlace);
+        spnCategory.setAdapter(adapterSpinner);
+        acPlace.setThreshold(1);
+
+        dao_places.getData(new FirebaseCallback(){
+            @Override
+            public void placesList(List<Places> placesList) {
+                nameList.clear();
+                for (Places places : placesList){
+                    nameList.add(places.getName());
+
+                }
+                adapterPlace.notifyDataSetChanged();
+
+            }
+        });
+
         setPubDate(textViewDate);
         textViewUser.setText(user.getEmail());
         Picasso.get().load(user.getPhotoUrl()).into(dImgAvatar);
@@ -189,7 +227,9 @@ public class Fragment_AddPost extends Fragment {
                 String description = etDescription.getText().toString();
                 String mailUser = textViewUser.getText().toString();
                 String date = textViewDate.getText().toString();
-                if (title.isEmpty() || address.isEmpty() || description.isEmpty()){
+                String place = acPlace.getText().toString();
+                String category = spnCategory.getSelectedItem().toString();
+                if (title.isEmpty() || address.isEmpty() || description.isEmpty() || place.isEmpty()){
                     toast("Vui lòng điền đầy đủ thông tin");
                 }else if (dImagePost.getDrawable() == null){
                     toast("Vui lòng chọn hình ảnh");
@@ -198,6 +238,8 @@ public class Fragment_AddPost extends Fragment {
                     tvTitle.setText(title);
                     tvAddress.setText(address);
                     tvDescription.setText(description);
+                    tvPlace.setText(place);
+                    tvCategory.setText(category);
                     container.setVisibility(View.VISIBLE);
                     fabAddContent.setVisibility(View.VISIBLE);
                     fabAddPost.setVisibility(View.GONE);
@@ -228,7 +270,6 @@ public class Fragment_AddPost extends Fragment {
         Button btnAdd = (Button) dialog.findViewById(R.id.dAddContent_btnAdd);
         Button btnClear = (Button) dialog.findViewById(R.id.dAddContent_btnClear);
         Button btnCancel = (Button) dialog.findViewById(R.id.dAddContent_btnCancel);
-
 
         imgChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,8 +318,122 @@ public class Fragment_AddPost extends Fragment {
 
         dialog.show();
     }
+
+    private void dialogUpdateContent(){
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_add_content);
+        final Content update = contentList.get(index);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final EditText etDescription = (EditText) dialog.findViewById(R.id.dAddContent_etDescriptions);
+        imgContent = (ImageView) dialog.findViewById(R.id.dAddContent_imgContent);
+        final ImageView imgChoose = (ImageView) dialog.findViewById(R.id.dAddContent_imgChooseImg);
+        Button btnAdd = (Button) dialog.findViewById(R.id.dAddContent_btnAdd);
+        Button btnClear = (Button) dialog.findViewById(R.id.dAddContent_btnClear);
+        Button btnCancel = (Button) dialog.findViewById(R.id.dAddContent_btnCancel);
+
+        imgContent.setImageURI(update.getUriImage());
+        etDescription.setText(update.getDescription());
+
+        imgChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,"Select picture"), CHOOSE_IMAGE_CONTENT);
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toast("clear");
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String description = etDescription.getText().toString();
+                if (imgContent.getDrawable() == null){
+                    toast("Vui lòng chọn hình ảnh");
+
+                }else if (description.isEmpty()){
+                    toast("Vui lòng thêm mô tả");
+                }else {
+//                    content.setDescription(etDescription.getText().toString());
+//                    contentList.add(content);
+                    update.setDescription(etDescription.getText().toString());
+                    adapterContent = new Adapter_LV_Content(getActivity(),contentList);
+                    lvContent.setAdapter(adapterContent);
+                    dialog.dismiss();
+                }
+
+            }
+        });
+
+
+        dialog.show();
+    }
+
+    private void dialogLongClick(){
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_longclick);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final Content delete = contentList.get(index);
+        Button btnEdit = (Button) dialog.findViewById(R.id.dLongClick_btnEdit);
+        Button btnDelete = (Button) dialog.findViewById(R.id.dLongClick_btnDelete);
+        Button btnCancel = (Button) dialog.findViewById(R.id.dLongClick_btnCancel);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contentList.remove(delete);
+                adapterContent.notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogUpdateContent();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
     private void uploadData(){
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        final String pointToNode;
+        final String categoryNode = tvCategory.getText().toString();
+        final String placeNode = tvPlace.getText().toString();
+
+        if (categoryNode.equalsIgnoreCase("Ăn Uống")){
+            pointToNode = "restaurants";
+        }else if (categoryNode.equalsIgnoreCase("Chỗ Ở")){
+            pointToNode = "accommodations";
+        }else if (categoryNode.equalsIgnoreCase("Check in")){
+            pointToNode = "beautiful places";
+        }else {
+            pointToNode = "journey diary";
+        }
 
         if (tvTitle.getText().toString().isEmpty()){
             toast("Vui lòng tạo bài viết");
@@ -290,7 +445,8 @@ public class Fragment_AddPost extends Fragment {
             dialog.setNegativeButton("ĐĂNG BÀI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dao_post.insert(post, imgPost);
+                    dao_post.insert(pointToNode,placeNode,post, imgPost);
+                    currentFragment(categoryNode);
                 }
             });
             dialog.setPositiveButton("HUỶ", new DialogInterface.OnClickListener() {
@@ -307,12 +463,13 @@ public class Fragment_AddPost extends Fragment {
             dialog.setNegativeButton("ĐĂNG BÀI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dao_post.insert(post, imgPost);
+                    dao_post.insert(pointToNode,placeNode,post, imgPost);
                     for (int i = 0; i< contentList.size(); i++){
                         Content upload = new Content();
                         Uri uri = contentList.get(i).getUriImage();
                         upload.setDescription(contentList.get(i).getDescription());
                         dao_content.insert(post.getId(),upload,uri);
+                        currentFragment(categoryNode);
                     }
                 }
             });
@@ -332,6 +489,27 @@ public class Fragment_AddPost extends Fragment {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         tv.setText(format.format(calendar.getTime()));
+    }
+
+    private void currentFragment(String current){
+        if (current.equalsIgnoreCase("Ăn Uống")){
+            replaceFragment(new Fragment_Restaurant());
+        }else if (current.equalsIgnoreCase("Chỗ Ở")){
+            replaceFragment(new Fragment_Accommodations());
+        }else if (current.equalsIgnoreCase("Check in")){
+            replaceFragment(new Fragment_BeautifulPlaces());
+        }else {
+            replaceFragment(new Fragment_Blog());
+        }
+
+    }
+
+    private void replaceFragment(Fragment fragment){
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_FrameLayout,fragment)
+                .commit();
+
     }
 
     private void log (String s){

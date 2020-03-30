@@ -1,6 +1,8 @@
 package com.example.project01_backup.model;
 
-public class Post {
+import java.io.Serializable;
+
+public class Post implements Serializable {
     private String id, user, urlImage,urlAvatarUser , tittle, address, description, pubDate;
     private long longPubDate;
 
