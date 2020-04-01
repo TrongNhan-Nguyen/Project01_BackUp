@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -25,7 +24,7 @@ import android.widget.Toast;
 
 import com.example.project01_backup.R;
 import com.example.project01_backup.activities.MainActivity;
-import com.example.project01_backup.adapter.Adapter_LV_Post;
+import com.example.project01_backup.adapter.Adapter_LV_PostUser;
 import com.example.project01_backup.dao.DAO_Places;
 import com.example.project01_backup.model.FirebaseCallback;
 import com.example.project01_backup.model.Places;
@@ -38,7 +37,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +50,7 @@ public class Fragment_Restaurant extends Fragment {
     private List<String> placeNames;
     private TextView tvTitle;
     private ListView listView;
-    private Adapter_LV_Post adapterPost;
+    private Adapter_LV_PostUser adapterPost;
     private List<Post> postList;
     private FirebaseUser user;
     private FloatingActionButton fbaAdd;
@@ -91,7 +89,7 @@ public class Fragment_Restaurant extends Fragment {
                         postList.add(post);
                     }
                 }
-                adapterPost = new Adapter_LV_Post(getActivity(),postList);
+                adapterPost = new Adapter_LV_PostUser(getActivity(),postList);
                 listView.setAdapter(adapterPost);
             }
 

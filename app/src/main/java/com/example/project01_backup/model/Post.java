@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Post implements Serializable {
     private String id, user, urlImage,urlAvatarUser , tittle, address, description, pubDate;
+    private String place, category;
     private long longPubDate;
 
     public String getId() {
@@ -76,5 +77,21 @@ public class Post implements Serializable {
 
     public void setUrlAvatarUser(String urlAvatarUser) {
         this.urlAvatarUser = urlAvatarUser;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

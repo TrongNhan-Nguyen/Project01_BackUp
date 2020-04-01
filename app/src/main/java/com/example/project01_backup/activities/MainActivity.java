@@ -11,6 +11,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import com.example.project01_backup.fragment.Fragment_Accommodations;
 import com.example.project01_backup.fragment.Fragment_AddPost;
 import com.example.project01_backup.fragment.Fragment_BeautifulPlaces;
 import com.example.project01_backup.fragment.Fragment_Blog;
+import com.example.project01_backup.fragment.Fragment_Post_Detail;
 import com.example.project01_backup.fragment.Fragment_Restaurant;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         replaceFragment(new Fragment_Restaurant());
         showInfo();
+        hideAdmin();
     }
 
     private void showInfo(){
@@ -95,6 +98,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 }).check();
     }
+    private void hideAdmin(){
+        if (firebaseUser == null) {
+            Menu drawerMenu = navigationView.getMenu();
+            drawerMenu.findItem(R.id.menu_drawer_Admin).setVisible(false);
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -120,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment(new Fragment_Blog());
                 break;
             case R.id.menu_drawer_Admin:
+                finish();
+                startActivity(new Intent(MainActivity.this, AdminActivity.class));
                 break;
             case R.id.menu_drawer_Information:
                 break;

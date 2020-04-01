@@ -21,13 +21,15 @@ import com.squareup.picasso.Picasso;
 import java.io.Serializable;
 import java.util.List;
 
-public class Adapter_LV_Post extends BaseAdapter {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class Adapter_LV_PostUser extends BaseAdapter {
     private Context context;
     private List<Post> postList;
     public static final String POST = "post";
 
 
-    public Adapter_LV_Post(Context context, List<Post> postList) {
+    public Adapter_LV_PostUser(Context context, List<Post> postList) {
         this.context = context;
         this.postList = postList;
     }
@@ -53,14 +55,14 @@ public class Adapter_LV_Post extends BaseAdapter {
         convertView = inflater.inflate(R.layout.raw_post,null);
         TextView tvPubDate = (TextView) convertView.findViewById(R.id.raw_post_tvPubDate);
         TextView tvTitle = (TextView) convertView.findViewById(R.id.raw_post_tvTitle);
-        TextView tvDescription = (TextView) convertView.findViewById(R.id.raw_post_tvDescription);
+        TextView tvAddress = (TextView) convertView.findViewById(R.id.raw_post_tvAddress);
         ImageView imgPost = (ImageView) convertView.findViewById(R.id.raw_post_imgPost);
-        ImageView imgAvatar = (ImageView) convertView.findViewById(R.id.raw_post_imgAvatarUser);
+        CircleImageView imgAvatar = (CircleImageView) convertView.findViewById(R.id.raw_post_imgAvatarUser);
         final Post post = postList.get(position);
 
         tvPubDate.setText(post.getPubDate());
         tvTitle.setText(post.getTittle());
-        tvDescription.setText(post.getDescription());
+        tvAddress.setText(post.getAddress());
         Picasso.get().load(Uri.parse(post.getUrlAvatarUser())).into(imgAvatar);
         Picasso.get().load(Uri.parse(post.getUrlImage())).into(imgPost);
         convertView.setOnClickListener(new View.OnClickListener() {

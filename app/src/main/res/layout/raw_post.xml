@@ -3,55 +3,51 @@
     android:background="#ECECE9"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/raw_post_imgPost"
+        android:background="#AAECEC"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/raw_post_imgAvatarUser"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+    <TextView
+        android:id="@+id/raw_post_tvPubDate"
+        android:text="28/03/2020"
+        android:textColor="#131313"
+        android:textStyle="italic|bold"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/raw_post_imgAvatarUser"
+        android:textSize="13sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <RelativeLayout
         android:id="@+id/raw_post_layoutContainer"
+        android:layout_alignBottom="@+id/raw_post_imgPost"
+        android:background="#B2F1F1EF"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
-        <ImageView
-            android:id="@+id/raw_post_imgPost"
-            android:background="#AAECEC"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <TextView
-            android:id="@+id/raw_post_tvPubDate"
-            android:text="28/03/2020"
-            android:textColor="#FFFFFF"
-            android:textStyle="italic"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentRight="true"
-            android:textSize="13sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <ImageView
-            android:id="@+id/raw_post_imgAvatarUser"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:background="#FFFFFF"
-            android:layout_width="30dp"
-            android:layout_height="30dp"/>
-
+        android:layout_height="wrap_content">
         <TextView
             android:id="@+id/raw_post_tvTitle"
-            android:layout_alignParentBottom="true"
             android:layout_marginBottom="3dp"
-            android:text="title title title title title title title title title"
+            android:text="@string/title"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/raw_post_tvAddress"
+            android:layout_marginBottom="3dp"
+            android:text="@string/address"
+            android:layout_below="@+id/raw_post_tvTitle"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
-    <TextView
-        android:id="@+id/raw_post_tvDescription"
-        android:layout_below="@+id/raw_post_layoutContainer"
-        android:layout_marginBottom="3dp"
-        android:layout_marginTop="5dp"
-        android:text="description description description description description description description description description description description "
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
-
-
 
 </RelativeLayout>

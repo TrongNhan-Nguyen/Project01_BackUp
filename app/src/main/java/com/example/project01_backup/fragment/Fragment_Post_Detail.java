@@ -1,9 +1,11 @@
 package com.example.project01_backup.fragment;
 
+import android.app.Dialog;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +21,8 @@ import android.widget.Toast;
 import com.example.project01_backup.R;
 import com.example.project01_backup.adapter.Adapter_LV_Comment;
 import com.example.project01_backup.adapter.Adapter_LV_Content;
-import com.example.project01_backup.adapter.Adapter_LV_Post;
+import com.example.project01_backup.adapter.Adapter_LV_PostUser;
+import com.example.project01_backup.adapter.Adapter_RV_Content;
 import com.example.project01_backup.dao.DAO_Comment;
 import com.example.project01_backup.dao.DAO_Content;
 import com.example.project01_backup.model.Comment;
@@ -34,18 +37,23 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_Post_Detail extends Fragment {
 
     private View view;
-    private ImageView imgAvatar, imgPost;
+    private ImageView  imgPost, imgContent, imgComment;
+    private CircleImageView imgAvatar;
     private TextView tvTitle, tvPubDate, tvDescription, tvAddress, tvEmail;
     private EditText etComment;
+    private Adapter_RV_Content adapter_rv_content;
     private ListView lvComment, lvContent;
     private FirebaseUser currentUser;
     private Button btnPost;
+    private RecyclerView recyclerView;
     private Post post;
     private Adapter_LV_Comment adapterComment;
     private Adapter_LV_Content adapterContent;
@@ -61,42 +69,38 @@ public class Fragment_Post_Detail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_detail, container, false);
+        view = inflater.inflate(R.layout.fragment_post_detail, container, false);
         initView();
         return view;
     }
 
     private void initView() {
-        dao_comment = new DAO_Comment(getActivity(),this);
-        dao_content = new DAO_Content(getActivity(),this);
+        dao_comment = new DAO_Comment(getActivity(), this);
+        dao_content = new DAO_Content(getActivity(), this);
         Bundle bundle = getArguments();
+        post = (Post) bundle.getSerializable(Adapter_LV_PostUser.POST);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        post = (Post) bundle.getSerializable(Adapter_LV_Post.POST);
         tvEmail = (TextView) view.findViewById(R.id.fDetail_tvEmail);
         tvPubDate = (TextView) view.findViewById(R.id.fDetail_tvPubDate);
         tvTitle = (TextView) view.findViewById(R.id.fDetail_tvTitle);
         tvAddress = (TextView) view.findViewById(R.id.fDetail_tvAddress);
         tvDescription = (TextView) view.findViewById(R.id.fDetail_tvDescription);
-        imgAvatar = (ImageView) view.findViewById(R.id.fDetail_imgAvatarUser);
+        imgAvatar = (CircleImageView) view.findViewById(R.id.fDetail_imgAvatarUser);
         imgPost = (ImageView) view.findViewById(R.id.fDetail_imgPost);
-        etComment = (EditText) view.findViewById(R.id.fDetail_etAddComment);
-        btnPost = (Button) view.findViewById(R.id.fDetail_btnPost);
-        lvComment = (ListView) view.findViewById(R.id.fDetail_lvComment);
-        lvContent = (ListView) view.findViewById(R.id.fDetail_lvContent);
+        imgContent = (ImageView) view.findViewById(R.id.fDetail_imgContents);
+        imgComment = (ImageView) view.findViewById(R.id.fDetail_imgComments);
 
-        dao_comment.getData(post.getId(),new FirebaseCallback(){
+        imgContent.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void commentList(List<Comment> commentList) {
-                adapterComment = new Adapter_LV_Comment(getActivity(),commentList);
-                lvComment.setAdapter(adapterComment);
+            public void onClick(View v) {
+                dialogContents();
             }
         });
 
-        dao_content.getData(post.getId(), new FirebaseCallback(){
+        imgComment.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void contentList(List<Content> contentList) {
-                adapterContent = new Adapter_LV_Content(getActivity(),contentList);
-                lvContent.setAdapter(adapterContent);
+            public void onClick(View v) {
+                dialogComments();
             }
         });
 
@@ -115,42 +119,100 @@ public class Fragment_Post_Detail extends Fragment {
         tvDescription.setText(description);
         Picasso.get().load(Uri.parse(uriAvatar)).into(imgAvatar);
         Picasso.get().load(Uri.parse(uriPost)).into(imgPost);
+
+    }
+
+    private void dialogContents() {
+        final Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Material_NoActionBar_Fullscreen);
+        dialog.setContentView(R.layout.dialog_content_post);
+        TextView tvDone = (TextView) dialog.findViewById(R.id.dContentPost_tvDone);
+        final ListView listView = (ListView) dialog.findViewById(R.id.dContentPost_lvContent);
+        dao_content.getData(post.getId(), new FirebaseCallback() {
+            @Override
+            public void contentList(List<Content> contentList) {
+                adapterContent = new Adapter_LV_Content(getActivity(), contentList);
+                listView.setAdapter(adapterContent);
+
+
+            }
+        });
+        tvDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+    private void dialogComments(){
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_comment_post);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        final Comment comment = new Comment();
+        comment.setEmailUser(currentUser.getEmail());
+        comment.setUriAvatarUser(String.valueOf(currentUser.getPhotoUrl()));
+        comment.setIdUser(currentUser.getUid());
+        comment.setPubDate(stringPubDate());
+        comment.setLongPubDate(longPubDate());
+        final EditText etComment = (EditText) dialog.findViewById(R.id.dCommentPost_etComment);
+        TextView tvDone = (TextView) dialog.findViewById(R.id.dCommentPost_tvDone);
+        Button btnPost = (Button) dialog.findViewById(R.id.dCommentPost_btnPost);
+        final ListView lvComment = (ListView) dialog.findViewById(R.id.dCommentPost_lvComment);
+
+        tvDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postComment();
+                String contentCmt = etComment.getText().toString();
+                if (contentCmt.isEmpty()){
+                    toast("Vui lòng viết bình luận");
+                }else {
+                    comment.setContentComment(contentCmt);
+                    dao_comment.insert(post.getId(),comment);
+                    etComment.setText("");
+                }
+            }
+        });
+
+        dao_comment.getData(post.getId(), new FirebaseCallback(){
+            @Override
+            public void commentList(List<Comment> commentList) {
+                adapterComment = new Adapter_LV_Comment(getActivity(),commentList);
+                lvComment.setAdapter(adapterComment);
+
             }
         });
 
 
+        dialog.show();
+
     }
-    private void postComment(){
-        String idPost = post.getId();
-        Comment comment = new Comment();
-        comment.setContentComment(etComment.getText().toString());
-        comment.setIdUser(currentUser.getUid());
-        comment.setEmailUser(currentUser.getEmail());
-        comment.setPubDate(stringPubDate());
-        comment.setLongPubDate(longPubDate());
-        comment.setUriAvatarUser(String.valueOf(currentUser.getPhotoUrl()));
-        dao_comment.insert(idPost,comment);
-    }
-    private String stringPubDate(){
+
+    private String stringPubDate() {
         String pubDate;
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         pubDate = format.format(calendar.getTime());
         return pubDate;
     }
-    private long longPubDate(){
+
+    private long longPubDate() {
         Calendar calendar = Calendar.getInstance();
         return calendar.getTimeInMillis();
     }
-    private void toast (String s){
+
+    private void toast(String s) {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 
-    private void log (String s){
+    private void log(String s) {
         Log.d("log", s);
     }
 }

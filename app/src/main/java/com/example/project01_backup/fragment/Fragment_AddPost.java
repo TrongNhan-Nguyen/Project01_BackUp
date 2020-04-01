@@ -445,7 +445,7 @@ public class Fragment_AddPost extends Fragment {
             dialog.setNegativeButton("ĐĂNG BÀI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dao_post.insert(pointToNode,placeNode,post, imgPost);
+                    dao_post.insertAdmin(pointToNode,placeNode,post, imgPost);
                     currentFragment(categoryNode);
                 }
             });
@@ -463,7 +463,7 @@ public class Fragment_AddPost extends Fragment {
             dialog.setNegativeButton("ĐĂNG BÀI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dao_post.insert(pointToNode,placeNode,post, imgPost);
+                    dao_post.insertAdmin(pointToNode,placeNode,post, imgPost);
                     for (int i = 0; i< contentList.size(); i++){
                         Content upload = new Content();
                         Uri uri = contentList.get(i).getUriImage();

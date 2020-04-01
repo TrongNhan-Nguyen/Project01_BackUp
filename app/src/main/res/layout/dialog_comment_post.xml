@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FFFFFF"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/dCommentPost_tvDone"
+        android:text="Xong"
+        android:layout_alignParentRight="true"
+        android:textStyle="bold"
+        android:textColor="#090909"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/dCommentPost_layoutComment"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/dCommentPost_etComment"
+            android:hint="Viết bình luận..."
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/dCommentPost_btnPost"
+            android:text="Đăng"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/dCommentPost_lvComment"
+        android:dividerHeight="10dp"
+        android:layout_above="@+id/dCommentPost_layoutComment"
+        android:layout_below="@+id/dCommentPost_tvDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

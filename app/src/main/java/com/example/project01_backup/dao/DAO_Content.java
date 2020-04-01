@@ -31,7 +31,7 @@ public class DAO_Content {
     public DAO_Content(Context context, Fragment fragment) {
         this.context = context;
         this.fragment = fragment;
-        this.dbContent = FirebaseDatabase.getInstance().getReference("contents");
+        this.dbContent = FirebaseDatabase.getInstance().getReference("admin").child("contents");
     }
 
     public void insert (final String idPost, final Content content, Uri uriImageView){

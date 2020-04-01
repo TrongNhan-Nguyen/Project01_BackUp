@@ -2,6 +2,19 @@
     <string name="app_name">Project01_BackUp</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="title">Vườn Thượng Uyển Bay Đà Lạt</string>
+    <string name="address">28D Khe Sanh, Phường 10, thành phố Đà Lạt (Gần Cây xăng Khe Sanh)</string>
+    <string name="descriptions">Tọa lạc tại địa chỉ 28D Khe Sanh, trên khoảng đất rộng đến 1,8 hecta,
+        Vườn Thượng Uyển bay khiến bước chân du khách choáng ngợp bởi không gian rộng rãi và ẩn chứa
+        vô vàn những điều thú vị tuyệt vời. Với sự đầu tư chỉn chu và đầy tỉ mỉ, không gian của Vườn
+        Thượng Uyển Bay được chia thành nhiều khu vực, mỗi khu vực là một câu chuyện hoàn chỉnh,
+        không chỉ mang đến khung cảnh rung động lòng người mà còn giúp khách tham quan hiểu hơn về nét
+        đẹp thần thoại xưa kia, tìm được hạnh phúc cho chính mình.
+        Thiên đường hoa hồng: Đây là vườn hoa hồng rực rỡ của vua chúa ngày trước thế nên mang theo rất
+        nhiều giá trị tâm linh nhiệm màu, ban tặng phước lành đến cho tình yêu đôi lứa.
+        Khu cổng trời: Để đặt chân đến được cổng trời, bạn sẽ được bước qua con đường hoa giấy rực rỡ
+        sắc màu, bước trên đường nổi trên hoa,... mang đến những xúc cảm lâng lâng tựa như đang lạc
+        bước giữa thiên đường.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

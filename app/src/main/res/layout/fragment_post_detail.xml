@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.Fragment_Post_Detail">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp">
+        <RelativeLayout
+            android:id="@+id/fDetail_layoutContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/fDetail_imgPost"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/fDetail_imgAvatarUser"/>
+            <RelativeLayout
+                android:id="@+id/fDetail_layoutFooter"
+                android:background="#A1CCCCCA"
+                android:layout_alignBottom="@+id/fDetail_imgPost"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+
+            <ImageView
+                android:id="@+id/fDetail_imgContents"
+                android:src="@drawable/contents"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="50dp"
+                android:layout_alignBottom="@+id/fDetail_imgPost"
+                android:layout_marginBottom="5dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+            <ImageView
+                android:id="@+id/fDetail_imgComments"
+                android:src="@drawable/comments"
+                android:layout_alignBottom="@+id/fDetail_imgPost"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+            <TextView
+                android:id="@+id/fDetail_tvPubDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:text="28/03/2020"
+                android:textColor="#090909"
+                android:textSize="13sp"
+                android:textStyle="italic" />
+            <TextView
+                android:id="@+id/fDetail_tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/fDetail_imgAvatarUser"
+                android:text="nhan@gmail.com"
+                android:textColor="#020202"
+                android:textSize="13sp"
+                android:textStyle="italic" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fDetail_imgAvatarUser"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/fDetail_tvTitle"
+                android:layout_width="match_parent"
+                android:layout_toLeftOf="@id/fDetail_imgContents"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fDetail_imgPost"
+                android:text="@string/title"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fDetail_tvAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fDetail_tvTitle"
+                android:text="@string/address"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fDetail_tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fDetail_tvAddress"
+                android:layout_marginBottom="3dp"
+                android:text="@string/descriptions"
+                android:textSize="13sp" />
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

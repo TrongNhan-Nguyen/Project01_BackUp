@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Adapter_LV_Comment extends BaseAdapter {
     Context context;
     List<Comment> commentList;
@@ -46,7 +48,7 @@ public class Adapter_LV_Comment extends BaseAdapter {
         TextView tvEmail = (TextView) convertView.findViewById(R.id.raw_comment_tvEmail);
         TextView tvPubDate = (TextView) convertView.findViewById(R.id.raw_comment_tvPubDate);
         TextView tvComment = (TextView) convertView.findViewById(R.id.raw_comment_tvComment);
-        ImageView imgAvatar = (ImageView) convertView.findViewById(R.id.raw_comment_imgAvatar);
+        CircleImageView imgAvatar = (CircleImageView) convertView.findViewById(R.id.raw_comment_imgAvatar);
         Comment comment = commentList.get(position);
 
         tvEmail.setText(comment.getEmailUser());
