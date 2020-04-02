@@ -127,15 +127,17 @@ public class Fragment_Post_Detail extends Fragment {
         dialog.setContentView(R.layout.dialog_content_post);
         TextView tvDone = (TextView) dialog.findViewById(R.id.dContentPost_tvDone);
         final ListView listView = (ListView) dialog.findViewById(R.id.dContentPost_lvContent);
-        dao_content.getData(post.getId(), new FirebaseCallback() {
-            @Override
-            public void contentList(List<Content> contentList) {
-                adapterContent = new Adapter_LV_Content(getActivity(), contentList);
-                listView.setAdapter(adapterContent);
+//        dao_content.getData(post.getId(), new FirebaseCallback() {
+//            @Override
+//            public void contentList(List<Content> contentList) {
+//                adapterContent = new Adapter_LV_Content(getActivity(), contentList);
+//                listView.setAdapter(adapterContent);
+//
+//
+//            }
+//        });
 
 
-            }
-        });
         tvDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

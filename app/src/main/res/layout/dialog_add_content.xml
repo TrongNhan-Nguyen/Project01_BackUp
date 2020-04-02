@@ -15,12 +15,13 @@
         android:layout_height="wrap_content"/>
 
     <ImageView
+        android:scaleType="fitXY"
         android:id="@+id/dAddContent_imgContent"
         android:layout_below="@+id/dAddContent_tvTitle"
-        android:background="#ff0"
+        android:background="#DDDDDB"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="120dp"/>
+        android:layout_height="200dp"/>
     <ImageView
         android:id="@+id/dAddContent_imgChooseImg"
         android:src="@drawable/ic_camera_black_24dp"

@@ -24,14 +24,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAO_Content {
-    Context context;
-    Fragment fragment;
-    DatabaseReference dbContent;
+    private Context context;
+    private Fragment fragment;
+    private DatabaseReference dbContent;
+
+    public DAO_Content(Context context) {
+        this.context = context;
+        this.dbContent = FirebaseDatabase.getInstance().getReference("admin").child("contents");
+    }
 
     public DAO_Content(Context context, Fragment fragment) {
         this.context = context;
         this.fragment = fragment;
         this.dbContent = FirebaseDatabase.getInstance().getReference("admin").child("contents");
+
     }
 
     public void insert (final String idPost, final Content content, Uri uriImageView){
@@ -61,7 +67,7 @@ public class DAO_Content {
 
     }
 
-    public void getData (String idPost, final FirebaseCallback firebaseCallback){
+    public void getDataAdmin (String idPost, final FirebaseCallback firebaseCallback){
         final List<Content> contentList = new ArrayList<>();
         dbContent.child(idPost).addValueEventListener(new ValueEventListener() {
             @Override
@@ -70,8 +76,10 @@ public class DAO_Content {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     Content content = ds.getValue(Content.class);
                     contentList.add(content);
+
                 }
-                firebaseCallback.contentList(contentList);
+                firebaseCallback.contentListAdmin(contentList);
+
             }
 
             @Override
@@ -80,9 +88,8 @@ public class DAO_Content {
             }
         });
 
-
-
     }
+
     private void toast(String s){
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:background="#FFFFFF"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:id="@+id/dCensorship_layoutHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/dCensorship_tvDone"
+                            android:text="X"
+                            android:textColor="#020202"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <ImageView
+                            android:id="@+id/dCensorship_imgCensorship"
+                            android:layout_toLeftOf="@+id/dCensorship_tvDone"
+                            android:layout_marginRight="15dp"
+                            android:src="@drawable/check_black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <ImageView
+                            android:id="@+id/dCensorship_imgDelete"
+                            android:layout_toLeftOf="@+id/dCensorship_imgCensorship"
+                            android:layout_marginRight="15dp"
+                            android:src="@drawable/delete_black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/dCensorship_imgAvatarUser"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_below="@+id/dCensorship_layoutHeader"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp" />
+                    <TextView
+                        android:id="@+id/dCensorship_tvEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/dCensorship_layoutHeader"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/dCensorship_imgAvatarUser"
+                        android:text="nhan@gmail.com"
+                        android:textColor="#020202"
+                        android:textSize="13sp"
+                        android:textStyle="italic" />
+                    <TextView
+                        android:id="@+id/dCensorship_tvPubDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/dCensorship_layoutHeader"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text="28/03/2020"
+                        android:textColor="#090909"
+                        android:textSize="13sp"
+                        android:textStyle="italic" />
+
+
+                    <ImageView
+                        android:id="@+id/dCensorship_imgPost"
+                        android:scaleType="fitXY"
+                        android:background="#ff0"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@+id/dCensorship_imgAvatarUser"/>
+
+                    <TextView
+                        android:id="@+id/dCensorship_tvTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#020202"
+                        android:layout_below="@+id/dCensorship_imgPost"
+                        android:text="@string/title"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/dCensorship_tvAddress"
+                        android:layout_width="match_parent"
+                        android:textColor="#020202"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/dCensorship_tvTitle"
+                        android:text="@string/address"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/dCensorship_tvDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#020202"
+                        android:layout_below="@+id/dCensorship_tvAddress"
+                        android:layout_marginBottom="3dp"
+                        android:text="@string/descriptions"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+            </ScrollView>
+
+            <androidx.appcompat.widget.Toolbar
+                app:layout_collapseMode="pin"
+                android:layout_width="match_parent"
+                android:background="#FFFFFF"
+                android:layout_height="20dp"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ListView
+        android:id="@+id/dCensorship_lvContent"
+        android:dividerHeight="10dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.example.project01_backup.R;
 import com.example.project01_backup.activities.MainActivity;
 import com.example.project01_backup.adapter.Adapter_LV_PostAdmin;
-import com.example.project01_backup.adapter.Adapter_LV_PostUser;
 import com.example.project01_backup.dao.DAO_Post;
 import com.example.project01_backup.model.FirebaseCallback;
 import com.example.project01_backup.model.Post;
@@ -42,7 +41,7 @@ public class Fragment_Censorship extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment__censorship, container, false);
+        view = inflater.inflate(R.layout.fragment_censorship, container, false);
         initView();
         return view;
     }

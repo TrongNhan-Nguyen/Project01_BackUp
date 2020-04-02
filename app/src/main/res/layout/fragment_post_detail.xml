@@ -27,7 +27,6 @@
                 android:layout_alignBottom="@+id/fDetail_imgPost"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"/>
-
             <ImageView
                 android:id="@+id/fDetail_imgContents"
                 android:src="@drawable/contents"
