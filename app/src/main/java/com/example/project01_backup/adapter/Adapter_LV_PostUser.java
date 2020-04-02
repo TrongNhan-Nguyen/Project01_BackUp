@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.project01_backup.R;
 import com.example.project01_backup.activities.MainActivity;
@@ -63,8 +64,12 @@ public class Adapter_LV_PostUser extends BaseAdapter {
         tvPubDate.setText(post.getPubDate());
         tvTitle.setText(post.getTittle());
         tvAddress.setText(post.getAddress());
-        Picasso.get().load(Uri.parse(post.getUrlAvatarUser())).into(imgAvatar);
-        Picasso.get().load(Uri.parse(post.getUrlImage())).into(imgPost);
+        try {
+            Picasso.get().load(Uri.parse(post.getUrlAvatarUser())).into(imgAvatar);
+            Picasso.get().load(Uri.parse(post.getUrlImage())).into(imgPost);
+        }catch (Exception e){
+
+        }
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +82,7 @@ public class Adapter_LV_PostUser extends BaseAdapter {
                         .replace(R.id.main_FrameLayout, fragment_post_detail)
                         .addToBackStack(null)
                         .commit();
+
             }
         });
 

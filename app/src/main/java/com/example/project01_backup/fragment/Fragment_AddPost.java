@@ -468,7 +468,7 @@ public class Fragment_AddPost extends Fragment {
                         Content upload = new Content();
                         Uri uri = contentList.get(i).getUriImage();
                         upload.setDescription(contentList.get(i).getDescription());
-                        dao_content.insert(post.getId(),upload,uri);
+                        dao_content.insertAdmin(post.getId(),upload,uri);
                         currentFragment(categoryNode);
                     }
                 }

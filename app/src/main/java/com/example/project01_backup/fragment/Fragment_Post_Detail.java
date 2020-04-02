@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -127,15 +128,13 @@ public class Fragment_Post_Detail extends Fragment {
         dialog.setContentView(R.layout.dialog_content_post);
         TextView tvDone = (TextView) dialog.findViewById(R.id.dContentPost_tvDone);
         final ListView listView = (ListView) dialog.findViewById(R.id.dContentPost_lvContent);
-//        dao_content.getData(post.getId(), new FirebaseCallback() {
-//            @Override
-//            public void contentList(List<Content> contentList) {
-//                adapterContent = new Adapter_LV_Content(getActivity(), contentList);
-//                listView.setAdapter(adapterContent);
-//
-//
-//            }
-//        });
+        dao_content.getDataUser(post.getId(), new FirebaseCallback() {
+            @Override
+            public void contentListUser(List<Content> contentList) {
+                adapterContent = new Adapter_LV_Content(getActivity(), contentList);
+                listView.setAdapter(adapterContent);
+            }
+        });
 
 
         tvDone.setOnClickListener(new View.OnClickListener() {
@@ -152,16 +151,23 @@ public class Fragment_Post_Detail extends Fragment {
         dialog.setContentView(R.layout.dialog_comment_post);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         final Comment comment = new Comment();
-        comment.setEmailUser(currentUser.getEmail());
-        comment.setUriAvatarUser(String.valueOf(currentUser.getPhotoUrl()));
-        comment.setIdUser(currentUser.getUid());
+        if (currentUser != null){
+            comment.setEmailUser(currentUser.getEmail());
+            comment.setUriAvatarUser(String.valueOf(currentUser.getPhotoUrl()));
+            comment.setIdUser(currentUser.getUid());
+        }
+
         comment.setPubDate(stringPubDate());
         comment.setLongPubDate(longPubDate());
         final EditText etComment = (EditText) dialog.findViewById(R.id.dCommentPost_etComment);
         TextView tvDone = (TextView) dialog.findViewById(R.id.dCommentPost_tvDone);
-        Button btnPost = (Button) dialog.findViewById(R.id.dCommentPost_btnPost);
+        ImageView imgPost = (ImageView) dialog.findViewById(R.id.dCommentPost_imgPost);
+        LinearLayout layoutComment = (LinearLayout) dialog.findViewById(R.id.dCommentPost_layoutComment);
         final ListView lvComment = (ListView) dialog.findViewById(R.id.dCommentPost_lvComment);
 
+        if (currentUser == null){
+            layoutComment.setVisibility(View.GONE);
+        }
         tvDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,7 +175,7 @@ public class Fragment_Post_Detail extends Fragment {
             }
         });
 
-        btnPost.setOnClickListener(new View.OnClickListener() {
+        imgPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String contentCmt = etComment.getText().toString();

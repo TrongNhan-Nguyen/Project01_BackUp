@@ -26,6 +26,7 @@ import com.example.project01_backup.R;
 import com.example.project01_backup.activities.MainActivity;
 import com.example.project01_backup.adapter.Adapter_LV_PostUser;
 import com.example.project01_backup.dao.DAO_Places;
+import com.example.project01_backup.dao.DAO_Post;
 import com.example.project01_backup.model.FirebaseCallback;
 import com.example.project01_backup.model.Places;
 import com.example.project01_backup.model.Post;
@@ -47,11 +48,11 @@ import java.util.List;
 public class Fragment_Restaurant extends Fragment {
     private View view;
     private DAO_Places dao_places;
+    private DAO_Post dao_post;
     private List<String> placeNames;
     private TextView tvTitle;
     private ListView listView;
     private Adapter_LV_PostUser adapterPost;
-    private List<Post> postList;
     private FirebaseUser user;
     private FloatingActionButton fbaAdd;
 
@@ -71,33 +72,21 @@ public class Fragment_Restaurant extends Fragment {
 
     private void initView() {
         user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference dbRes = FirebaseDatabase.getInstance().getReference("restaurants");
-
+        dao_post = new DAO_Post(getActivity(),this);
         dao_places = new DAO_Places(getActivity(),this);
         tvTitle = (TextView) view.findViewById(R.id.fRestaurant_tvTitle);
         fbaAdd = (FloatingActionButton) view.findViewById(R.id.fRestaurant_fabAddPost);
         listView = (ListView) view.findViewById(R.id.fRestaurant_lvPost);
-        postList = new ArrayList<>();
-
-        dbRes.addValueEventListener(new ValueEventListener() {
+        String categoryNode = "beautiful places";
+        dao_post.getDataUser(categoryNode, new FirebaseCallback(){
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                postList.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    for (DataSnapshot ds1 : ds.getChildren()){
-                        Post post = ds1.getValue(Post.class);
-                        postList.add(post);
-                    }
-                }
+            public void postListUser(List<Post> postList) {
                 adapterPost = new Adapter_LV_PostUser(getActivity(),postList);
                 listView.setAdapter(adapterPost);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
         });
+
+
 
         if (user == null){
             fbaAdd.setVisibility(View.GONE);
@@ -107,9 +96,6 @@ public class Fragment_Restaurant extends Fragment {
             @Override
             public void onClick(View v) {
                 Fragment_AddPost addPost = new Fragment_AddPost();
-                Bundle bundle = new Bundle();
-                bundle.putString(MainActivity.POINT_TO_NODE,"restaurants");
-                addPost.setArguments(bundle);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.main_FrameLayout,addPost)

@@ -26,22 +26,24 @@ import java.util.List;
 public class DAO_Content {
     private Context context;
     private Fragment fragment;
-    private DatabaseReference dbContent;
+    private DatabaseReference dbAdmin, dbUser;
 
     public DAO_Content(Context context) {
         this.context = context;
-        this.dbContent = FirebaseDatabase.getInstance().getReference("admin").child("contents");
+        this.dbAdmin = FirebaseDatabase.getInstance().getReference("admin").child("contents");
+        this.dbUser = FirebaseDatabase.getInstance().getReference("contents");
     }
 
     public DAO_Content(Context context, Fragment fragment) {
         this.context = context;
         this.fragment = fragment;
-        this.dbContent = FirebaseDatabase.getInstance().getReference("admin").child("contents");
+        this.dbAdmin = FirebaseDatabase.getInstance().getReference("admin").child("contents");
+        this.dbUser = FirebaseDatabase.getInstance().getReference("contents");
 
     }
 
-    public void insert (final String idPost, final Content content, Uri uriImageView){
-        final String id = dbContent.push().getKey();
+    public void insertAdmin (final String idPost, final Content content, Uri uriImageView){
+        final String id = dbAdmin.push().getKey();
         content.setId(id);
         Uri file = uriImageView;
         final StorageReference storage  = FirebaseStorage.getInstance().getReference("Intent/" + id);
@@ -58,7 +60,7 @@ public class DAO_Content {
                     @Override
                     public void onSuccess(Uri uri) {
                         content.setUrlImage(String.valueOf(uri));
-                        dbContent.child(idPost).child(id).setValue(content);
+                        dbAdmin.child(idPost).child(id).setValue(content);
                         toast("Thêm thành công");
                     }
                 });
@@ -66,10 +68,18 @@ public class DAO_Content {
         });
 
     }
+    public void insertUser (final String idPost, final Content content){
+        final String id = content.getId();
+        dbUser.child(idPost).child(id).setValue(content);
+    }
+
+    public void deleteAdmin(String postID){
+        dbAdmin.child(postID).removeValue();
+    }
 
     public void getDataAdmin (String idPost, final FirebaseCallback firebaseCallback){
         final List<Content> contentList = new ArrayList<>();
-        dbContent.child(idPost).addValueEventListener(new ValueEventListener() {
+        dbAdmin.child(idPost).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 contentList.clear();
@@ -81,13 +91,31 @@ public class DAO_Content {
                 firebaseCallback.contentListAdmin(contentList);
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
+    }
+    public void getDataUser(String postID, final FirebaseCallback firebaseCallback){
+        final List<Content> contentList = new ArrayList<>();
+        dbUser.child(postID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                contentList.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    Content content = ds.getValue(Content.class);
+                    contentList.add(content);
+                }
+                firebaseCallback.contentListUser(contentList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void toast(String s){

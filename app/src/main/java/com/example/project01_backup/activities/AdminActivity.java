@@ -28,7 +28,7 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initView();
-        replaceFragment(new Fragment_Censorship());
+
     }
 
     private void initView() {

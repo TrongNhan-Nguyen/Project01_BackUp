@@ -31,19 +31,26 @@ import java.util.List;
 public class DAO_Post {
     private Context context;
     private Fragment fragment;
-    private DatabaseReference dfAdmin, dfUser, dbPost;
+    private DatabaseReference dbAdmin, dbUser, dbPost;
     private String node;
     private StorageReference storagePost;
+
+
+    public DAO_Post(Context context) {
+        this.context = context;
+        this.dbAdmin = FirebaseDatabase.getInstance().getReference("admin").child("category");
+        this.dbUser = FirebaseDatabase.getInstance().getReference("category");
+    }
 
     public DAO_Post(Context context, Fragment fragment) {
         this.context = context;
         this.fragment = fragment;
-        this.dfAdmin = FirebaseDatabase.getInstance().getReference("admin").child("category");
-        this.dfUser = FirebaseDatabase.getInstance().getReference("user").child("category");
+        this.dbAdmin = FirebaseDatabase.getInstance().getReference("admin").child("category");
+        this.dbUser = FirebaseDatabase.getInstance().getReference("category");
     }
 
     public void insertAdmin(String categoryNode, String placeNode, final Post post, ImageView imageView){
-        dbPost = dfAdmin.child(categoryNode).child(placeNode);
+        dbPost = dbAdmin.child(categoryNode).child(placeNode);
         final String id = dbPost.push().getKey();
         final StorageReference storageReference = FirebaseStorage.getInstance()
                 .getReference("Post/" + id);
@@ -70,15 +77,14 @@ public class DAO_Post {
                     public void onSuccess(Uri uri) {
                         post.setUrlImage(String.valueOf(uri));
                         dbPost.child(id).setValue(post);
-                        toast("Thêm thành công");
                     }
                 });
             }
         });
     }
     public void insertUser(final Post post, ImageView imageView){
-        dbPost = dfUser.child(post.getCategory()).child(post.getPlace());
-        final String id = dbPost.push().getKey();
+        dbPost = dbUser.child(post.getCategory()).child(post.getPlace());
+        final String id = post.getId();
         final StorageReference storageReference = FirebaseStorage.getInstance()
                 .getReference("Post/" + id);
         post.setId(id);
@@ -108,9 +114,15 @@ public class DAO_Post {
             }
         });
     }
+
+    public void deleteAdmin(String categoryNode, String placeNode,String postID){
+        dbAdmin.child(categoryNode).child(placeNode).child(postID).removeValue();
+
+    }
+
     public void getDataAdmin(final FirebaseCallback firebaseCallback){
         final List<Post> postList = new ArrayList<>();
-        dfAdmin.addValueEventListener(new ValueEventListener() {
+        dbAdmin.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 postList.clear();
@@ -131,8 +143,31 @@ public class DAO_Post {
             }
         });
     }
+    public void getDataUser (String categoryNode, final FirebaseCallback firebaseCallback){
+        final List<Post> postList = new ArrayList<>();
+        dbUser.child(categoryNode).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                postList.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    for (DataSnapshot ds1 : ds.getChildren()){
+                        Post post = ds1.getValue(Post.class);
+                        postList.add(post);
+                    }
+
+                }
+                firebaseCallback.postListUser(postList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     private void toast(String s){
-        Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 }

@@ -64,6 +64,7 @@ public class Fragment_Censorship extends Fragment {
             public void postListAdmin(List<Post> postList) {
                 adapterPost = new Adapter_LV_PostAdmin(getActivity(),postList);
                 lvPost.setAdapter(adapterPost);
+                tvNumber.setText(String.valueOf(postList.size()));
             }
         });
     }

@@ -8,5 +8,5 @@ public class FirebaseCallback {
     public void postListAdmin (List<Post> postList){}
     public void postListUser (List<Post> postList){}
     public void contentListAdmin (List<Content> contentList){}
-    public void contentList (List<Content> contentList){}
+    public void contentListUser (List<Content> contentList){}
 }

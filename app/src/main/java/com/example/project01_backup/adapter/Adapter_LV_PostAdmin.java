@@ -1,7 +1,9 @@
 package com.example.project01_backup.adapter;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
+import com.example.project01_backup.activities.AdminActivity;
 import com.example.project01_backup.activities.MainActivity;
 import com.example.project01_backup.dao.DAO_Content;
+import com.example.project01_backup.dao.DAO_Post;
 import com.example.project01_backup.fragment.Fragment_Censorship;
 import com.example.project01_backup.fragment.Fragment_Post_Detail;
 import com.example.project01_backup.model.Content;
@@ -24,6 +28,8 @@ import com.example.project01_backup.model.FirebaseCallback;
 import com.example.project01_backup.model.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,10 +40,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Adapter_LV_PostAdmin extends BaseAdapter {
     private Context context;
     private List<Post> postList;
-    private FirebaseUser currentUser;
-    public static final String POST_ADMIN = "post_admin";
-    int index = -1;
+    private int index = -1;
     private DAO_Content dao_content;
+    private DAO_Post dao_post;
 
 
     public Adapter_LV_PostAdmin(Context context, List<Post> postList) {
@@ -71,25 +76,21 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
         CircleImageView imgAvatar = (CircleImageView) convertView.findViewById(R.id.raw_post_imgAvatarUser);
         final Post post = postList.get(position);
         dao_content = new DAO_Content(context);
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        dao_post = new DAO_Post(context);
 
         tvPubDate.setText(post.getPubDate());
         tvTitle.setText(post.getTittle());
         tvAddress.setText(post.getAddress());
-        Picasso.get().load(Uri.parse(post.getUrlAvatarUser())).into(imgAvatar);
-        Picasso.get().load(Uri.parse(post.getUrlImage())).into(imgPost);
+        try {
+            Picasso.get().load(Uri.parse(post.getUrlAvatarUser())).into(imgAvatar);
+            Picasso.get().load(Uri.parse(post.getUrlImage())).into(imgPost);
+        }catch (Exception e){
+
+        }
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Fragment_Post_Detail fragment_post_detail = new Fragment_Post_Detail();
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable(POST, post);
-//                fragment_post_detail.setArguments(bundle);
-//                ((MainActivity)context).getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.main_FrameLayout, fragment_post_detail)
-//                        .addToBackStack(null)
-//                        .commit();
                 index = position;
                 dialogCensorship();
 
@@ -102,7 +103,7 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
     private void dialogCensorship(){
         final Dialog dialog = new Dialog(context, android.R.style.Theme_Material_NoActionBar_Fullscreen);
         dialog.setContentView(R.layout.dialog_censorship);
-        Post post = postList.get(index);
+        final Post post = postList.get(index);
         TextView tvDone = (TextView) dialog.findViewById(R.id.dCensorship_tvDone);
         TextView tvEmail = (TextView) dialog.findViewById(R.id.dCensorship_tvEmail);
         TextView tvPubDate = (TextView) dialog.findViewById(R.id.dCensorship_tvPubDate);
@@ -114,6 +115,7 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
         CircleImageView imgAvatar = (CircleImageView) dialog.findViewById(R.id.dCensorship_imgAvatarUser);
         final ImageView imgPost = (ImageView) dialog.findViewById(R.id.dCensorship_imgPost);
         final ListView lvContent = (ListView) dialog.findViewById(R.id.dCensorship_lvContent);
+        final List<Content> listContent = new ArrayList<>();
 
         tvEmail.setText(post.getUser());
         tvPubDate.setText(post.getPubDate());
@@ -132,13 +134,53 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
         imgCensorship.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder dialogCensorship = new AlertDialog.Builder(context);
+                dialogCensorship.setMessage("Cho phép thị bài viết này cùng các nội dung liên quan!");
+                dialogCensorship.setNegativeButton("CHO PHÉP", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog1, int which) {
+                        dao_post.insertUser(post,imgPost);
+                        for (Content content : listContent){
+                            dao_content.insertUser(post.getId(),content);
+                        }
+                        dao_post.deleteAdmin(post.getCategory(), post.getPlace(), post.getId());
+                        dao_content.deleteAdmin(post.getId());
+                        dialog.dismiss();
 
+
+                    }
+                });
+                dialogCensorship.setPositiveButton("HỦY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog1, int which) {
+
+                    }
+                });
+                dialogCensorship.show();
             }
         });
 
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder dialogDelete = new AlertDialog.Builder(context);
+                dialogDelete.setMessage("Xóa bài viết này cùng các nội dung liên quan!");
+                dialogDelete.setNegativeButton("XÓA", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog1, int which) {
+                        dao_post.deleteAdmin(post.getCategory(), post.getPlace(), post.getId());
+                        dao_content.deleteAdmin(post.getId());
+                        dialog.dismiss();
+                    }
+                });
+
+                dialogDelete.setPositiveButton("HỦY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialogDelete.show();
 
             }
         });
@@ -146,6 +188,9 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
         dao_content.getDataAdmin(post.getId(),new FirebaseCallback(){
             @Override
             public void contentListAdmin(List<Content> contentList) {
+                for (Content content : contentList){
+                    listContent.add(content);
+                }
                 Adapter_LV_Content adapter = new Adapter_LV_Content(context,contentList);
                 lvContent.setAdapter(adapter);
 

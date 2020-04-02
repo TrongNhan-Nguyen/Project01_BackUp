@@ -138,6 +138,7 @@
     <ListView
         android:id="@+id/dCensorship_lvContent"
         android:dividerHeight="10dp"
+        android:background="#FFFFFF"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
