@@ -134,23 +134,25 @@ public class Fragment_Restaurant extends Fragment {
         autoComplete.setTextColor(Color.GREEN);
         autoComplete.setDropDownBackgroundResource(android.R.color.holo_blue_light);
         autoComplete.setThreshold(1);
+        ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, placeNames);
+        autoComplete.setAdapter(nameAdapter);
         dao_places.getData(new FirebaseCallback() {
             @Override
             public void placesList(final List<Places> placesList) {
                 placeNames.clear();
                 for (Places places : placesList) {
                     placeNames.add(places.getName());
-                    ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, placeNames);
-                    autoComplete.setAdapter(newsAdapter);
                 }
-                autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
-                        String queryString = (String) adapterView.getItemAtPosition(itemIndex);
-                        autoComplete.setText(queryString);
-                        tvTitle.setText(queryString);
-                    }
-                });
+                adapterPost.notifyDataSetChanged();
+
+            }
+        });
+        autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
+                String queryString = (String) adapterView.getItemAtPosition(itemIndex);
+                autoComplete.setText(queryString);
+                tvTitle.setText(queryString);
             }
         });
 

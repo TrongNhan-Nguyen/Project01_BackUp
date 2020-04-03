@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/raw_user_imgAvatar"
             android:src="@drawable/avatar_header"
             app:civ_border_width="1dp"
             android:layout_width="60dp"
@@ -22,14 +23,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
+                android:id="@+id/raw_user_tvName"
                 android:text="Nguyễn Trọng Nhân"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/raw_user_tvEmail"
                 android:text="nhanntps10674@gmail.com"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/raw_user_tvCreated"
                 android:text="03/04/2020"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

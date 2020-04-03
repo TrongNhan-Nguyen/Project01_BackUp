@@ -2,11 +2,19 @@ package com.example.project01_backup.dao;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.project01_backup.model.FirebaseCallback;
 import com.example.project01_backup.model.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DAO_User {
     Context context;
@@ -24,7 +32,29 @@ public class DAO_User {
         this.dbUser = FirebaseDatabase.getInstance().getReference("users");
     }
 
-    public void insert(User user){
+    public void insert(User user) {
         dbUser.child(user.getId()).setValue(user);
+    }
+
+    public void getData(final FirebaseCallback firebaseCallback) {
+        final List<User> userList = new ArrayList<>();
+        dbUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userList.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    User user = ds.getValue(User.class);
+                    if (user.getType().equalsIgnoreCase("User")){
+                        userList.add(user);
+                    }
+                }
+                firebaseCallback.userList(userList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

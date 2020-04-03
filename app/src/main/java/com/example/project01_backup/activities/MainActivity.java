@@ -37,21 +37,29 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
     private FirebaseUser firebaseUser;
+    private String password;
     public static final String POINT_TO_NODE = "point to node";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent getPass = getIntent();
+        if (getPass != null){
+            password = getPass.getStringExtra("pass");
+        }
         initView();
     }
 
     private void initView() {
+        
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         drawerLayout = (DrawerLayout) findViewById(R.id.main_Drawer);
         navigationView = (NavigationView) findViewById(R.id.main_Navigation);
@@ -67,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void showInfo(){
         if (firebaseUser != null){
             View headerView = navigationView.getHeaderView(0);
-            ImageView imgAvatar = (ImageView) headerView.findViewById(R.id.header_imgAvatar);
+            CircleImageView imgAvatar = (CircleImageView) headerView.findViewById(R.id.header_imgAvatar);
             TextView tvDisplayName = (TextView) headerView.findViewById(R.id.header_tvDisplayName);
             TextView tvEmail = (TextView) headerView.findViewById(R.id.header_tvEmail);
             Uri uriAvatar = firebaseUser.getPhotoUrl();
@@ -131,8 +139,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_drawer_Admin:
                 finish();
                 Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-//                intent.putExtra("name", firebaseUser.getDisplayName());
-//                intent.putExtra("avatar", String.valueOf(firebaseUser.getPhotoUrl()));
+                intent.putExtra("name", firebaseUser.getDisplayName());
+                intent.putExtra("avatar", String.valueOf(firebaseUser.getPhotoUrl()));
+                intent.putExtra("email", firebaseUser.getEmail());
+                intent.putExtra("pass", password);
                 startActivity(intent);
                 break;
             case R.id.menu_drawer_Information:
@@ -150,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
     private void replaceFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.main_FrameLayout,fragment).commit();
     }

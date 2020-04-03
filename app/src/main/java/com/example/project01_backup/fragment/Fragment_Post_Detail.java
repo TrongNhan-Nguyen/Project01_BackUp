@@ -23,7 +23,6 @@ import com.example.project01_backup.R;
 import com.example.project01_backup.adapter.Adapter_LV_Comment;
 import com.example.project01_backup.adapter.Adapter_LV_Content;
 import com.example.project01_backup.adapter.Adapter_LV_PostUser;
-import com.example.project01_backup.adapter.Adapter_RV_Content;
 import com.example.project01_backup.dao.DAO_Comment;
 import com.example.project01_backup.dao.DAO_Content;
 import com.example.project01_backup.model.Comment;
@@ -50,7 +49,7 @@ public class Fragment_Post_Detail extends Fragment {
     private CircleImageView imgAvatar;
     private TextView tvTitle, tvPubDate, tvDescription, tvAddress, tvEmail;
     private EditText etComment;
-    private Adapter_RV_Content adapter_rv_content;
+
     private ListView lvComment, lvContent;
     private FirebaseUser currentUser;
     private Button btnPost;

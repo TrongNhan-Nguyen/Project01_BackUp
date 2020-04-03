@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogIn, btnJustGo;
     private TextView tvSignUp;
     private FirebaseAuth mAuth;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +55,18 @@ public class LoginActivity extends AppCompatActivity {
                 if (email.isEmpty() || pass.isEmpty()){
                     toast("Vui lòng điền đầy đủ thông tin");
                 }else {
+                    password = pass;
                     mAuth.signInWithEmailAndPassword(email,pass)
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
                                         toast("Đăng nhập thành công");
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        intent.putExtra("pass", password);
+                                        startActivity(intent);
                                         finish();
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        startActivity(intent);
                                     }else {
                                         toast("Lỗi đăng nhập");
                                     }

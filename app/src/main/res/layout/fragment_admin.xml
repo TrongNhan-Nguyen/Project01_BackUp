@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.Fragment_Admin">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/fAdmin_layout_Header"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/bg_gradient">
+
+            <TextView
+                android:id="@+id/fAdmin_tvTile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="QUẢN TRỊ VIÊN"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fAdmin_tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fAdmin_tvTile"
+                android:layout_alignLeft="@+id/fAdmin_tvTile"
+                android:layout_marginTop="3dp"
+                android:textColor="#043A7C"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fAdmin_imgAvatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp" />
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fAdmin_cvCensor"
+            app:cardCornerRadius="10dp"
+            android:layout_width="140dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="130dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/censor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:text="Kiểm Duyệt Bài Viết"
+                android:textColor="#0B0B0B" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fAdmin_cvUser"
+            app:cardCornerRadius="10dp"
+            android:layout_width="140dp"
+            android:layout_height="130dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="130dp"
+            android:layout_marginRight="20dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/manager_user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:text="Quản Lý Người Dùng"
+                android:textColor="#0B0B0B" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fAdmin_cvFeedback"
+            app:cardCornerRadius="10dp"
+            android:layout_width="140dp"
+            android:layout_height="130dp"
+            android:layout_below="@+id/fAdmin_cvCensor"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/feedback_125px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:text="Phản Hồi Người dùng"
+                android:textColor="#0B0B0B" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fAdmin_cvLogout"
+            app:cardCornerRadius="10dp"
+            android:layout_width="140dp"
+            android:layout_height="130dp"
+            android:layout_below="@+id/fAdmin_cvFeedback"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logout_125" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:text="Đăng Xuất"
+                android:textColor="#0B0B0B" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fAdmin_cvMain"
+            app:cardCornerRadius="10dp"
+            android:layout_width="140dp"
+            android:layout_height="130dp"
+            android:layout_below="@+id/fAdmin_cvUser"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/main_125px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:text="Giao Diện Chính"
+                android:textColor="#0B0B0B" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fAdmin_cvExit"
+            app:cardCornerRadius="10dp"
+            android:layout_width="140dp"
+            android:layout_height="130dp"
+            android:layout_below="@+id/fAdmin_cvMain"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/shutdown_125px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:text="Thoát"
+                android:textColor="#0B0B0B" />
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+
+</ScrollView>
