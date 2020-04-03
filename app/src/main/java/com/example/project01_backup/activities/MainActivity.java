@@ -130,7 +130,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.menu_drawer_Admin:
                 finish();
-                startActivity(new Intent(MainActivity.this, AdminActivity.class));
+                Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+//                intent.putExtra("name", firebaseUser.getDisplayName());
+//                intent.putExtra("avatar", String.valueOf(firebaseUser.getPhotoUrl()));
+                startActivity(intent);
                 break;
             case R.id.menu_drawer_Information:
                 break;

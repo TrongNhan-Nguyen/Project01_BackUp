@@ -28,7 +28,7 @@ public class Fragment_Censorship extends Fragment {
     private View view;
     private Adapter_LV_PostAdmin adapterPost;
     private ListView lvPost;
-    private Button btnBack;
+
     private TextView tvNumber;
     private DAO_Post dao_post;
 
@@ -50,14 +50,6 @@ public class Fragment_Censorship extends Fragment {
         dao_post = new DAO_Post(getActivity(),this);
         lvPost = (ListView) view.findViewById(R.id.fCensorship_lvPost);
         tvNumber = (TextView) view.findViewById(R.id.fCensorship_tvNumber);
-        btnBack = (Button) view.findViewById(R.id.fCensorship_btnBack);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
-            }
-        });
 
         dao_post.getDataAdmin(new FirebaseCallback(){
             @Override

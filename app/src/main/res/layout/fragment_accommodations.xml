@@ -7,15 +7,22 @@
     tools:context=".fragment.Fragment_Restaurant">
 
     <TextView
-        android:id="@+id/fAccommodation_tvTitle"
-        android:text="Fragment Restaurant"
+        android:id="@+id/fAccommodations_tvTitle"
+        android:text="Chỗ Ở"
+        android:layout_marginTop="3dp"
         android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <ListView
+        android:id="@+id/fAccommodations_lvPost"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/fAccommodations_tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fAccommodation_fabAddPost"
+        android:id="@+id/fAccommodations_fabAddPost"
         android:background="#34A8FF"
         android:src="@drawable/add_post"
         android:layout_marginBottom="3dp"

@@ -111,7 +111,7 @@ public class Fragment_AddPost extends Fragment {
         imgAvatarUser = (ImageView) view.findViewById(R.id.fAddPost_imgAvatarUser);
         lvContent = (ListView) view.findViewById(R.id.fAddPost_lvContent);
         contentList = new ArrayList<>();
-
+        fabAddContent.setVisibility(View.GONE);
         setPubDate(tvPubDate);
         tvUser.setText(user.getEmail());
         Picasso.get().load(user.getPhotoUrl()).into(imgAvatarUser);

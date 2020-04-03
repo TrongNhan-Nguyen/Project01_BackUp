@@ -33,17 +33,22 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText etDisplayName, etEmail, etPassword;
-    private ImageView imgAvatar, imgChangeAvatar;
+    private ImageView imgChangeAvatar;
+    private CircleImageView imgAvatar;
     private Button btnResister;
     private StorageReference storageReference;
     private FirebaseAuth mAuth;
     private DAO_User dao_user;
     private AlertDialog dialog;
+    private User insert;
     private static final int PICK_IMAGE_CODE = 1;
 
     @Override
@@ -56,11 +61,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void initView() {
         dao_user = new DAO_User(this);
+        insert = new User();
         mAuth = FirebaseAuth.getInstance();
         etDisplayName = (EditText) findViewById(R.id.register_etDisplayName);
         etEmail = (EditText) findViewById(R.id.register_etEmail);
         etPassword = (EditText) findViewById(R.id.register_etPassword);
-        imgAvatar = (ImageView) findViewById(R.id.register_imgAvatar);
+        imgAvatar = (CircleImageView) findViewById(R.id.register_imgAvatar);
         imgChangeAvatar = (ImageView) findViewById(R.id.register_imgChangeAvatar);
         btnResister = (Button) findViewById(R.id.register_btnRegister);
 
@@ -95,6 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
     private void createUser(final String name, String mail, String pass){
+        insert.setPassword(pass);
         mAuth.createUserWithEmailAndPassword(mail,pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -147,12 +154,13 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            User insert = new User();
                             insert.setName(name);
                             insert.setUriAvatar(String.valueOf(uriImage));
                             insert.setEmail(currentUser.getEmail());
                             insert.setId(currentUser.getUid());
-                            insert.setType("Admin");
+                            insert.setType("User");
+                            insert.setStringCreated(stringCreated());
+                            insert.setLongCreated(longCreated());
                             dao_user.insert(insert);
                             dialog.dismiss();
                             toast("Register complete");
@@ -170,28 +178,25 @@ public class RegisterActivity extends AppCompatActivity {
     private void toast(String s){
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
+    private String stringCreated(){
+        String created;
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+       created = format.format(calendar.getTime());
+        return created;
+    }
+
+    private long longCreated(){
+        long created;
+        Calendar calendar = Calendar.getInstance();
+        created = calendar.getTimeInMillis();
+        return  created;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == PICK_IMAGE_CODE && data != null){
             imgAvatar.setImageURI(data.getData());
-//            UploadTask uploadTask = storageReference.putFile(data.getData());
-//            Task<Uri> task = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-//                @Override
-//                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-//                    if (!task.isSuccessful()){
-//                        Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-//                    }
-//                    return storageReference.getDownloadUrl();
-//                }
-//            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Uri> task) {
-//                    if (task.isSuccessful()){
-//                        toast("Uploaded Image");
-//                    }
-//                }
-//            });
         }
 
         super.onActivityResult(requestCode, resultCode, data);

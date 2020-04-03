@@ -72,23 +72,22 @@ public class Fragment_Restaurant extends Fragment {
 
     private void initView() {
         user = FirebaseAuth.getInstance().getCurrentUser();
-        dao_post = new DAO_Post(getActivity(),this);
-        dao_places = new DAO_Places(getActivity(),this);
+        dao_post = new DAO_Post(getActivity(), this);
+        dao_places = new DAO_Places(getActivity(), this);
         tvTitle = (TextView) view.findViewById(R.id.fRestaurant_tvTitle);
         fbaAdd = (FloatingActionButton) view.findViewById(R.id.fRestaurant_fabAddPost);
         listView = (ListView) view.findViewById(R.id.fRestaurant_lvPost);
-        String categoryNode = "beautiful places";
-        dao_post.getDataUser(categoryNode, new FirebaseCallback(){
+        String categoryNode = "restaurants";
+        dao_post.getDataUser(categoryNode, new FirebaseCallback() {
             @Override
             public void postListUser(List<Post> postList) {
-                adapterPost = new Adapter_LV_PostUser(getActivity(),postList);
+                adapterPost = new Adapter_LV_PostUser(getActivity(), postList);
                 listView.setAdapter(adapterPost);
             }
         });
 
 
-
-        if (user == null){
+        if (user == null) {
             fbaAdd.setVisibility(View.GONE);
         }
 
@@ -98,7 +97,7 @@ public class Fragment_Restaurant extends Fragment {
                 Fragment_AddPost addPost = new Fragment_AddPost();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main_FrameLayout,addPost)
+                        .replace(R.id.main_FrameLayout, addPost)
                         .commit();
             }
         });
@@ -106,14 +105,13 @@ public class Fragment_Restaurant extends Fragment {
         placeNames = new ArrayList<>();
 
 
-
     }
 
-    private void log(String s){
-        Log.d("log",s);
+    private void log(String s) {
+        Log.d("log", s);
     }
 
-    private void toast (String s){
+    private void toast(String s) {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 
@@ -127,7 +125,7 @@ public class Fragment_Restaurant extends Fragment {
     @SuppressLint("RestrictedApi")
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_search_places,menu);
+        inflater.inflate(R.menu.menu_search_places, menu);
         MenuItem search = menu.findItem(R.id.menu_search_places);
         SearchView searchView = (SearchView) search.getActionView();
         searchView.setQueryHint("Vui lòng nhập tên địa điểm");
@@ -136,11 +134,11 @@ public class Fragment_Restaurant extends Fragment {
         autoComplete.setTextColor(Color.GREEN);
         autoComplete.setDropDownBackgroundResource(android.R.color.holo_blue_light);
         autoComplete.setThreshold(1);
-        dao_places.getData(new FirebaseCallback(){
+        dao_places.getData(new FirebaseCallback() {
             @Override
             public void placesList(final List<Places> placesList) {
                 placeNames.clear();
-                for (Places places : placesList){
+                for (Places places : placesList) {
                     placeNames.add(places.getName());
                     ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, placeNames);
                     autoComplete.setAdapter(newsAdapter);
@@ -148,7 +146,7 @@ public class Fragment_Restaurant extends Fragment {
                 autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
-                        String queryString=(String)adapterView.getItemAtPosition(itemIndex);
+                        String queryString = (String) adapterView.getItemAtPosition(itemIndex);
                         autoComplete.setText(queryString);
                         tvTitle.setText(queryString);
                     }

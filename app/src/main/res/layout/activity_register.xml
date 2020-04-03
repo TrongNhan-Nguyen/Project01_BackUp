@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.RegisterActivity">
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/register_imgAvatar"
         android:src="@drawable/avatar_facebook"
         android:layout_marginTop="5dp"

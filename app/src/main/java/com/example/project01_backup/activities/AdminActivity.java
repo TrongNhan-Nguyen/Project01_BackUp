@@ -11,27 +11,39 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
 import com.example.project01_backup.fragment.Fragment_Censorship;
+import com.example.project01_backup.fragment.Fragment_UserList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
+
+import java.net.URI;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdminActivity extends AppCompatActivity {
     private CardView cvCensorship, cvUser, cvFeedback, cvMain, cvLogout, cvExit;
     private ScrollView container;
-
+    private CircleImageView imgAvatar;
+    private TextView tvName;
+    private FirebaseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initView();
+        replaceFragment(new Fragment_UserList());
 
     }
 
     private void initView() {
+        Intent intent = getIntent();
+        currentUser= FirebaseAuth.getInstance().getCurrentUser();
         cvCensorship = (CardView) findViewById(R.id.admin_cvCensor);
         cvUser = (CardView) findViewById(R.id.admin_cvUser);
         cvFeedback = (CardView) findViewById(R.id.admin_cvFeedback);
@@ -39,6 +51,15 @@ public class AdminActivity extends AppCompatActivity {
         cvLogout = (CardView) findViewById(R.id.admin_cvLogout);
         cvExit = (CardView) findViewById(R.id.admin_cvExit);
         container = (ScrollView) findViewById(R.id.admin_layoutContainer);
+        tvName = (TextView) findViewById(R.id.admin_tvName);
+        imgAvatar = (CircleImageView) findViewById(R.id.admin_imgAvatar);
+//        String name = intent.getStringExtra("name");
+//        String avatar = intent.getStringExtra("avatar");
+        if (currentUser != null){
+            tvName.setText(currentUser.getDisplayName());
+            Picasso.get().load(currentUser.getPhotoUrl()).into(imgAvatar);
+        }
+
 
         cvExit.setOnClickListener(new View.OnClickListener() {
             @Override
