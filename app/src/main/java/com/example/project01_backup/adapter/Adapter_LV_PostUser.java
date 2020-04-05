@@ -61,7 +61,6 @@ public class Adapter_LV_PostUser extends BaseAdapter {
         ImageView imgPost = (ImageView) convertView.findViewById(R.id.raw_post_imgPost);
         CircleImageView imgAvatar = (CircleImageView) convertView.findViewById(R.id.raw_post_imgAvatarUser);
         final Post post = postList.get(position);
-
         tvPubDate.setText(post.getPubDate());
         tvTitle.setText(post.getTittle());
         tvAddress.setText(post.getAddress());
@@ -71,28 +70,28 @@ public class Adapter_LV_PostUser extends BaseAdapter {
         }catch (Exception e){
 
         }
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment_Post_Detail fragment_post_detail = new Fragment_Post_Detail();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(POST, post);
-                fragment_post_detail.setArguments(bundle);
-                try {
-                    ((MainActivity)context).getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.main_FrameLayout, fragment_post_detail)
-                            .addToBackStack(null)
-                            .commit();
-                }catch (Exception e){
-                    ((AdminActivity)context).getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.admin_FrameLayout, fragment_post_detail)
-                            .addToBackStack(null)
-                            .commit();
-                }
-            }
-        });
+//        convertView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment_Post_Detail fragment_post_detail = new Fragment_Post_Detail();
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable(POST, post);
+//                fragment_post_detail.setArguments(bundle);
+//                try {
+//                    ((MainActivity)context).getSupportFragmentManager()
+//                            .beginTransaction()
+//                            .replace(R.id.main_FrameLayout, fragment_post_detail)
+//                            .addToBackStack(null)
+//                            .commit();
+//                }catch (Exception e){
+//                    ((AdminActivity)context).getSupportFragmentManager()
+//                            .beginTransaction()
+//                            .replace(R.id.admin_FrameLayout, fragment_post_detail)
+//                            .addToBackStack(null)
+//                            .commit();
+//                }
+//            }
+//        });
 
         return convertView;
     }

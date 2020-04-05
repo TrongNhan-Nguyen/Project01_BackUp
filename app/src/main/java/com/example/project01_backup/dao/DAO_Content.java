@@ -61,7 +61,6 @@ public class DAO_Content {
                     public void onSuccess(Uri uri) {
                         content.setUrlImage(String.valueOf(uri));
                         dbAdmin.child(idPost).child(id).setValue(content);
-                        toast("Thêm thành công");
                     }
                 });
             }
@@ -75,6 +74,12 @@ public class DAO_Content {
 
     public void deleteAdmin(String postID){
         dbAdmin.child(postID).removeValue();
+    }
+    public void deleteUser(String postID){
+        if (postID != null){
+            dbUser.child(postID).removeValue();
+        }
+
     }
 
     public void getDataAdmin (String idPost, final FirebaseCallback firebaseCallback){

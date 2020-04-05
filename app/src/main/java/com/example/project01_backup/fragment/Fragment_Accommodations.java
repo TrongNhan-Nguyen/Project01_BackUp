@@ -36,6 +36,8 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.project01_backup.adapter.Adapter_LV_PostUser.POST;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -49,6 +51,7 @@ public class Fragment_Accommodations extends Fragment {
     private Adapter_LV_PostUser adapterPost;
     private FirebaseUser user;
     private FloatingActionButton fbaAdd;
+    private List<Post> listPost;
 
     public Fragment_Accommodations() {
         // Required empty public constructor
@@ -75,12 +78,28 @@ public class Fragment_Accommodations extends Fragment {
         dao_post.getDataUser(categoryNode, new FirebaseCallback(){
             @Override
             public void postListUser(List<Post> postList) {
-                adapterPost = new Adapter_LV_PostUser(getActivity(),postList);
+                listPost = new ArrayList<>(postList);
+                adapterPost = new Adapter_LV_PostUser(getActivity(),listPost);
+
                 listView.setAdapter(adapterPost);
             }
         });
 
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Fragment_Post_Detail fragment_post_detail = new Fragment_Post_Detail();
+                Bundle bundle = new Bundle();
+                Post post = listPost.get(position);
+                bundle.putSerializable("post", post);
+                fragment_post_detail.setArguments(bundle);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_FrameLayout, fragment_post_detail)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         if (user == null){
             fbaAdd.setVisibility(View.GONE);

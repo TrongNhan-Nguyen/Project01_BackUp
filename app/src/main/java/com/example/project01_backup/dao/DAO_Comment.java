@@ -35,6 +35,11 @@ public class DAO_Comment {
         comment.setIdPost(idPost);
         dbComment.child(idPost).child(idComment).setValue(comment);
     }
+    public void delete(String idPost){
+        if (idPost != null){
+            dbComment.child(idPost).removeValue();
+        }
+    }
 
     public void getData(String idPost, final FirebaseCallback firebaseCallback){
         final List<Comment> commentList = new ArrayList<>();

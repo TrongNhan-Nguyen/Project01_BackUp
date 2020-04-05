@@ -17,9 +17,9 @@ public class Adapter_Tab_UserAdmin extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 1:
-                return new Fragment_PostListAdmin();
             case 0:
+                return new Fragment_PostListAdmin();
+            case 1:
                 return new Fragment_UserInfoAdmin();
         }
         return null;

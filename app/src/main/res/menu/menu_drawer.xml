@@ -25,8 +25,8 @@
                 android:id="@+id/menu_drawer_Information"
                 android:title="User Information"/>
             <item
-                android:id="@+id/menu_drawer_LogOut"
-                android:title="Log Out"/>
+                android:id="@+id/menu_drawer_SignOut"
+                android:title="Sign Out"/>
             <item
                 android:id="@+id/menu_drawer_About"
                 android:title="About"/>

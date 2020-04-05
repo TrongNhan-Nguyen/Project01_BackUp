@@ -55,6 +55,7 @@ public class Fragment_Restaurant extends Fragment {
     private Adapter_LV_PostUser adapterPost;
     private FirebaseUser user;
     private FloatingActionButton fbaAdd;
+    private List<Post> listPost;
 
     public Fragment_Restaurant() {
         // Required empty public constructor
@@ -78,11 +79,29 @@ public class Fragment_Restaurant extends Fragment {
         fbaAdd = (FloatingActionButton) view.findViewById(R.id.fRestaurant_fabAddPost);
         listView = (ListView) view.findViewById(R.id.fRestaurant_lvPost);
         String categoryNode = "restaurants";
-        dao_post.getDataUser(categoryNode, new FirebaseCallback() {
+        dao_post.getDataUser(categoryNode, new FirebaseCallback(){
             @Override
             public void postListUser(List<Post> postList) {
-                adapterPost = new Adapter_LV_PostUser(getActivity(), postList);
+                listPost = new ArrayList<>(postList);
+                adapterPost = new Adapter_LV_PostUser(getActivity(),listPost);
+
                 listView.setAdapter(adapterPost);
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Fragment_Post_Detail fragment_post_detail = new Fragment_Post_Detail();
+                Bundle bundle = new Bundle();
+                Post post = listPost.get(position);
+                bundle.putSerializable("post", post);
+                fragment_post_detail.setArguments(bundle);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_FrameLayout, fragment_post_detail)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

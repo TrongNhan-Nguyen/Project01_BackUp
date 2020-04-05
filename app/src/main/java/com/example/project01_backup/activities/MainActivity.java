@@ -14,16 +14,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
 import com.example.project01_backup.fragment.Fragment_Accommodations;
-import com.example.project01_backup.fragment.Fragment_AddPost;
 import com.example.project01_backup.fragment.Fragment_BeautifulPlaces;
 import com.example.project01_backup.fragment.Fragment_Blog;
-import com.example.project01_backup.fragment.Fragment_Post_Detail;
 import com.example.project01_backup.fragment.Fragment_Restaurant;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle toggle;
     private FirebaseUser currentUser;
     private String password;
-    public static final String POINT_TO_NODE = "point to node";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +106,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void hideAdmin() {
         Menu drawerMenu = navigationView.getMenu();
         drawerMenu.findItem(R.id.menu_drawer_Admin).setVisible(false);
+        drawerMenu.findItem(R.id.menu_drawer_Information).setVisible(false);
         String[] adminList = {"nhan@gmail.com","ngan@gmail.com", "hao@gmail.com", "lam@gmail.com"};
         if (currentUser != null){
+            drawerMenu.findItem(R.id.menu_drawer_Information).setVisible(true);
             for (String admin : adminList){
                 if (currentUser.getEmail().equalsIgnoreCase(admin)){
                     drawerMenu.findItem(R.id.menu_drawer_Admin).setVisible(true);
@@ -119,6 +117,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 }
             }
+        }
+        if (currentUser == null){
+            drawerMenu.findItem(R.id.menu_drawer_SignOut).setTitle("Sign in");
         }
 
 
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.menu_drawer_Information:
                 break;
-            case R.id.menu_drawer_LogOut:
+            case R.id.menu_drawer_SignOut:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;

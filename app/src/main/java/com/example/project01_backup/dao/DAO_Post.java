@@ -67,7 +67,6 @@ public class DAO_Post {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -117,6 +116,9 @@ public class DAO_Post {
     public void deleteAdmin(String categoryNode, String placeNode,String postID){
         dbAdmin.child(categoryNode).child(placeNode).child(postID).removeValue();
 
+    }
+    public void deleteUser(String categoryNode, String placeNode, String postID){
+        dbUser.child(categoryNode).child(placeNode).child(postID).removeValue();
     }
     public void getDataAdmin(final FirebaseCallback firebaseCallback){
         final List<Post> postList = new ArrayList<>();
