@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
+import com.example.project01_backup.activities.AdminActivity;
 import com.example.project01_backup.activities.MainActivity;
 import com.example.project01_backup.fragment.Fragment_Post_Detail;
 import com.example.project01_backup.model.Post;
@@ -77,12 +78,19 @@ public class Adapter_LV_PostUser extends BaseAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(POST, post);
                 fragment_post_detail.setArguments(bundle);
-                ((MainActivity)context).getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_FrameLayout, fragment_post_detail)
-                        .addToBackStack(null)
-                        .commit();
-
+                try {
+                    ((MainActivity)context).getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main_FrameLayout, fragment_post_detail)
+                            .addToBackStack(null)
+                            .commit();
+                }catch (Exception e){
+                    ((AdminActivity)context).getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.admin_FrameLayout, fragment_post_detail)
+                            .addToBackStack(null)
+                            .commit();
+                }
             }
         });
 

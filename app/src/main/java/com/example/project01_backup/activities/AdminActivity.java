@@ -29,12 +29,6 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdminActivity extends AppCompatActivity {
-    private CardView cvCensorship, cvUser, cvFeedback, cvMain, cvLogout, cvExit;
-    private ScrollView container;
-    private CircleImageView imgAvatar;
-    private TextView tvName;
-    private FirebaseUser currentUser;
-    private String name, email, urlAvatar, pass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +37,6 @@ public class AdminActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.admin_FrameLayout, new Fragment_Admin())
                 .commit();
-
     }
-
-
-
 
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/dEditInfo_imgAvatar"
+        android:layout_marginTop="10dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/avatar_header" />
+    <EditText
+        android:id="@+id/dEditInfo_etName"
+        android:hint="Họ Tên"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/dEditInfo_etEmail"
+        android:hint="Email"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/dEditInfo_etPass"
+        android:hint="Mật Khẩu"
+        android:inputType="textPassword"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/dEditInfo_etDOB"
+        android:hint="Ngày Sinh"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/dEditInfo_etPhone"
+        android:hint="Số Điện Thoại"
+        android:gravity="center"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/dEditInfo_etAddress"
+        android:hint="Địa Chỉ"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/dEditInfo_btnUpdate"
+            android:text="HOÀN TẤT"
+            android:textSize="12sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/dEditInfo_btnClear"
+            android:text="LÀM MỚI"
+            android:textSize="12sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/dEditInfo_btnCancel"
+            android:text="HỦY"
+            android:textSize="12sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

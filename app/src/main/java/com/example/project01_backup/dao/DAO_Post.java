@@ -114,12 +114,10 @@ public class DAO_Post {
             }
         });
     }
-
     public void deleteAdmin(String categoryNode, String placeNode,String postID){
         dbAdmin.child(categoryNode).child(placeNode).child(postID).removeValue();
 
     }
-
     public void getDataAdmin(final FirebaseCallback firebaseCallback){
         final List<Post> postList = new ArrayList<>();
         dbAdmin.addValueEventListener(new ValueEventListener() {
@@ -155,6 +153,32 @@ public class DAO_Post {
                         postList.add(post);
                     }
 
+                }
+                firebaseCallback.postListUser(postList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    public void getDataByUser(final String email, final FirebaseCallback firebaseCallback){
+        dbUser.addValueEventListener(new ValueEventListener() {
+            List<Post> postList = new ArrayList<>();
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                postList.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    for (DataSnapshot ds1 : ds.getChildren()){
+                        for (DataSnapshot ds2 : ds1.getChildren()){
+                            Post post = ds2.getValue(Post.class);
+                            if (post.getUser().equalsIgnoreCase(email)){
+                                postList.add(post);
+                            }
+                        }
+                    }
                 }
                 firebaseCallback.postListUser(postList);
             }

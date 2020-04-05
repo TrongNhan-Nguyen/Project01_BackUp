@@ -11,12 +11,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
-import com.example.project01_backup.activities.AdminActivity;
 import com.example.project01_backup.activities.LoginActivity;
 import com.example.project01_backup.activities.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,7 +30,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Fragment_Admin extends Fragment {
     private View view;
     private CardView cvCensorship, cvUser, cvFeedback, cvMain, cvLogout, cvExit;
-    private ScrollView container;
     private CircleImageView imgAvatar;
     private TextView tvName;
     private FirebaseUser currentUser;
@@ -50,7 +47,6 @@ public class Fragment_Admin extends Fragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_admin, container, false);
         initView();
-        replaceFragment(new Fragment_UserList());
         return view;
     }
     private void initView() {
@@ -71,8 +67,11 @@ public class Fragment_Admin extends Fragment {
             email = intent.getStringExtra("email");
             pass = intent.getStringExtra("pass");
             tvName.setText(name);
+            try {
 
-            Picasso.get().load(Uri.parse(urlAvatar)).into(imgAvatar);
+            }catch (Exception e){
+                Picasso.get().load(Uri.parse(urlAvatar)).into(imgAvatar);
+            }
         }
 
 
@@ -95,7 +94,7 @@ public class Fragment_Admin extends Fragment {
         cvMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reLogin();
+                reAuth();
 //                getActivity().finish();
 //                startActivity(new Intent(getActivity(), MainActivity.class));
             }
@@ -130,7 +129,7 @@ public class Fragment_Admin extends Fragment {
                 .commit();
     }
 
-    private void reLogin(){
+    private void reAuth(){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(email,"123456")
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

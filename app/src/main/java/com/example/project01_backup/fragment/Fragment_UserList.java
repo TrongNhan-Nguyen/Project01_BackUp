@@ -1,7 +1,6 @@
 package com.example.project01_backup.fragment;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,15 +22,8 @@ import com.example.project01_backup.R;
 import com.example.project01_backup.adapter.Adapter_LV_User;
 import com.example.project01_backup.dao.DAO_User;
 import com.example.project01_backup.model.FirebaseCallback;
-import com.example.project01_backup.model.Places;
 import com.example.project01_backup.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,31 +67,17 @@ public class Fragment_UserList extends Fragment {
         lvUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                index = position;
-                reAuth();
+                User user = adapterUser.getUserList().get(position);
+                Fragment_Tab_UserInfoAdmin fragment_tab = new Fragment_Tab_UserInfoAdmin();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user", user);
+                fragment_tab.setArguments(bundle);
+                replaceFragment(fragment_tab);
+
             }
         });
     }
 
-    private void reAuth(){
-        User user = adapterUser.getUserList().get(index);
-        toast(user.getName());
-        mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser currentUser = mAuth.getCurrentUser();
-//                            currentUser.delete();
-
-                        } else {
-
-                        }
-
-                    }
-                });
-    }
     private void toast (String s){
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
@@ -130,5 +107,12 @@ public class Fragment_UserList extends Fragment {
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
+    }
+    private void replaceFragment(Fragment fragment){
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.admin_FrameLayout, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }

@@ -32,6 +32,7 @@ public class DAO_Comment {
     public void insert(String idPost,Comment comment){
         String idComment = dbComment.push().getKey();
         comment.setIdComment(idComment);
+        comment.setIdPost(idPost);
         dbComment.child(idPost).child(idComment).setValue(comment);
     }
 

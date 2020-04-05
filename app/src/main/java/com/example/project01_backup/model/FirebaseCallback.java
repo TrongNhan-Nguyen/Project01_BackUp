@@ -10,4 +10,5 @@ public class FirebaseCallback {
     public void contentListAdmin (List<Content> contentList){}
     public void contentListUser (List<Content> contentList){}
     public void userList (List<User> userList){};
+    public void getUser(User user){};
 }

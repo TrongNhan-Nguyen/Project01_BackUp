@@ -1,7 +1,8 @@
 package com.example.project01_backup.model;
 
 public class Comment {
-    private String idComment, idUser , emailUser, pubDate,contentComment, uriAvatarUser;
+    private String idComment, idPost ,idUser , emailUser;
+    private String pubDate,contentComment, uriAvatarUser;
     private long longPubDate;
 
     public String getIdComment() {
@@ -58,5 +59,13 @@ public class Comment {
 
     public void setEmailUser(String emailUser) {
         this.emailUser = emailUser;
+    }
+
+    public String getIdPost() {
+        return idPost;
+    }
+
+    public void setIdPost(String idPost) {
+        this.idPost = idPost;
     }
 }

@@ -137,6 +137,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         }else {
                             toast("Lỗi");
+                            dialog.dismiss();
                         }
                     }
                 });

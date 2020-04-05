@@ -103,7 +103,11 @@ public class Adapter_LV_User extends BaseAdapter implements Filterable {
         viewHolder.tvName.setText(user.getName());
         viewHolder.tvEmail.setText(user.getEmail());
         viewHolder.tvCreated.setText(user.getStringCreated());
-        Picasso.get().load(Uri.parse(user.getUriAvatar())).into(viewHolder.imgAvatar);
+        try {
+            Picasso.get().load(Uri.parse(user.getUriAvatar())).into(viewHolder.imgAvatar);
+        }catch (Exception e){
+
+        }
         return convertView;
     }
 

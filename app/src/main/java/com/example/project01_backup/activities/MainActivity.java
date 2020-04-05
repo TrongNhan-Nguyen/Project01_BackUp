@@ -43,27 +43,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
-    private FirebaseUser firebaseUser;
+    private FirebaseUser currentUser;
     private String password;
     public static final String POINT_TO_NODE = "point to node";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent getPass = getIntent();
-        if (getPass != null){
+        if (getPass != null) {
             password = getPass.getStringExtra("pass");
         }
         initView();
     }
 
     private void initView() {
-        
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         drawerLayout = (DrawerLayout) findViewById(R.id.main_Drawer);
         navigationView = (NavigationView) findViewById(R.id.main_Navigation);
-        toggle = new ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         navigationView.setNavigationItemSelectedListener(this);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -72,20 +72,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         hideAdmin();
     }
 
-    private void showInfo(){
-        if (firebaseUser != null){
+    private void showInfo() {
+        if (currentUser != null) {
             View headerView = navigationView.getHeaderView(0);
             CircleImageView imgAvatar = (CircleImageView) headerView.findViewById(R.id.header_imgAvatar);
             TextView tvDisplayName = (TextView) headerView.findViewById(R.id.header_tvDisplayName);
             TextView tvEmail = (TextView) headerView.findViewById(R.id.header_tvEmail);
-            Uri uriAvatar = firebaseUser.getPhotoUrl();
+            Uri uriAvatar = currentUser.getPhotoUrl();
             Picasso.get().load(uriAvatar).into(imgAvatar);
-            tvDisplayName.setText(firebaseUser.getDisplayName());
-            tvEmail.setText(firebaseUser.getEmail());
+            tvDisplayName.setText(currentUser.getDisplayName());
+            tvEmail.setText(currentUser.getEmail());
         }
     }
 
-    private void runtimePermission(){
+    private void runtimePermission() {
         Dexter.withActivity(this)
                 .withPermissions(
                         Manifest.permission.INTERNET,
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        if (report.areAllPermissionsGranted()){
+                        if (report.areAllPermissionsGranted()) {
                             Toast.makeText(MainActivity.this, "All granted", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -106,16 +106,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 }).check();
     }
-    private void hideAdmin(){
-        if (firebaseUser == null) {
-            Menu drawerMenu = navigationView.getMenu();
-            drawerMenu.findItem(R.id.menu_drawer_Admin).setVisible(false);
+
+    private void hideAdmin() {
+        Menu drawerMenu = navigationView.getMenu();
+        drawerMenu.findItem(R.id.menu_drawer_Admin).setVisible(false);
+        String[] adminList = {"nhan@gmail.com","ngan@gmail.com", "hao@gmail.com", "lam@gmail.com"};
+        if (currentUser != null){
+            for (String admin : adminList){
+                if (currentUser.getEmail().equalsIgnoreCase(admin)){
+                    drawerMenu.findItem(R.id.menu_drawer_Admin).setVisible(true);
+                    break;
+
+                }
+            }
         }
+
+
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (toggle.onOptionsItemSelected(item)){
+        if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -123,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu_drawer_Restaurant:
                 replaceFragment(new Fragment_Restaurant());
                 break;
@@ -139,9 +150,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_drawer_Admin:
                 finish();
                 Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-                intent.putExtra("name", firebaseUser.getDisplayName());
-                intent.putExtra("avatar", String.valueOf(firebaseUser.getPhotoUrl()));
-                intent.putExtra("email", firebaseUser.getEmail());
+                intent.putExtra("name", currentUser.getDisplayName());
+                intent.putExtra("avatar", String.valueOf(currentUser.getPhotoUrl()));
+                intent.putExtra("email", currentUser.getEmail());
                 intent.putExtra("pass", password);
                 startActivity(intent);
                 break;
@@ -149,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.menu_drawer_LogOut:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
             case R.id.menu_drawer_About:
                 break;
@@ -161,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private void replaceFragment(Fragment fragment){
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_FrameLayout,fragment).commit();
+    private void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_FrameLayout, fragment).commit();
     }
 }

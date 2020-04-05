@@ -36,6 +36,25 @@ public class DAO_User {
         dbUser.child(user.getId()).setValue(user);
     }
 
+    public void getUserInfo(String idUser, final FirebaseCallback firebaseCallback){
+
+        dbUser.child(idUser).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                   User user = dataSnapshot.getValue(User.class);
+                   firebaseCallback.getUser(user);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void delete(String idUser){
+        dbUser.child(idUser).removeValue();
+    }
+
     public void getData(final FirebaseCallback firebaseCallback) {
         final List<User> userList = new ArrayList<>();
         dbUser.addValueEventListener(new ValueEventListener() {
