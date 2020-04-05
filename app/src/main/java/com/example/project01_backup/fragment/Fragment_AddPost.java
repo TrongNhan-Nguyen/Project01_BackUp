@@ -98,19 +98,17 @@ public class Fragment_AddPost extends Fragment {
         tvDescription = (TextView) view.findViewById(R.id.fAddPost_tvDescription);
         tvCategory = (TextView) view.findViewById(R.id.fAddPost_tvCategory);
         tvPlace = (TextView) view.findViewById(R.id.fAddPost_tvPlace);
-        tvPlace = (TextView) view.findViewById(R.id.fAddPost_tvPlace);
         tvUser = (TextView) view.findViewById(R.id.fAddPost_tvUser);
         tvPubDate = (TextView) view.findViewById(R.id.fAddPost_tvPubDate);
         tvTitle = (TextView) view.findViewById(R.id.fAddPost_tvTitle);
         tvAddress = (TextView) view.findViewById(R.id.fAddPost_tvAddress);
-        tvDescription = (TextView) view.findViewById(R.id.fAddPost_tvDescription);
 
         fabAddPost = (FloatingActionButton) view.findViewById(R.id.fAddPost_fabAddPost);
         fabAddContent = (FloatingActionButton) view.findViewById(R.id.fAddPost_fabAddContent);
         imgPost = (ImageView) view.findViewById(R.id.fAddPost_imgPost);
         imgAvatarUser = (ImageView) view.findViewById(R.id.fAddPost_imgAvatarUser);
         lvContent = (ListView) view.findViewById(R.id.fAddPost_lvContent);
-        contentList = new ArrayList<>();
+
         fabAddContent.setVisibility(View.GONE);
         setPubDate(tvPubDate);
         tvUser.setText(user.getEmail());

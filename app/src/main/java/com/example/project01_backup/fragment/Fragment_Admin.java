@@ -47,7 +47,6 @@ public class Fragment_Admin extends Fragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_admin, container, false);
         initView();
-        replaceFragment(new Fragment_UserList());
         return view;
     }
     private void initView() {

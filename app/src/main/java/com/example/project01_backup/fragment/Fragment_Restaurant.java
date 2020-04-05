@@ -153,7 +153,7 @@ public class Fragment_Restaurant extends Fragment {
         autoComplete.setTextColor(Color.GREEN);
         autoComplete.setDropDownBackgroundResource(android.R.color.holo_blue_light);
         autoComplete.setThreshold(1);
-        ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, placeNames);
+        final ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, placeNames);
         autoComplete.setAdapter(nameAdapter);
         dao_places.getData(new FirebaseCallback() {
             @Override
@@ -162,7 +162,7 @@ public class Fragment_Restaurant extends Fragment {
                 for (Places places : placesList) {
                     placeNames.add(places.getName());
                 }
-                adapterPost.notifyDataSetChanged();
+                nameAdapter.notifyDataSetChanged();
 
             }
         });

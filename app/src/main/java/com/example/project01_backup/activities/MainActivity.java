@@ -19,9 +19,13 @@ import android.widget.Toast;
 
 import com.example.project01_backup.R;
 import com.example.project01_backup.fragment.Fragment_Accommodations;
+import com.example.project01_backup.fragment.Fragment_AddPost;
 import com.example.project01_backup.fragment.Fragment_BeautifulPlaces;
 import com.example.project01_backup.fragment.Fragment_Blog;
+import com.example.project01_backup.fragment.Fragment_EditPost;
 import com.example.project01_backup.fragment.Fragment_Restaurant;
+import com.example.project01_backup.fragment.Fragment_Tab_UserInfo;
+import com.example.project01_backup.fragment.Fragment_UserInfo;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        replaceFragment(new Fragment_Restaurant());
+        replaceFragment(new Fragment_EditPost());
         showInfo();
         hideAdmin();
     }
@@ -158,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.menu_drawer_Information:
+                replaceFragment(new Fragment_Tab_UserInfo());
                 break;
             case R.id.menu_drawer_SignOut:
                 FirebaseAuth.getInstance().signOut();
@@ -174,6 +179,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void replaceFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_FrameLayout, fragment).commit();
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.main_FrameLayout, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
