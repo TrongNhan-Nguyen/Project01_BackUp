@@ -52,6 +52,7 @@ public class Fragment_Accommodations extends Fragment {
     private FirebaseUser user;
     private FloatingActionButton fbaAdd;
     private List<Post> listPost;
+    private String categoryNode;
 
     public Fragment_Accommodations() {
         // Required empty public constructor
@@ -74,7 +75,7 @@ public class Fragment_Accommodations extends Fragment {
         tvTitle = (TextView) view.findViewById(R.id.fAccommodations_tvTitle);
         fbaAdd = (FloatingActionButton) view.findViewById(R.id.fAccommodations_fabAddPost);
         listView = (ListView) view.findViewById(R.id.fAccommodations_lvPost);
-        String categoryNode = "accommodations";
+        categoryNode = "accommodations";
         dao_post.getDataUser(categoryNode, new FirebaseCallback(){
             @Override
             public void postListUser(List<Post> postList) {
@@ -84,6 +85,7 @@ public class Fragment_Accommodations extends Fragment {
                 listView.setAdapter(adapterPost);
             }
         });
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -158,13 +160,22 @@ public class Fragment_Accommodations extends Fragment {
                 autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
-                        String queryString=(String)adapterView.getItemAtPosition(itemIndex);
-                        autoComplete.setText(queryString);
-                        tvTitle.setText(queryString);
+                        String placeNode =(String)adapterView.getItemAtPosition(itemIndex);
+                        autoComplete.setText(placeNode);
+                        tvTitle.setText(placeNode);
+                        dao_post.getDataByPlace(categoryNode,placeNode, new FirebaseCallback(){
+                            @Override
+                            public void postListPlace(List<Post> postList) {
+                                adapterPost = new Adapter_LV_PostUser(getActivity(),postList);
+                                listView.setAdapter(adapterPost);
+                            }
+                        });
+
                     }
                 });
             }
         });
+
 
 
         super.onCreateOptionsMenu(menu, inflater);

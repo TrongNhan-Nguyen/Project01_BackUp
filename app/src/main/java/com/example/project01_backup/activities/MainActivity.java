@@ -1,6 +1,7 @@
 package com.example.project01_backup.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -23,6 +24,7 @@ import com.example.project01_backup.fragment.Fragment_AddPost;
 import com.example.project01_backup.fragment.Fragment_BeautifulPlaces;
 import com.example.project01_backup.fragment.Fragment_Blog;
 import com.example.project01_backup.fragment.Fragment_EditPost;
+import com.example.project01_backup.fragment.Fragment_Feedback;
 import com.example.project01_backup.fragment.Fragment_Restaurant;
 import com.example.project01_backup.fragment.Fragment_Tab_UserInfo;
 import com.example.project01_backup.fragment.Fragment_UserInfo;
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        replaceFragment(new Fragment_EditPost());
+        replaceFragment(new Fragment_Restaurant());
         showInfo();
         hideAdmin();
     }
@@ -184,4 +186,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addToBackStack(null)
                 .commit();
     }
+
+
 }

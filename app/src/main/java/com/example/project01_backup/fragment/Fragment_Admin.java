@@ -95,8 +95,6 @@ public class Fragment_Admin extends Fragment {
             @Override
             public void onClick(View v) {
                 reAuth();
-//                getActivity().finish();
-//                startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });
 
@@ -117,7 +115,7 @@ public class Fragment_Admin extends Fragment {
         cvFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toast("Phản ánh người dùng");
+                replaceFragment(new Fragment_Feedback());
             }
         });
     }

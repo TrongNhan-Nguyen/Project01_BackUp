@@ -134,16 +134,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <ListView
-        android:id="@+id/fEditPost_lvContent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fAddPost_layoutContainer"
-        android:layout_marginTop="5dp" />
-
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fEditPost_fabAddContent"
         android:layout_width="wrap_content"
@@ -156,5 +146,14 @@
         android:background="#34A8FF"
         android:src="@drawable/add"
         app:fabSize="mini" />
+    <ListView
+        android:id="@+id/fEditPost_lvContent"
+        android:stackFromBottom="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fAddPost_layoutContainer"
+        android:layout_marginTop="5dp" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

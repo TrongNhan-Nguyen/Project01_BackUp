@@ -22,6 +22,10 @@ public class DAO_Comment {
     Context context;
     Fragment fragment;
     DatabaseReference dbComment;
+    public DAO_Comment(Context context) {
+        this.context = context;
+        this.dbComment = FirebaseDatabase.getInstance().getReference("comments");
+    }
 
     public DAO_Comment(Context context, Fragment fragment) {
         this.context = context;
@@ -35,11 +39,21 @@ public class DAO_Comment {
         comment.setIdPost(idPost);
         dbComment.child(idPost).child(idComment).setValue(comment);
     }
-    public void delete(String idPost){
+    public void deleteByIdPost(String idPost){
         if (idPost != null){
             dbComment.child(idPost).removeValue();
         }
     }
+
+    public void update(Comment comment){
+        dbComment.child(comment.getIdPost())
+                .child(comment.getIdComment())
+                .setValue(comment);
+    }
+    public void deleteByIdComment(Comment comment){
+        dbComment.child(comment.getIdPost()).child(comment.getIdComment()).removeValue();
+    }
+
 
     public void getData(String idPost, final FirebaseCallback firebaseCallback){
         final List<Comment> commentList = new ArrayList<>();

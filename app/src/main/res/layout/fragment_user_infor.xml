@@ -164,25 +164,15 @@
             android:layout_width="170dp"
             android:layout_height="wrap_content"/>
         <Button
-            android:id="@+id/fUserInfo_btnDelete"
-            android:text="XÓA TÀI KHOẢN"
+            android:id="@+id/fUserInfo_btnFeedBack"
+            android:text="Gửi phản hồi"
             app:cornerRadius="5dp"
             android:textColor="#ffffff"
-            android:layout_gravity="center_horizontal"
             android:backgroundTint="#4AA6EC"
             android:layout_marginLeft="10dp"
             android:layout_width="170dp"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-    <Button
-        android:id="@+id/fUserInfo_btnFeedBack"
-        android:text="Gửi phản hồi"
-        app:cornerRadius="5dp"
-        android:textColor="#ffffff"
-        android:layout_gravity="center_horizontal"
-        android:backgroundTint="#4AA6EC"
-        android:layout_marginLeft="10dp"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"/>
+
 
 </LinearLayout>

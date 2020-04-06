@@ -11,15 +11,16 @@
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/avatar_header" />
-    <EditText
-        android:id="@+id/dEditInfo_etName"
-        android:hint="Họ Tên"
+    <TextView
+        android:id="@+id/dEditInfo_tvEmail"
+        android:layout_marginTop="10dp"
+        android:hint="account@gmail.com"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
-        android:id="@+id/dEditInfo_etEmail"
-        android:hint="Email"
+        android:id="@+id/dEditInfo_etName"
+        android:hint="Họ Tên"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

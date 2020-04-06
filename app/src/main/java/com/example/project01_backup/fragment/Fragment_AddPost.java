@@ -109,7 +109,7 @@ public class Fragment_AddPost extends Fragment {
         imgAvatarUser = (ImageView) view.findViewById(R.id.fAddPost_imgAvatarUser);
         lvContent = (ListView) view.findViewById(R.id.fAddPost_lvContent);
 
-        fabAddContent.setVisibility(View.GONE);
+//        fabAddContent.setVisibility(View.GONE);
         setPubDate(tvPubDate);
         tvUser.setText(user.getEmail());
         Picasso.get().load(user.getPhotoUrl()).into(imgAvatarUser);
@@ -320,7 +320,7 @@ public class Fragment_AddPost extends Fragment {
     private void dialogUpdateContent(){
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog_add_content);
-        final Content update = contentList.get(index);
+        content = contentList.get(index);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final EditText etDescription = (EditText) dialog.findViewById(R.id.dAddContent_etDescriptions);
         imgContent = (ImageView) dialog.findViewById(R.id.dAddContent_imgContent);
@@ -329,8 +329,8 @@ public class Fragment_AddPost extends Fragment {
         Button btnClear = (Button) dialog.findViewById(R.id.dAddContent_btnClear);
         Button btnCancel = (Button) dialog.findViewById(R.id.dAddContent_btnCancel);
 
-        imgContent.setImageURI(update.getUriImage());
-        etDescription.setText(update.getDescription());
+        imgContent.setImageURI(content.getUriImage());
+        etDescription.setText(content.getDescription());
 
         imgChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -368,7 +368,7 @@ public class Fragment_AddPost extends Fragment {
                 }else {
 //                    content.setDescription(etDescription.getText().toString());
 //                    contentList.add(content);
-                    update.setDescription(etDescription.getText().toString());
+                    content.setDescription(etDescription.getText().toString());
                     adapterContent = new Adapter_LV_Content(getActivity(),contentList);
                     lvContent.setAdapter(adapterContent);
                     dialog.dismiss();
@@ -467,8 +467,8 @@ public class Fragment_AddPost extends Fragment {
                         Uri uri = contentList.get(i).getUriImage();
                         upload.setDescription(contentList.get(i).getDescription());
                         dao_content.insertAdmin(post.getId(),upload,uri);
-                        currentFragment(categoryNode);
                     }
+                    currentFragment(categoryNode);
                 }
             });
             dialog.setPositiveButton("HUỶ", new DialogInterface.OnClickListener() {

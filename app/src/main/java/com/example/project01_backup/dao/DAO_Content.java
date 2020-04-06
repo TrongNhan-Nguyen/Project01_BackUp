@@ -45,26 +45,31 @@ public class DAO_Content {
     public void insertAdmin (final String idPost, final Content content, Uri uriImageView){
         final String id = dbAdmin.push().getKey();
         content.setId(id);
-        Uri file = uriImageView;
-        final StorageReference storage  = FirebaseStorage.getInstance().getReference("Intent/" + id);
-        UploadTask uploadTask = storage.putFile(file);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        content.setUrlImage(String.valueOf(uri));
-                        dbAdmin.child(idPost).child(id).setValue(content);
-                    }
-                });
-            }
-        });
+        if (uriImageView != null){
+            Uri file = uriImageView;
+            final StorageReference storage  = FirebaseStorage.getInstance().getReference("Intent/" + id);
+            UploadTask uploadTask = storage.putFile(file);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            content.setUrlImage(String.valueOf(uri));
+                            dbAdmin.child(idPost).child(id).setValue(content);
+                        }
+                    });
+                }
+            });
+        }else {
+            dbAdmin.child(idPost).child(id).setValue(content);
+        }
+
 
     }
     public void insertUser (final String idPost, final Content content){

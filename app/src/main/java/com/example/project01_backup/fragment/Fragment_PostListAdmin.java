@@ -86,7 +86,7 @@ public class Fragment_PostListAdmin extends Fragment {
                         Post post = listPost.get(position);
                         dao_post.deleteUser(post.getCategory(),post.getPlace(),post.getId());
                         dao_content.deleteUser(post.getId());
-                        dao_comment.delete(post.getId());
+                        dao_comment.deleteByIdPost(post.getId());
                     }
                 });
                 dialog.setPositiveButton("HỦY", new DialogInterface.OnClickListener() {

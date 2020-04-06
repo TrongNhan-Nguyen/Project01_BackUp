@@ -1,12 +1,14 @@
 package com.example.project01_backup.fragment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import com.example.project01_backup.adapter.Adapter_LV_PostUser;
 import com.example.project01_backup.dao.DAO_Comment;
 import com.example.project01_backup.dao.DAO_Content;
 import com.example.project01_backup.dao.DAO_Post;
+import com.example.project01_backup.model.Content;
 import com.example.project01_backup.model.FirebaseCallback;
 import com.example.project01_backup.model.Post;
 import com.example.project01_backup.model.User;
@@ -38,6 +41,7 @@ public class Fragment_PostList extends Fragment {
     private DAO_Content dao_content;
     private DAO_Comment dao_comment;
     private FirebaseUser currentUser;
+    private int index = -1;
 
     public Fragment_PostList() {
         // Required empty public constructor
@@ -80,28 +84,72 @@ public class Fragment_PostList extends Fragment {
         lvPost.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                dialog.setMessage("Bạn có muốn xóa bài viết này cùng toàn bộ nội dung liên quan");
-                dialog.setNegativeButton("XÓA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Post post = listPost.get(position);
-                        dao_post.deleteUser(post.getCategory(),post.getPlace(),post.getId());
-                        dao_content.deleteUser(post.getId());
-                        dao_comment.delete(post.getId());
-                    }
-                });
-                dialog.setPositiveButton("HỦY", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                dialog.show();
+                index = position;
+                dialogLongClick();
                 return true;
             }
         });
         return view;
+    }
+    private void dialogLongClick(){
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_longclick);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final Post post = listPost.get(index);
+        Button btnEdit = (Button) dialog.findViewById(R.id.dLongClick_btnEdit);
+        Button btnDelete = (Button) dialog.findViewById(R.id.dLongClick_btnDelete);
+        Button btnCancel = (Button) dialog.findViewById(R.id.dLongClick_btnCancel);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getActivity());
+                dialogDelete.setMessage("Bạn có muốn xóa bài viết này cùng toàn bộ nội dung liên quan");
+                dialogDelete.setNegativeButton("XÓA", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog1, int which) {
+                        dao_post.deleteUser(post.getCategory(),post.getPlace(),post.getId());
+                        dao_content.deleteUser(post.getId());
+                        dao_comment.deleteByIdPost(post.getId());
+                        dialog.dismiss();
+                    }
+                });
+                dialogDelete.setPositiveButton("HỦY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog1, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialogDelete.show();
+            }
+        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment_EditPost fragment_editPost = new Fragment_EditPost();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("post", post);
+                fragment_editPost.setArguments(bundle);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_FrameLayout, fragment_editPost)
+                        .addToBackStack(null)
+                        .commit();
+
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     private void toast(String s){

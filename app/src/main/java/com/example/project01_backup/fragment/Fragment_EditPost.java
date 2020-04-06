@@ -20,11 +20,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,7 +30,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.project01_backup.R;
 import com.example.project01_backup.adapter.Adapter_LV_Content;
-import com.example.project01_backup.adapter.Adapter_LV_Content_Edit;
 import com.example.project01_backup.dao.DAO_Content;
 import com.example.project01_backup.dao.DAO_Places;
 import com.example.project01_backup.dao.DAO_Post;
@@ -45,6 +42,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,7 +54,7 @@ import java.util.List;
 public class Fragment_EditPost extends Fragment {
     private View view;
     private EditText etTitle, etAddress, etDescription;
-    private TextView tvUser, tvPubDate, tvCategory;
+    private TextView tvUser, tvPubDate;
     private AutoCompleteTextView acPlace;
     private Spinner spnCategory;
     private FloatingActionButton fabAddContent;
@@ -66,10 +64,12 @@ public class Fragment_EditPost extends Fragment {
     private DAO_Post dao_post;
     private DAO_Content dao_content;
     private DAO_Places dao_places;
-    private Post post;
-    private List<Content> contentList;
+    private Post post, oldPost;
+    private List<Content> listContent;
     private List<String> nameList;
-    private Adapter_LV_Content_Edit adapterContent;
+    private Adapter_LV_Content adapterContent;
+    private String idPost;
+
     public static final int CHOOSE_IMAGE_POST = 2;
     public static final int CHOOSE_IMAGE_CONTENT = 3;
     private int index = -1;
@@ -90,12 +90,14 @@ public class Fragment_EditPost extends Fragment {
     }
 
     private void initView() {
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         dao_post = new DAO_Post(getActivity(), this);
         dao_content = new DAO_Content(getActivity(), this);
         dao_places = new DAO_Places(getActivity(), this);
         post = new Post();
-        contentList = new ArrayList<>();
+        Bundle bundle = getArguments();
+        listContent = new ArrayList<>();
 
         spnCategory = (Spinner) view.findViewById(R.id.fEditPost_spnCategory);
         acPlace = (AutoCompleteTextView) view.findViewById(R.id.fEditPost_acPlace);
@@ -109,11 +111,11 @@ public class Fragment_EditPost extends Fragment {
         imgAvatarUser = (ImageView) view.findViewById(R.id.fEditPost_imgAvatarUser);
         lvContent = (ListView) view.findViewById(R.id.fEditPost_lvContent);
 
+        adapterContent = new Adapter_LV_Content(getActivity(), listContent);
+        lvContent.setAdapter(adapterContent);
         nameList = new ArrayList<>();
         String[] categoryList = {"Ăn Uống", "Chỗ Ở", "Check in", " Trải Nghiệm"};
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, categoryList);
-        final ArrayAdapter<String> adapterPlace = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, nameList);
-        acPlace.setAdapter(adapterPlace);
         spnCategory.setAdapter(adapterSpinner);
         acPlace.setThreshold(1);
 
@@ -123,17 +125,48 @@ public class Fragment_EditPost extends Fragment {
                 nameList.clear();
                 for (Places places : placesList) {
                     nameList.add(places.getName());
-
                 }
-                adapterPlace.notifyDataSetChanged();
+                final ArrayAdapter<String> adapterPlace = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, nameList);
+                acPlace.setAdapter(adapterPlace);
 
             }
         });
+
 
         setPubDate(tvPubDate);
         tvUser.setText(user.getEmail());
         Picasso.get().load(user.getPhotoUrl()).into(imgAvatarUser);
 
+        if (bundle != null) {
+            oldPost = (Post) bundle.getSerializable("post");
+            String category = null;
+            String categoryOldPost = oldPost.getCategory();
+            if (categoryOldPost.equalsIgnoreCase("restaurants")) {
+                category = "Ăn Uống";
+            } else if (categoryOldPost.equalsIgnoreCase("accommodations")) {
+                category = "Chỗ Ở";
+            } else if (categoryOldPost.equalsIgnoreCase("beautiful places")) {
+                category = "Check in";
+            } else if (categoryOldPost.equalsIgnoreCase("journey diary")) {
+                category = "Trải Nghiệm";
+            }
+            idPost = oldPost.getId();
+            int position = adapterSpinner.getPosition(category);
+            acPlace.setText(oldPost.getPlace());
+            spnCategory.setSelection(position);
+            etTitle.setText(oldPost.getTittle());
+            etAddress.setText(oldPost.getAddress());
+            etDescription.setText(oldPost.getDescription());
+            Picasso.get().load(Uri.parse(oldPost.getUrlImage())).into(imgPost);
+        }
+        dao_content.getDataUser(idPost, new FirebaseCallback() {
+            @Override
+            public void contentListUser(List<Content> contentList) {
+                listContent.clear();
+                listContent.addAll(contentList);
+                adapterContent.notifyDataSetChanged();
+            }
+        });
         imgPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,52 +177,28 @@ public class Fragment_EditPost extends Fragment {
             }
         });
 
-        final List<String> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            list.add("content " + i);
-        }
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, list);
-//        lvContent.setAdapter(adapter);
-//        lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                toast(list.get(position));
-//            }
-//        });
-        for (int i = 0; i<10; i++){
-            Content add = new Content();
-            add.setDescription("dấdasdadsadsdsad");
-            contentList.add(add);
-        }
-        adapterContent = new Adapter_LV_Content_Edit(getActivity(),contentList);
-        lvContent.setAdapter(adapterContent);
+        lvContent.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                index = position;
+                dialogLongClick();
+                return true;
+            }
+        });
         lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                toast("dsasdsadsad");
+                Uri uri = Uri.parse(listContent.get(position).getUrlImage());
+                toast(String.valueOf(uri));
             }
         });
-
-//        lvContent.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                index = position;
-//
-//                return true;
-//            }
-//        });
-
-
         fabAddContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogAddContent();
             }
         });
-
-
     }
-
 
     private void dialogAddContent() {
         final Dialog dialog = new Dialog(getActivity());
@@ -238,7 +247,7 @@ public class Fragment_EditPost extends Fragment {
                     toast("Vui lòng thêm mô tả");
                 } else {
                     content.setDescription(etDescription.getText().toString());
-                    contentList.add(content);
+                    listContent.add(content);
                     adapterContent.notifyDataSetChanged();
                     dialog.dismiss();
                 }
@@ -250,12 +259,119 @@ public class Fragment_EditPost extends Fragment {
         dialog.show();
     }
 
+    private void dialogUpdateContent() {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_add_content);
+        content = new Content();
+        final Content update = listContent.get(index);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final EditText etDescription = (EditText) dialog.findViewById(R.id.dAddContent_etDescriptions);
+        imgContent = (ImageView) dialog.findViewById(R.id.dAddContent_imgContent);
+        final ImageView imgChoose = (ImageView) dialog.findViewById(R.id.dAddContent_imgChooseImg);
+        Button btnAdd = (Button) dialog.findViewById(R.id.dAddContent_btnAdd);
+        Button btnClear = (Button) dialog.findViewById(R.id.dAddContent_btnClear);
+        Button btnCancel = (Button) dialog.findViewById(R.id.dAddContent_btnCancel);
+
+        etDescription.setText(update.getDescription());
+
+
+        imgChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select picture"), CHOOSE_IMAGE_CONTENT);
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etDescription.setText("");
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String description = etDescription.getText().toString();
+                if (imgContent.getDrawable() == null) {
+                    toast("Vui lòng chọn hình ảnh");
+
+                } else if (description.isEmpty()) {
+                    toast("Vui lòng thêm mô tả");
+                } else {
+                    content.setDescription(etDescription.getText().toString());
+                    listContent.add(index, content);
+                    listContent.remove(update);
+                    adapterContent.notifyDataSetChanged();
+                    dialog.dismiss();
+                }
+
+            }
+        });
+
+
+        dialog.show();
+    }
+
+    private void dialogLongClick() {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_longclick);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final Content delete = listContent.get(index);
+        Button btnEdit = (Button) dialog.findViewById(R.id.dLongClick_btnEdit);
+        Button btnDelete = (Button) dialog.findViewById(R.id.dLongClick_btnDelete);
+        Button btnCancel = (Button) dialog.findViewById(R.id.dLongClick_btnCancel);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listContent.remove(delete);
+                adapterContent.notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogUpdateContent();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
 
     private void uploadData() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         final String pointToNode;
-        final String categoryNode = tvCategory.getText().toString();
+        final String categoryNode = spnCategory.getSelectedItem().toString();
         final String placeNode = acPlace.getText().toString();
+        post.setId(oldPost.getId());
+        post.setAddress(etAddress.getText().toString());
+        post.setDescription(etDescription.getText().toString());
+        post.setPubDate(tvPubDate.getText().toString());
+        post.setUser(tvUser.getText().toString());
+        post.setTittle(etTitle.getText().toString());
+        post.setLongPubDate(longPubDate());
+        post.setUrlAvatarUser(String.valueOf(user.getPhotoUrl()));
 
         if (categoryNode.equalsIgnoreCase("Ăn Uống")) {
             pointToNode = "restaurants";
@@ -267,9 +383,10 @@ public class Fragment_EditPost extends Fragment {
             pointToNode = "journey diary";
         }
 
-        if (etTitle.getText().toString().isEmpty()) {
-            toast("Vui lòng tạo bài viết");
-        } else if (contentList.size() == 0) {
+        if (etTitle.getText().toString().isEmpty() || etDescription.getText().toString().isEmpty() ||
+                etAddress.getText().toString().isEmpty() || (imgPost.getDrawable() == null)) {
+            toast("Vui lòng chọn hình ảnh cũng như điền đầy đủ thông tin cần thiết");
+        } else if (listContent.size() == 0) {
             dialog.setMessage("Bài viết hiện tại chưa có thông tin mô tả chi tiết," +
                     " bạn thể thêm thông tin hoặc bỏ qua bước này để tiếp tục đăng" +
                     "bài viết.");
@@ -278,7 +395,10 @@ public class Fragment_EditPost extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dao_post.insertAdmin(pointToNode, placeNode, post, imgPost);
+                    dao_content.deleteUser(oldPost.getId());
+                    dao_post.deleteUser(pointToNode, placeNode, oldPost.getId());
                     currentFragment(categoryNode);
+                    toast("Bài viết đang trong trạng thái chờ kiểm duyệt");
                 }
             });
             dialog.setPositiveButton("HUỶ", new DialogInterface.OnClickListener() {
@@ -296,13 +416,17 @@ public class Fragment_EditPost extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dao_post.insertAdmin(pointToNode, placeNode, post, imgPost);
-                    for (int i = 0; i < contentList.size(); i++) {
+                    for (int i = 0; i < listContent.size(); i++) {
                         Content upload = new Content();
-                        Uri uri = contentList.get(i).getUriImage();
-                        upload.setDescription(contentList.get(i).getDescription());
+                        Uri uri = listContent.get(i).getUriImage();
+                        upload.setUrlImage(listContent.get(i).getUrlImage());
+                        upload.setDescription(listContent.get(i).getDescription());
                         dao_content.insertAdmin(post.getId(), upload, uri);
-                        currentFragment(categoryNode);
                     }
+                    currentFragment(categoryNode);
+                    dao_content.deleteUser(oldPost.getId());
+                    dao_post.deleteUser(pointToNode, placeNode, oldPost.getId());
+                    toast("Bài viết đang trong trạng thái chờ kiểm duyệt");
                 }
             });
             dialog.setPositiveButton("HUỶ", new DialogInterface.OnClickListener() {
@@ -340,6 +464,7 @@ public class Fragment_EditPost extends Fragment {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_FrameLayout, fragment)
+                .addToBackStack(null)
                 .commit();
 
     }
@@ -352,9 +477,19 @@ public class Fragment_EditPost extends Fragment {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 
-    private long timeStamp() {
+    private long longPubDate() {
         Calendar calendar = Calendar.getInstance();
         return calendar.getTimeInMillis();
+    }
+
+    private void clearPost() {
+        etTitle.setText("");
+        etAddress.setText("");
+        etDescription.setText("");
+        imgPost.setImageBitmap(null);
+        listContent.clear();
+        acPlace.setText("");
+        adapterContent.notifyDataSetChanged();
     }
 
     @Override
@@ -376,7 +511,7 @@ public class Fragment_EditPost extends Fragment {
                 uploadData();
                 break;
             case R.id.menu_post_clear:
-                toast("clear all");
+                clearPost();
                 break;
         }
 
@@ -389,8 +524,6 @@ public class Fragment_EditPost extends Fragment {
             imgPost.setImageURI(data.getData());
         } else if (requestCode == CHOOSE_IMAGE_CONTENT && data != null) {
             imgContent.setImageURI(data.getData());
-            content.setUriImage(data.getData());
-        } else if (requestCode == 6 && data != null) {
             content.setUriImage(data.getData());
         }
 

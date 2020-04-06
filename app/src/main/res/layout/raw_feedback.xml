@@ -6,7 +6,7 @@
     android:paddingHorizontal="5dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/raw_comment_imgAvatar"
+        android:id="@+id/raw_feedback_imgAvatar"
         app:civ_border_width="1dp"
         app:civ_border_color="#FFFFFF"
         android:layout_width="30dp"
@@ -17,11 +17,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         app:contentPadding="5dp"
-        android:layout_toRightOf="@+id/raw_comment_imgAvatar"
+        android:layout_toRightOf="@+id/raw_feedback_imgAvatar"
         android:backgroundTint="#EBEBEC"
         app:cardCornerRadius="10dp">
         <TextView
-            android:id="@+id/raw_comment_tvEmail"
+            android:id="@+id/raw_feedback_tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -30,7 +30,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/raw_comment_tvPubDate"
+            android:id="@+id/raw_feedback_tvPubDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -41,7 +41,7 @@
             android:textStyle="italic" />
 
         <TextView
-            android:id="@+id/raw_comment_tvComment"
+            android:id="@+id/raw_feedback_tvComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/raw_comment_tvPubDate"
@@ -49,12 +49,7 @@
             android:textSize="15sp"
             android:layout_marginHorizontal="5dp"
             android:hint="Comment 1 2 4 5  6 7" />
-        <ImageView
-            android:id="@+id/raw_comment_imgMore"
-            android:src="@drawable/ic_more_horiz_black_24dp"
-            android:layout_gravity="right|bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+
 
     </androidx.cardview.widget.CardView>
 

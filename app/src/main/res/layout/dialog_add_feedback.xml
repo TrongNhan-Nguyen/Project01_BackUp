@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/dAddFeedback_tvTitle"
+        android:text="@string/feedback"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/dAddFeedback_etFeedback"
+        android:layout_below="@+id/dAddFeedback_tvTitle"
+        android:layout_toLeftOf="@+id/dAddFeedback_imgPost"
+        android:layout_marginRight="5dp"
+        android:hint="góp ý của bạn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:id="@+id/dAddFeedback_imgPost"
+        android:src="@drawable/post"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/dAddFeedback_etFeedback"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+
+</RelativeLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -32,9 +33,6 @@ public class DAO_Post {
     private Context context;
     private Fragment fragment;
     private DatabaseReference dbAdmin, dbUser, dbPost;
-    private String node;
-    private StorageReference storagePost;
-
 
     public DAO_Post(Context context) {
         this.context = context;
@@ -51,7 +49,13 @@ public class DAO_Post {
 
     public void insertAdmin(String categoryNode, String placeNode, final Post post, ImageView imageView){
         dbPost = dbAdmin.child(categoryNode).child(placeNode);
-        final String id = dbPost.push().getKey();
+        final String id;
+        if (post.getId() == null){
+            id = dbPost.push().getKey();
+        }else {
+            id = post.getId();
+        }
+
         final StorageReference storageReference = FirebaseStorage.getInstance()
                 .getReference("Post/" + id);
         post.setId(id);
@@ -192,6 +196,28 @@ public class DAO_Post {
         });
 
     }
+    public void getDataByPlace(String categoryNode, String placeNode, final FirebaseCallback firebaseCallback){
+        final List<Post> postList = new ArrayList<>();
+        dbUser.child(categoryNode).child(placeNode)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        postList.clear();
+                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            Post post = ds.getValue(Post.class);
+                            postList.add(post);
+                        }
+                        firebaseCallback.postListPlace(postList);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
 
     private void toast(String s){
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();

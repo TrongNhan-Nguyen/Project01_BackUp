@@ -57,6 +57,7 @@ public class DAO_Places {
                     placesList.add(places);
                 }
                 firebaseCallback.placesList(placesList);
+
             }
 
             @Override
@@ -66,7 +67,9 @@ public class DAO_Places {
         });
 
     }
-
+    public void test(String s){
+        Toast.makeText(context, "sadasdsadsad", Toast.LENGTH_SHORT).show();
+    }
     private void log(String s){
         Log.d("log",s);
     }

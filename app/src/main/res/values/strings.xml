@@ -15,7 +15,8 @@
         Khu cổng trời: Để đặt chân đến được cổng trời, bạn sẽ được bước qua con đường hoa giấy rực rỡ
         sắc màu, bước trên đường nổi trên hoa,... mang đến những xúc cảm lâng lâng tựa như đang lạc
         bước giữa thiên đường.</string>
-
+    <string name="feedback">Cảm ơn đã sử dụng dịch vụ và đồng hành với chúng tôi, mọi góp ý của bạn sẽ
+    là nguồn động lực để chúng tôi cố gắng phát triển</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
