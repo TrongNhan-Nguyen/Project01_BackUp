@@ -94,7 +94,6 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
         final Dialog dialog = new Dialog(context, android.R.style.Theme_Material_NoActionBar_Fullscreen);
         dialog.setContentView(R.layout.dialog_censorship);
         final Post post = postList.get(index);
-        toast(post.getIdPost());
         TextView tvDone = (TextView) dialog.findViewById(R.id.dCensorship_tvDone);
         TextView tvEmail = (TextView) dialog.findViewById(R.id.dCensorship_tvEmail);
         TextView tvPubDate = (TextView) dialog.findViewById(R.id.dCensorship_tvPubDate);

@@ -65,31 +65,21 @@ public class Adapter_LV_Comment extends BaseAdapter {
         CircleImageView imgAvatar = (CircleImageView) convertView.findViewById(R.id.raw_comment_imgAvatar);
         final ImageView imgMore = (ImageView) convertView.findViewById(R.id.raw_comment_imgMore);
         final Comment comment = commentList.get(position);
-
         tvEmail.setText(comment.getEmailUser());
         tvPubDate.setText(comment.getPubDate());
         tvComment.setText(comment.getContentComment());
         Picasso.get().load(Uri.parse(comment.getUriAvatarUser())).into(imgAvatar);
-        String[] adminList = {"nhan@gmail.com","lam@gmail.com","ngan@gmail.com","hao@gmail.com"};
 
         imgMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 index = position;
-                String admin = currentUser.getEmail();
-                switch (admin){
-                    case "nhan@gmail.com":
-                        popupMenuUser(imgMore);
-
-
-                }
                 if (currentUser!=null){
-                    if (currentUser.getEmail().equalsIgnoreCase("nhan@gmail.com")){
-                        if (comment.getEmailUser().equalsIgnoreCase("nhan@gmail.com")){
-                            popupMenuUser(imgMore);
-                        }else {
-                            popupMenuAdmin(imgMore);
-                        }
+                    if (currentUser.getEmail().equalsIgnoreCase("nhan@gmail.com")||
+                        currentUser.getEmail().equalsIgnoreCase("ngan@gmail.com")||
+                        currentUser.getEmail().equalsIgnoreCase("lam@gmail.com")||
+                        currentUser.getEmail().equalsIgnoreCase("hao@gmail.com")){
+                        popupMenuAdmin(imgMore);
                     }else if (currentUser.getEmail().equalsIgnoreCase(comment.getEmailUser())){
                         popupMenuUser(imgMore);
                     }
