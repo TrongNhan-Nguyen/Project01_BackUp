@@ -47,6 +47,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -57,7 +59,8 @@ public class Fragment_EditPost extends Fragment {
     private AutoCompleteTextView acPlace;
     private Spinner spnCategory;
     private FloatingActionButton fabAddContent;
-    private ImageView imgPost, imgAvatarUser, imgContent;
+    private ImageView imgPost, imgContent;
+    private CircleImageView imgAvatarUser;
     private ListView lvContent;
     private FirebaseUser user;
     private DAO_Post dao_post;
@@ -107,13 +110,13 @@ public class Fragment_EditPost extends Fragment {
         etAddress = (EditText) view.findViewById(R.id.fEditPost_etAddress);
         fabAddContent = (FloatingActionButton) view.findViewById(R.id.fEditPost_fabAddContent);
         imgPost = (ImageView) view.findViewById(R.id.fEditPost_imgPost);
-        imgAvatarUser = (ImageView) view.findViewById(R.id.fEditPost_imgAvatarUser);
+        imgAvatarUser = (CircleImageView) view.findViewById(R.id.fEditPost_imgAvatarUser);
         lvContent = (ListView) view.findViewById(R.id.fEditPost_lvContent);
 
         adapterContent = new Adapter_LV_Content(getActivity(), listContent);
         lvContent.setAdapter(adapterContent);
         nameList = new ArrayList<>();
-        String[] categoryList = {"Ăn Uống", "Chỗ Ở", "Check in", " Trải Nghiệm"};
+        String[] categoryList = {"Restaurants", "Accommodations", "Beautiful Places", "Journey Diary"};
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, categoryList);
         spnCategory.setAdapter(adapterSpinner);
         acPlace.setThreshold(1);
@@ -176,19 +179,11 @@ public class Fragment_EditPost extends Fragment {
             }
         });
 
-        lvContent.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                index = position;
-                dialogLongClick();
-                return true;
-            }
-        });
         lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Uri uri = Uri.parse(listContent.get(position).getUrlImage());
-                toast(String.valueOf(uri));
+                index = position;
+                dialogLongClick();
             }
         });
         fabAddContent.setOnClickListener(new View.OnClickListener() {
@@ -204,14 +199,13 @@ public class Fragment_EditPost extends Fragment {
         dialog.setContentView(R.layout.dialog_add_content);
         content = new Content();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final EditText etDescription = (EditText) dialog.findViewById(R.id.dAddContent_etDescriptions);
+        final EditText dEtDescription = (EditText) dialog.findViewById(R.id.dAddContent_etDescriptions);
         imgContent = (ImageView) dialog.findViewById(R.id.dAddContent_imgContent);
-        final ImageView imgChoose = (ImageView) dialog.findViewById(R.id.dAddContent_imgChooseImg);
         Button btnAdd = (Button) dialog.findViewById(R.id.dAddContent_btnAdd);
         Button btnClear = (Button) dialog.findViewById(R.id.dAddContent_btnClear);
         Button btnCancel = (Button) dialog.findViewById(R.id.dAddContent_btnCancel);
 
-        imgChoose.setOnClickListener(new View.OnClickListener() {
+        imgContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -231,21 +225,22 @@ public class Fragment_EditPost extends Fragment {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toast("clear");
+                dEtDescription.setText("");
+                imgContent.setImageResource(R.drawable.add_image);
             }
         });
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String description = etDescription.getText().toString();
+                String description = dEtDescription.getText().toString();
                 if (imgContent.getDrawable() == null) {
                     toast("Vui lòng chọn hình ảnh");
 
                 } else if (description.isEmpty()) {
                     toast("Vui lòng thêm mô tả");
                 } else {
-                    content.setDescription(etDescription.getText().toString());
+                    content.setDescription(dEtDescription.getText().toString());
                     listContent.add(content);
                     adapterContent.notifyDataSetChanged();
                     dialog.dismiss();
@@ -264,17 +259,16 @@ public class Fragment_EditPost extends Fragment {
         content = new Content();
         final Content update = listContent.get(index);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final EditText etDescription = (EditText) dialog.findViewById(R.id.dAddContent_etDescriptions);
+        final EditText dEtDescription = (EditText) dialog.findViewById(R.id.dAddContent_etDescriptions);
         imgContent = (ImageView) dialog.findViewById(R.id.dAddContent_imgContent);
-        final ImageView imgChoose = (ImageView) dialog.findViewById(R.id.dAddContent_imgChooseImg);
         Button btnAdd = (Button) dialog.findViewById(R.id.dAddContent_btnAdd);
         Button btnClear = (Button) dialog.findViewById(R.id.dAddContent_btnClear);
         Button btnCancel = (Button) dialog.findViewById(R.id.dAddContent_btnCancel);
 
-        etDescription.setText(update.getDescription());
+        dEtDescription.setText(update.getDescription());
 
 
-        imgChoose.setOnClickListener(new View.OnClickListener() {
+        imgContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -294,7 +288,8 @@ public class Fragment_EditPost extends Fragment {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                etDescription.setText("");
+                dEtDescription.setText("");
+                imgContent.setImageResource(R.drawable.add_image);
             }
         });
 
@@ -308,7 +303,7 @@ public class Fragment_EditPost extends Fragment {
                 } else if (description.isEmpty()) {
                     toast("Vui lòng thêm mô tả");
                 } else {
-                    content.setDescription(etDescription.getText().toString());
+                    content.setDescription(dEtDescription.getText().toString());
                     listContent.add(index, content);
                     listContent.remove(update);
                     adapterContent.notifyDataSetChanged();
@@ -360,7 +355,6 @@ public class Fragment_EditPost extends Fragment {
 
     private void uploadData() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        final String pointToNode;
         final String categoryNode = spnCategory.getSelectedItem().toString();
         final String placeNode = acPlace.getText().toString();
         post.setIdPost(oldPost.getIdPost());
@@ -373,15 +367,6 @@ public class Fragment_EditPost extends Fragment {
         post.setUrlAvatarUser(String.valueOf(user.getPhotoUrl()));
         post.setIdUser(user.getUid());
 
-        if (categoryNode.equalsIgnoreCase("Ăn Uống")) {
-            pointToNode = "restaurants";
-        } else if (categoryNode.equalsIgnoreCase("Chỗ Ở")) {
-            pointToNode = "accommodations";
-        } else if (categoryNode.equalsIgnoreCase("Check in")) {
-            pointToNode = "beautiful places";
-        } else {
-            pointToNode = "journey diary";
-        }
 
         if (etTitle.getText().toString().isEmpty() || etDescription.getText().toString().isEmpty() ||
                 etAddress.getText().toString().isEmpty() || (imgPost.getDrawable() == null)) {
@@ -394,9 +379,9 @@ public class Fragment_EditPost extends Fragment {
             dialog.setNegativeButton("ĐĂNG BÀI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dao_post.insertAdmin(pointToNode, placeNode, post, imgPost);
+                    dao_post.insertAdmin(categoryNode, placeNode, post, imgPost);
                     dao_content.deleteUser(oldPost.getIdPost());
-                    dao_post.deleteUser(pointToNode, placeNode, oldPost.getIdPost());
+                    dao_post.deleteUser(categoryNode, placeNode, oldPost.getIdPost());
                     currentFragment(categoryNode);
                     toast("Bài viết đang trong trạng thái chờ kiểm duyệt");
                 }
@@ -415,7 +400,7 @@ public class Fragment_EditPost extends Fragment {
             dialog.setNegativeButton("ĐĂNG BÀI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dao_post.insertAdmin(pointToNode, placeNode, post, imgPost);
+                    dao_post.insertAdmin(categoryNode, placeNode, post, imgPost);
                     for (int i = 0; i < listContent.size(); i++) {
                         Content upload = new Content();
                         Uri uri = listContent.get(i).getUriImage();
@@ -425,7 +410,7 @@ public class Fragment_EditPost extends Fragment {
                     }
                     currentFragment(categoryNode);
                     dao_content.deleteUser(oldPost.getIdPost());
-                    dao_post.deleteUser(pointToNode, placeNode, oldPost.getIdPost());
+                    dao_post.deleteUser(categoryNode, placeNode, oldPost.getIdPost());
                     toast("Bài viết đang trong trạng thái chờ kiểm duyệt");
                 }
             });
@@ -448,14 +433,14 @@ public class Fragment_EditPost extends Fragment {
     }
 
     private void currentFragment(String current) {
-        if (current.equalsIgnoreCase("Ăn Uống")) {
+        if (current.equalsIgnoreCase("Restaurants")) {
             replaceFragment(new Fragment_Restaurant());
-        } else if (current.equalsIgnoreCase("Chỗ Ở")) {
+        } else if (current.equalsIgnoreCase("Accommodations")) {
             replaceFragment(new Fragment_Accommodations());
-        } else if (current.equalsIgnoreCase("Check in")) {
+        } else if (current.equalsIgnoreCase("Beautiful Places")) {
             replaceFragment(new Fragment_BeautifulPlaces());
         } else {
-            replaceFragment(new Fragment_Blog());
+            replaceFragment(new Fragment_JourneyDiary());
         }
 
     }
@@ -467,10 +452,6 @@ public class Fragment_EditPost extends Fragment {
                 .addToBackStack(null)
                 .commit();
 
-    }
-
-    private void log(String s) {
-        Log.d("log", s);
     }
 
     private void toast(String s) {
@@ -486,7 +467,7 @@ public class Fragment_EditPost extends Fragment {
         etTitle.setText("");
         etAddress.setText("");
         etDescription.setText("");
-        imgPost.setImageBitmap(null);
+        imgPost.setImageResource(R.drawable.add_image);
         listContent.clear();
         acPlace.setText("");
         adapterContent.notifyDataSetChanged();

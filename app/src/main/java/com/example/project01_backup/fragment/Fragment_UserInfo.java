@@ -1,8 +1,6 @@
 package com.example.project01_backup.fragment;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -22,8 +20,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.project01_backup.R;
-import com.example.project01_backup.activities.LoginActivity;
-import com.example.project01_backup.activities.RegisterActivity;
 import com.example.project01_backup.dao.DAO_Feedback;
 import com.example.project01_backup.dao.DAO_User;
 import com.example.project01_backup.model.Feedback;
@@ -34,7 +30,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

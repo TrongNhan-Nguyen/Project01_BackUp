@@ -8,15 +8,19 @@
 
     <TextView
         android:id="@+id/fAccommodations_tvTitle"
-        android:text="Chỗ Ở"
+        android:text="Accommodations"
         android:layout_marginTop="3dp"
-        android:textSize="18sp"
+        android:fontFamily="@font/nabila"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <ListView
         android:id="@+id/fAccommodations_lvPost"
+        android:dividerHeight="10dp"
+        android:divider="@color/fui_transparent"
         android:layout_marginTop="3dp"
         android:layout_below="@+id/fAccommodations_tvTitle"
         android:layout_width="match_parent"

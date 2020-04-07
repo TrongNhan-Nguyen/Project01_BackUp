@@ -3,7 +3,7 @@
     <group>
         <item
             android:id="@+id/menu_drawer_Restaurant"
-            android:title="Places to Eat"/>
+            android:title="Restaurants"/>
         <item
             android:id="@+id/menu_drawer_Accommodations"
             android:title="Accommodations"/>

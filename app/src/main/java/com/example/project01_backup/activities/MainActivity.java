@@ -1,7 +1,6 @@
 package com.example.project01_backup.activities;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -21,14 +20,10 @@ import android.widget.Toast;
 import com.example.project01_backup.R;
 import com.example.project01_backup.dao.DAO_Places;
 import com.example.project01_backup.fragment.Fragment_Accommodations;
-import com.example.project01_backup.fragment.Fragment_AddPost;
 import com.example.project01_backup.fragment.Fragment_BeautifulPlaces;
-import com.example.project01_backup.fragment.Fragment_Blog;
-import com.example.project01_backup.fragment.Fragment_EditPost;
-import com.example.project01_backup.fragment.Fragment_Feedback;
+import com.example.project01_backup.fragment.Fragment_JourneyDiary;
 import com.example.project01_backup.fragment.Fragment_Restaurant;
 import com.example.project01_backup.fragment.Fragment_Tab_UserInfo;
-import com.example.project01_backup.fragment.Fragment_UserInfo;
 import com.example.project01_backup.model.Places;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -165,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment(new Fragment_BeautifulPlaces());
                 break;
             case R.id.menu_drawer_Blog:
-                replaceFragment(new Fragment_Blog());
+                replaceFragment(new Fragment_JourneyDiary());
                 break;
             case R.id.menu_drawer_Admin:
                 Intent intent = new Intent(MainActivity.this, AdminActivity.class);
@@ -180,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.menu_drawer_SignOut:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 break;
             case R.id.menu_drawer_About:
                 break;

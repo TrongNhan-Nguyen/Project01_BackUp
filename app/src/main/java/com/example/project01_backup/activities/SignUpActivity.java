@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
@@ -39,11 +40,12 @@ import java.util.Calendar;
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
 
-public class RegisterActivity extends AppCompatActivity {
-    private EditText etDisplayName, etEmail, etPassword;
+public class SignUpActivity extends AppCompatActivity {
+    private EditText etDisplayName, etEmail, etPassword, etConfirmPass;
     private ImageView imgChangeAvatar;
+    private TextView tvSignIn;
     private CircleImageView imgAvatar;
-    private Button btnResister;
+    private Button btnSignUp;
     private StorageReference storageReference;
     private FirebaseAuth mAuth;
     private DAO_User dao_user;
@@ -54,8 +56,8 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        getSupportActionBar().setTitle("REGISTRATION");
+        setContentView(R.layout.activity_sign_up);
+        getSupportActionBar().setTitle("SIGN UP");
         initView();
     }
 
@@ -63,12 +65,21 @@ public class RegisterActivity extends AppCompatActivity {
         dao_user = new DAO_User(this);
         insert = new User();
         mAuth = FirebaseAuth.getInstance();
-        etDisplayName = (EditText) findViewById(R.id.register_etDisplayName);
-        etEmail = (EditText) findViewById(R.id.register_etEmail);
-        etPassword = (EditText) findViewById(R.id.register_etPassword);
-        imgAvatar = (CircleImageView) findViewById(R.id.register_imgAvatar);
-        imgChangeAvatar = (ImageView) findViewById(R.id.register_imgChangeAvatar);
-        btnResister = (Button) findViewById(R.id.register_btnRegister);
+        etDisplayName = (EditText) findViewById(R.id.signUp_etDisplayName);
+        etEmail = (EditText) findViewById(R.id.signUp_etEmail);
+        etPassword = (EditText) findViewById(R.id.signUp_etPassword);
+        etConfirmPass = (EditText) findViewById(R.id.signUp_etConfirmPassword);
+        imgAvatar = (CircleImageView) findViewById(R.id.signUp_imgAvatar);
+        imgChangeAvatar = (ImageView) findViewById(R.id.signUp_imgChangeAvatar);
+        btnSignUp = (Button) findViewById(R.id.signUp_btnRegister);
+        tvSignIn = (TextView) findViewById(R.id.signUp_tvSignIn);
+        tvSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
+            }
+        });
 
         dialog = new SpotsDialog(this);
 
@@ -82,14 +93,17 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        btnResister.setOnClickListener(new View.OnClickListener() {
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String displayName = etDisplayName.getText().toString();
                 String email = etEmail.getText().toString();
                 String pass = etPassword.getText().toString();
-                if (displayName.isEmpty() || email.isEmpty() || pass.isEmpty()){
+                String pass2 = etConfirmPass.getText().toString();
+                if (displayName.isEmpty() || email.isEmpty() || pass.isEmpty() || pass2.isEmpty()){
                     toast("Vui lòng diền đầy đủ thông tin");
+                }else if (!pass2.equals(pass)){
+                    toast("Mật khẩu xác nhận không đúng vui lòng kiểm tra lại");
                 }else {
                     dialog.show();
                     createUser(displayName,email,pass);
@@ -166,7 +180,7 @@ public class RegisterActivity extends AppCompatActivity {
                             dialog.dismiss();
                             toast("Register complete");
                             finish();
-                            startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                            startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
                         }
                     }
                 });

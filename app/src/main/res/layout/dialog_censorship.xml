@@ -127,8 +127,9 @@
 
             <androidx.appcompat.widget.Toolbar
                 app:layout_collapseMode="pin"
+                android:layout_gravity="bottom"
                 android:layout_width="match_parent"
-                android:background="#FFFFFF"
+                android:background="#DDDADA"
                 android:layout_height="20dp"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>

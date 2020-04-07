@@ -70,7 +70,7 @@ public class Fragment_BeautifulPlaces extends Fragment {
         tvTitle = (TextView) view.findViewById(R.id.fBeautifulPlace_tvTitle);
         fbaAdd = (FloatingActionButton) view.findViewById(R.id.fBeautifulPlace_fabAddPost);
         listView = (ListView) view.findViewById(R.id.fBeautifulPlace_lvPost);
-        categoryNode = "beautiful places";
+        categoryNode = "Beautiful Places";
         dao_post.getDataUser(categoryNode, new FirebaseCallback(){
             @Override
             public void postListUser(List<Post> postList) {

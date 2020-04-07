@@ -57,10 +57,12 @@ public class Adapter_LV_PostUser extends BaseAdapter {
         convertView = inflater.inflate(R.layout.raw_post,null);
         TextView tvPubDate = (TextView) convertView.findViewById(R.id.raw_post_tvPubDate);
         TextView tvTitle = (TextView) convertView.findViewById(R.id.raw_post_tvTitle);
+        TextView tvUser = (TextView) convertView.findViewById(R.id.raw_post_tvUser);
         TextView tvAddress = (TextView) convertView.findViewById(R.id.raw_post_tvAddress);
         ImageView imgPost = (ImageView) convertView.findViewById(R.id.raw_post_imgPost);
         CircleImageView imgAvatar = (CircleImageView) convertView.findViewById(R.id.raw_post_imgAvatarUser);
         final Post post = postList.get(position);
+        tvUser.setText(post.getEmailUser());
         tvPubDate.setText(post.getPubDate());
         tvTitle.setText(post.getTittle());
         tvAddress.setText(post.getAddress());

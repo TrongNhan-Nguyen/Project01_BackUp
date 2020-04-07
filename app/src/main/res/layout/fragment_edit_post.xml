@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:paddingHorizontal="5dp"
     android:layout_height="match_parent"
     tools:context=".fragment.Fragment_AddPost">
     <com.google.android.material.appbar.AppBarLayout
@@ -34,11 +35,10 @@
                         <AutoCompleteTextView
                             android:id="@+id/fEditPost_acPlace"
                             android:layout_width="0dp"
-                            android:hint="Tên địa điểm"
+                            android:hint="Places"
                             android:layout_height="wrap_content"
-                            android:layout_weight="6"
+                            android:layout_weight="5"
                             android:textSize="15sp" />
-
 
                         <Spinner
                             android:id="@+id/fEditPost_spnCategory"
@@ -46,17 +46,17 @@
                             android:layout_marginTop="3dp"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:layout_weight="4"
+                            android:layout_weight="5"
                             android:textSize="15sp" />
 
                     </LinearLayout>
 
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fEditPost_imgAvatarUser"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:background="#ff0"
+                        android:src="@drawable/avatar_facebook"
                         android:layout_below="@+id/fEditPost_layoutTitle"
                         android:layout_marginTop="5dp" />
 
@@ -86,8 +86,8 @@
                     <ImageView
                         android:id="@+id/fEditPost_imgPost"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:background="#ff0"
+                        android:layout_height="250dp"
+                        android:src="@drawable/add_image"
                         android:layout_below="@+id/fEditPost_imgAvatarUser"
                         android:layout_marginTop="5dp"
                         android:scaleType="fitXY" />
@@ -95,18 +95,26 @@
                     <EditText
                         android:id="@+id/fEditPost_etTitle"
                         android:layout_width="match_parent"
-                        android:hint="Tiêu Đề"
-                        android:layout_height="wrap_content"
+                        android:hint="Title..."
+                        android:gravity="top"
+                        android:paddingHorizontal="5dp"
+                        android:background="@drawable/border_tv"
+                        android:layout_height="30dp"
                         android:layout_below="@+id/fEditPost_imgPost"
+                        android:paddingVertical="3dp"
                         android:layout_marginTop="3dp"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/fEditPost_etAddress"
-                        android:hint="Địa chỉ"
+                        android:hint="Address..."
+                        android:background="@drawable/border_tv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
+                        android:paddingVertical="3dp"
+                        android:gravity="top"
+                        android:paddingHorizontal="5dp"
                         android:layout_below="@+id/fEditPost_etTitle"
                         android:layout_marginTop="3dp"
                         android:textSize="13sp"
@@ -114,9 +122,13 @@
 
                     <EditText
                         android:id="@+id/fEditPost_etDescription"
-                        android:hint="Mô tả chi tiết"
+                        android:hint="Descriptions..."
+                        android:paddingVertical="3dp"
+                        android:gravity="top"
+                        android:paddingHorizontal="5dp"
+                        android:background="@drawable/border_tv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:layout_below="@+id/fEditPost_etAddress"
                         android:layout_marginTop="3dp"
                         android:textSize="13sp" />
@@ -149,6 +161,8 @@
     <ListView
         android:id="@+id/fEditPost_lvContent"
         android:stackFromBottom="true"
+        android:divider="@color/fui_transparent"
+        android:dividerHeight="10dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

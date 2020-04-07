@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:paddingHorizontal="5dp"
     android:layout_height="match_parent"
     tools:context=".fragment.Fragment_AddPost">
     <com.google.android.material.appbar.AppBarLayout
@@ -30,45 +31,33 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            android:text="Địa Điểm: "
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/fAddPost_tvPlace"
+                        <AutoCompleteTextView
+                            android:id="@+id/fAddPost_acPlace"
                             android:layout_width="0dp"
+                            android:hint="Places"
                             android:layout_height="wrap_content"
-                            android:layout_weight="3"
+                            android:layout_weight="5"
                             android:textSize="15sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            android:text="Thể Loại: "
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/fAddPost_tvCategory"
+                        <Spinner
+                            android:id="@+id/fAddPost_spnCategory"
+                            android:hint="Tên thể loại"
+                            android:layout_marginTop="3dp"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
+                            android:layout_height="40dp"
+                            android:layout_weight="5"
                             android:textSize="15sp" />
 
                     </LinearLayout>
 
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/fAddPost_imgAvatarUser"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:src="@drawable/avatar_facebook"
                         android:layout_below="@+id/fAddPost_layoutTitle"
                         android:layout_marginTop="5dp" />
 
@@ -76,6 +65,7 @@
                         android:id="@+id/fAddPost_tvUser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="Nguyễn Trọng Nhân"
                         android:layout_below="@+id/fAddPost_layoutTitle"
                         android:layout_marginLeft="3dp"
                         android:layout_marginTop="10dp"
@@ -90,40 +80,57 @@
                         android:layout_below="@+id/fAddPost_layoutTitle"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="10dp"
+                        android:text="20/20/2020"
                         android:textSize="12sp"
                         android:textStyle="italic" />
 
                     <ImageView
                         android:id="@+id/fAddPost_imgPost"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/add_image"
                         android:layout_below="@+id/fAddPost_imgAvatarUser"
                         android:layout_marginTop="5dp"
                         android:scaleType="fitXY" />
 
-                    <TextView
-                        android:id="@+id/fAddPost_tvTitle"
+                    <EditText
+                        android:id="@+id/fAddPost_etTitle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:hint="Title..."
+                        android:paddingVertical="3dp"
+                        android:paddingHorizontal="5dp"
+                        android:layout_height="30dp"
+                        android:gravity="top"
+                        android:background="@drawable/border_tv"
                         android:layout_below="@+id/fAddPost_imgPost"
                         android:layout_marginTop="3dp"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/fAddPost_tvAddress"
+                    <EditText
+                        android:id="@+id/fAddPost_etAddress"
+                        android:hint="Address..."
+                        android:paddingVertical="3dp"
+                        android:gravity="top"
+                        android:background="@drawable/border_tv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/fAddPost_tvTitle"
+                        android:paddingHorizontal="5dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/fAddPost_etTitle"
                         android:layout_marginTop="3dp"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/fAddPost_tvDescription"
+                    <EditText
+                        android:id="@+id/fAddPost_etDescription"
+                        android:hint="Descriptions..."
+                        android:gravity="top"
+                        android:paddingVertical="3dp"
+                        android:paddingHorizontal="5dp"
+                        android:background="@drawable/border_tv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/fAddPost_tvAddress"
+                        android:layout_height="70dp"
+                        android:layout_below="@+id/fAddPost_etAddress"
                         android:layout_marginTop="3dp"
                         android:textSize="13sp" />
                 </RelativeLayout>
@@ -133,8 +140,9 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
         <androidx.appcompat.widget.Toolbar
             app:layout_collapseMode="pin"
+            android:layout_gravity="bottom"
             android:layout_width="match_parent"
-            android:background="#FFFFFF"
+            android:background="#DCD9D9"
             android:layout_height="20dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
@@ -143,25 +151,14 @@
 
     <ListView
         android:id="@+id/fAddPost_lvContent"
+        android:dividerHeight="10dp"
+        android:divider="@color/fui_transparent"
         android:stackFromBottom="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fAddPost_layoutContainer"
         android:layout_marginTop="5dp" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fAddPost_fabAddPost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="3dp"
-        android:layout_marginBottom="3dp"
-        android:background="#34A8FF"
-        android:src="@drawable/add_post"
-        app:fabSize="mini" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fAddPost_fabAddContent"
@@ -175,5 +172,6 @@
         android:background="#34A8FF"
         android:src="@drawable/add"
         app:fabSize="mini" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

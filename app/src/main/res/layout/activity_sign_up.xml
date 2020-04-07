@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SignUpActivity">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/signUp_imgAvatar"
+        android:src="@drawable/avatar_facebook"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+    <ImageView
+        android:id="@+id/signUp_imgChangeAvatar"
+        android:src="@drawable/ic_camera_black_24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/signUp_etDisplayName"
+        android:hint="Display Name"
+        android:gravity="center"
+        android:background="@drawable/border_tv"
+        android:layout_marginHorizontal="5dp"
+        android:textSize="14dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/signUp_imgAvatar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+    <EditText
+        android:id="@+id/signUp_etEmail"
+        android:hint="Email"
+        android:background="@drawable/border_tv"
+        android:layout_marginHorizontal="5dp"
+        android:textSize="14dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:layout_below="@+id/signUp_etDisplayName"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <EditText
+        android:id="@+id/signUp_etPassword"
+        android:hint="Password"
+        android:background="@drawable/border_tv"
+        android:layout_marginHorizontal="5dp"
+        android:textSize="14dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:layout_below="@+id/signUp_etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <EditText
+        android:id="@+id/signUp_etConfirmPassword"
+        android:hint="Confirm Password"
+        android:background="@drawable/border_tv"
+        android:layout_marginHorizontal="5dp"
+        android:textSize="14dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:layout_below="@+id/signUp_etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+    <Button
+        android:id="@+id/signUp_btnRegister"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/signUp_etConfirmPassword"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@drawable/background_btn"
+        android:text="Sign Up"/>
+    <TextView
+        android:id="@+id/signUp_tvSignIn"
+        android:layout_alignParentBottom="true"
+        android:text="You have account. Sign in here"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

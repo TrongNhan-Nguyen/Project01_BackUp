@@ -15,8 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
-import com.example.project01_backup.activities.LoginActivity;
-import com.example.project01_backup.activities.MainActivity;
+import com.example.project01_backup.activities.SignInActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -86,7 +85,7 @@ public class Fragment_Admin extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                startActivity(new Intent(getActivity(), SignInActivity.class));
             }
         });
 
@@ -128,14 +127,19 @@ public class Fragment_Admin extends Fragment {
 
     private void reAuth(){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mAuth.signInWithEmailAndPassword(email,pass)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        getActivity().finish();
-                        
-                    }
-                });
+        if (email != null && pass!=null){
+            mAuth.signInWithEmailAndPassword(email,pass)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            getActivity().finish();
+
+                        }
+                    });
+        }else {
+            getActivity().finish();
+        }
+
     }
 
     private void toast(String s){

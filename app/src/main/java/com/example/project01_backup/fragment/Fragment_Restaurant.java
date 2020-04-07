@@ -79,7 +79,7 @@ public class Fragment_Restaurant extends Fragment {
         tvTitle = (TextView) view.findViewById(R.id.fRestaurant_tvTitle);
         fbaAdd = (FloatingActionButton) view.findViewById(R.id.fRestaurant_fabAddPost);
         listView = (ListView) view.findViewById(R.id.fRestaurant_lvPost);
-        categoryNode = "restaurants";
+        categoryNode = "Restaurants";
         dao_post.getDataUser(categoryNode, new FirebaseCallback(){
             @Override
             public void postListUser(List<Post> postList) {

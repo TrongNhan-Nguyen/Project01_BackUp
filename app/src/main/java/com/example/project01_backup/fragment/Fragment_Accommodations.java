@@ -75,7 +75,7 @@ public class Fragment_Accommodations extends Fragment {
         tvTitle = (TextView) view.findViewById(R.id.fAccommodations_tvTitle);
         fbaAdd = (FloatingActionButton) view.findViewById(R.id.fAccommodations_fabAddPost);
         listView = (ListView) view.findViewById(R.id.fAccommodations_lvPost);
-        categoryNode = "accommodations";
+        categoryNode = "Accommodations";
         dao_post.getDataUser(categoryNode, new FirebaseCallback(){
             @Override
             public void postListUser(List<Post> postList) {

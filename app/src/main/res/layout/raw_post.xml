@@ -1,53 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#ECECE9"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:scaleType="fitXY"
-        android:id="@+id/raw_post_imgPost"
-        android:background="#AAECEC"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/raw_post_imgAvatarUser"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_width="20dp"
-        android:layout_height="20dp"/>
-    <TextView
-        android:id="@+id/raw_post_tvPubDate"
-        android:text="28/03/2020"
-        android:textColor="#131313"
-        android:textStyle="italic|bold"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/raw_post_imgAvatarUser"
-        android:textSize="13sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <RelativeLayout
-        android:id="@+id/raw_post_layoutContainer"
-        android:layout_alignBottom="@+id/raw_post_imgPost"
-        android:background="#B2F1F1EF"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="3dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/raw_post_tvTitle"
-            android:layout_marginBottom="3dp"
-            android:text="@string/title"
-            android:textSize="18sp"
-            android:textStyle="bold"
+
+        <RelativeLayout
+            android:background="@color/colorPrimaryDark"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/raw_post_tvAddress"
-            android:layout_marginBottom="3dp"
-            android:text="@string/address"
-            android:layout_below="@+id/raw_post_tvTitle"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/raw_post_layoutHeader"
+                android:layout_width="match_parent"
+                android:layout_marginTop="2dp"
+                android:padding="5dp"
+                android:layout_marginHorizontal="2dp"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/raw_post_imgAvatarUser"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="5dp" />
+
+                <TextView
+                    android:id="@+id/raw_post_tvUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="3dp"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@+id/raw_post_imgAvatarUser"
+                    android:text="Nguyễn Trọng Nhân" />
+
+                <TextView
+                    android:id="@+id/raw_post_tvPubDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:text="28/03/2020"
+                    android:textColor="#131313"
+                    android:textSize="13sp"
+                    android:textStyle="italic|bold" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/raw_post_layoutContainer"
+                android:padding="5dp"
+                android:layout_marginHorizontal="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:layout_below="@+id/raw_post_layoutHeader">
+
+                <TextView
+                    android:id="@+id/raw_post_tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="@string/title"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/raw_post_tvAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/raw_post_tvTitle"
+                    android:layout_marginBottom="3dp"
+                    android:text="@string/address"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/raw_post_imgPost"
+                android:layout_marginBottom="2dp"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="2dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/raw_post_layoutContainer"
+                android:background="#AAECEC"
+                android:scaleType="fitXY" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

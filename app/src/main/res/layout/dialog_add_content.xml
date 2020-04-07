@@ -2,12 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingHorizontal="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
         android:id="@+id/dAddContent_tvTitle"
         android:text="ADD CONTENT"
         android:gravity="center"
         android:textSize="18sp"
+        android:fontFamily="@font/nabila"
         android:layout_marginTop="5dp"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
@@ -18,24 +20,21 @@
         android:scaleType="fitXY"
         android:id="@+id/dAddContent_imgContent"
         android:layout_below="@+id/dAddContent_tvTitle"
-        android:background="#DDDDDB"
+        android:src="@drawable/add_image"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-    <ImageView
-        android:id="@+id/dAddContent_imgChooseImg"
-        android:src="@drawable/ic_camera_black_24dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@+id/dAddContent_imgContent"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        android:layout_height="230dp"/>
     <EditText
         android:id="@+id/dAddContent_etDescriptions"
-        android:hint="Add Description"
-        android:layout_below="@+id/dAddContent_imgChooseImg"
+        android:hint="Add Description..."
+        android:layout_below="@+id/dAddContent_imgContent"
         android:layout_marginTop="3dp"
+        android:paddingHorizontal="5dp"
+        android:gravity="top"
+        android:textSize="13sp"
+        android:background="@drawable/border_tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="80dp"/>
     <LinearLayout
         android:layout_below="@+id/dAddContent_etDescriptions"
         android:layout_marginTop="5dp"

@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment_Blog extends Fragment {
+public class Fragment_JourneyDiary extends Fragment {
     private View view;
     private DAO_Places dao_places;
     private DAO_Post dao_post;
@@ -49,7 +49,7 @@ public class Fragment_Blog extends Fragment {
     private List<Post> listPost;
     private String categoryNode;
 
-    public Fragment_Blog() {
+    public Fragment_JourneyDiary() {
         // Required empty public constructor
     }
 
@@ -70,7 +70,7 @@ public class Fragment_Blog extends Fragment {
         tvTitle = (TextView) view.findViewById(R.id.fBlog_tvTitle);
         fbaAdd = (FloatingActionButton) view.findViewById(R.id.fBlog_fabAddPost);
         listView = (ListView) view.findViewById(R.id.fBlog_lvPost);
-        categoryNode = "journey diary";
+        categoryNode = "Journey Diary";
         dao_post.getDataUser(categoryNode, new FirebaseCallback(){
             @Override
             public void postListUser(List<Post> postList) {
