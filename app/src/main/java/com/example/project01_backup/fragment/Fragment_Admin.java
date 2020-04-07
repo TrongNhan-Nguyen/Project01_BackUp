@@ -86,7 +86,6 @@ public class Fragment_Admin extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-//                finish();
                 startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });

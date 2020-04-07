@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = etEmail.getText().toString();
+                final String email = etEmail.getText().toString();
                 String pass = etPass.getText().toString();
                 if (email.isEmpty() || pass.isEmpty()){
                     toast("Vui lòng điền đầy đủ thông tin");
@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                                         toast("Đăng nhập thành công");
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         intent.putExtra("pass", password);
+                                        intent.putExtra("email", email);
                                         startActivity(intent);
                                         finish();
                                         startActivity(intent);

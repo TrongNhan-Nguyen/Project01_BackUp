@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle toggle;
     private FirebaseUser currentUser;
     private String password;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent getPass = getIntent();
         if (getPass != null) {
             password = getPass.getStringExtra("pass");
+            email = getPass.getStringExtra("email");
         }
         initView();
     }
@@ -166,11 +168,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment(new Fragment_Blog());
                 break;
             case R.id.menu_drawer_Admin:
-                finish();
                 Intent intent = new Intent(MainActivity.this, AdminActivity.class);
                 intent.putExtra("name", currentUser.getDisplayName());
                 intent.putExtra("avatar", String.valueOf(currentUser.getPhotoUrl()));
-                intent.putExtra("email", currentUser.getEmail());
+                intent.putExtra("email", email);
                 intent.putExtra("pass", password);
                 startActivity(intent);
                 break;
