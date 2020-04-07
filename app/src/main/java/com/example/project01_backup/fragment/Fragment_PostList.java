@@ -19,10 +19,8 @@ import com.example.project01_backup.adapter.Adapter_LV_PostUser;
 import com.example.project01_backup.dao.DAO_Comment;
 import com.example.project01_backup.dao.DAO_Content;
 import com.example.project01_backup.dao.DAO_Post;
-import com.example.project01_backup.model.Content;
 import com.example.project01_backup.model.FirebaseCallback;
 import com.example.project01_backup.model.Post;
-import com.example.project01_backup.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -115,9 +113,9 @@ public class Fragment_PostList extends Fragment {
                 dialogDelete.setNegativeButton("XÓA", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
-                        dao_post.deleteUser(post.getCategory(),post.getPlace(),post.getId());
-                        dao_content.deleteUser(post.getId());
-                        dao_comment.deleteByIdPost(post.getId());
+                        dao_post.deleteUser(post.getCategory(),post.getPlace(),post.getIdPost());
+                        dao_content.deleteUser(post.getIdPost());
+                        dao_comment.deleteByIdPost(post.getIdPost());
                         dialog.dismiss();
                     }
                 });

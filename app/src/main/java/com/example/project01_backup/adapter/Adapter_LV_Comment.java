@@ -70,11 +70,19 @@ public class Adapter_LV_Comment extends BaseAdapter {
         tvPubDate.setText(comment.getPubDate());
         tvComment.setText(comment.getContentComment());
         Picasso.get().load(Uri.parse(comment.getUriAvatarUser())).into(imgAvatar);
+        String[] adminList = {"nhan@gmail.com","lam@gmail.com","ngan@gmail.com","hao@gmail.com"};
 
         imgMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 index = position;
+                String admin = currentUser.getEmail();
+                switch (admin){
+                    case "nhan@gmail.com":
+                        popupMenuUser(imgMore);
+
+
+                }
                 if (currentUser!=null){
                     if (currentUser.getEmail().equalsIgnoreCase("nhan@gmail.com")){
                         if (comment.getEmailUser().equalsIgnoreCase("nhan@gmail.com")){

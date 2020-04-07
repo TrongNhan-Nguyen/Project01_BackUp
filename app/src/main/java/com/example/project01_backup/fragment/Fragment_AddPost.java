@@ -109,7 +109,7 @@ public class Fragment_AddPost extends Fragment {
         imgAvatarUser = (ImageView) view.findViewById(R.id.fAddPost_imgAvatarUser);
         lvContent = (ListView) view.findViewById(R.id.fAddPost_lvContent);
 
-//        fabAddContent.setVisibility(View.GONE);
+        fabAddContent.setVisibility(View.GONE);
         setPubDate(tvPubDate);
         tvUser.setText(user.getEmail());
         Picasso.get().load(user.getPhotoUrl()).into(imgAvatarUser);
@@ -244,10 +244,11 @@ public class Fragment_AddPost extends Fragment {
                     post.setAddress(address);
                     post.setDescription(description);
                     post.setPubDate(date);
-                    post.setUser(mailUser);
+                    post.setEmailUser(mailUser);
                     post.setTittle(title);
                     post.setLongPubDate(timeStamp());
                     post.setUrlAvatarUser(String.valueOf(user.getPhotoUrl()));
+                    post.setIdUser(user.getUid());
                     dialog.dismiss();
                 }
             }
@@ -366,8 +367,6 @@ public class Fragment_AddPost extends Fragment {
                 }else if (description.isEmpty()){
                     toast("Vui lòng thêm mô tả");
                 }else {
-//                    content.setDescription(etDescription.getText().toString());
-//                    contentList.add(content);
                     content.setDescription(etDescription.getText().toString());
                     adapterContent = new Adapter_LV_Content(getActivity(),contentList);
                     lvContent.setAdapter(adapterContent);
@@ -444,6 +443,7 @@ public class Fragment_AddPost extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dao_post.insertAdmin(pointToNode,placeNode,post, imgPost);
+                    toast("Bài viết đang trong trạng thái chờ kiểm duyệt!");
                     currentFragment(categoryNode);
                 }
             });
@@ -466,8 +466,9 @@ public class Fragment_AddPost extends Fragment {
                         Content upload = new Content();
                         Uri uri = contentList.get(i).getUriImage();
                         upload.setDescription(contentList.get(i).getDescription());
-                        dao_content.insertAdmin(post.getId(),upload,uri);
+                        dao_content.insertAdmin(post.getIdPost(),upload,uri);
                     }
+                    toast("Bài viết đang trong trạng thái chờ kiểm duyệt!");
                     currentFragment(categoryNode);
                 }
             });

@@ -3,24 +3,24 @@ package com.example.project01_backup.model;
 import java.io.Serializable;
 
 public class Post implements Serializable {
-    private String id, user, urlImage,urlAvatarUser , tittle, address, description, pubDate;
-    private String place, category;
+    private String idPost, idUser ,emailUser, urlImage,urlAvatarUser;
+    private String place, category, tittle, address, description, pubDate;
     private long longPubDate;
 
-    public String getId() {
-        return id;
+    public String getIdPost() {
+        return idPost;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdPost(String idPost) {
+        this.idPost = idPost;
     }
 
-    public String getUser() {
-        return user;
+    public String getEmailUser() {
+        return emailUser;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setEmailUser(String emailUser) {
+        this.emailUser = emailUser;
     }
 
     public String getUrlImage() {
@@ -93,5 +93,13 @@ public class Post implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 }

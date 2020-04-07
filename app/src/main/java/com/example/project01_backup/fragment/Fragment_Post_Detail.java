@@ -104,7 +104,7 @@ public class Fragment_Post_Detail extends Fragment {
             }
         });
 
-        String email = post.getUser();
+        String email = post.getEmailUser();
         String pubDate = post.getPubDate();
         String title = post.getTittle();
         String address = post.getAddress();
@@ -127,7 +127,7 @@ public class Fragment_Post_Detail extends Fragment {
         dialog.setContentView(R.layout.dialog_content_post);
         TextView tvDone = (TextView) dialog.findViewById(R.id.dContentPost_tvDone);
         final ListView listView = (ListView) dialog.findViewById(R.id.dContentPost_lvContent);
-        dao_content.getDataUser(post.getId(), new FirebaseCallback() {
+        dao_content.getDataUser(post.getIdPost(), new FirebaseCallback() {
             @Override
             public void contentListUser(List<Content> contentList) {
                 adapterContent = new Adapter_LV_Content(getActivity(), contentList);
@@ -182,13 +182,13 @@ public class Fragment_Post_Detail extends Fragment {
                     toast("Vui lòng viết bình luận");
                 }else {
                     comment.setContentComment(contentCmt);
-                    dao_comment.insert(post.getId(),comment);
+                    dao_comment.insert(post.getIdPost(),comment);
                     etComment.setText("");
                 }
             }
         });
 
-        dao_comment.getData(post.getId(), new FirebaseCallback(){
+        dao_comment.getData(post.getIdPost(), new FirebaseCallback(){
             @Override
             public void commentList(List<Comment> commentList) {
                 adapterComment = new Adapter_LV_Comment(getActivity(),commentList);

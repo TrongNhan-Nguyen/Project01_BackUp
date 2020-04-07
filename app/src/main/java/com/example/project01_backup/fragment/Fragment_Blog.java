@@ -128,7 +128,7 @@ public class Fragment_Blog extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search_places, menu);
         MenuItem search = menu.findItem(R.id.menu_search_places);
-        SearchView searchView = (SearchView) search.getActionView();
+        final SearchView searchView = (SearchView) search.getActionView();
         searchView.setQueryHint("Vui lòng nhập tên địa điểm");
         final SearchView.SearchAutoComplete autoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         autoComplete.setBackgroundColor(Color.BLUE);
@@ -159,6 +159,22 @@ public class Fragment_Blog extends Fragment {
                         });
                     }
                 });
+            }
+        });
+
+        MenuItem refresh = menu.findItem(R.id.menu_search_refresh);
+        refresh.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                dao_post.getDataUser(categoryNode, new FirebaseCallback(){
+                    @Override
+                    public void postListUser(List<Post> postList) {
+                        adapterPost = new Adapter_LV_PostUser(getActivity(),postList);
+                        listView.setAdapter(adapterPost);
+                        tvTitle.setText(categoryNode);
+                    }
+                });
+                return false;
             }
         });
 

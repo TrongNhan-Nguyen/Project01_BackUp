@@ -145,42 +145,57 @@ public class Fragment_Restaurant extends Fragment {
     @SuppressLint("RestrictedApi")
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_search_places, menu);
+        inflater.inflate(R.menu.menu_search_places,menu);
         MenuItem search = menu.findItem(R.id.menu_search_places);
-        SearchView searchView = (SearchView) search.getActionView();
+        final SearchView searchView = (SearchView) search.getActionView();
         searchView.setQueryHint("Vui lòng nhập tên địa điểm");
         final SearchView.SearchAutoComplete autoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         autoComplete.setBackgroundColor(Color.BLUE);
         autoComplete.setTextColor(Color.GREEN);
         autoComplete.setDropDownBackgroundResource(android.R.color.holo_blue_light);
         autoComplete.setThreshold(1);
-        final ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, placeNames);
-        autoComplete.setAdapter(nameAdapter);
-        dao_places.getData(new FirebaseCallback() {
+        dao_places.getData(new FirebaseCallback(){
             @Override
             public void placesList(final List<Places> placesList) {
                 placeNames.clear();
-                for (Places places : placesList) {
+                for (Places places : placesList){
                     placeNames.add(places.getName());
+                    ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, placeNames);
+                    autoComplete.setAdapter(newsAdapter);
                 }
-                nameAdapter.notifyDataSetChanged();
+                autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
+                        String placeNode =(String)adapterView.getItemAtPosition(itemIndex);
+                        autoComplete.setText(placeNode);
+                        tvTitle.setText(placeNode);
+                        dao_post.getDataByPlace(categoryNode,placeNode, new FirebaseCallback(){
+                            @Override
+                            public void postListPlace(List<Post> postList) {
+                                adapterPost = new Adapter_LV_PostUser(getActivity(),postList);
+                                listView.setAdapter(adapterPost);
+                                searchView.onActionViewCollapsed();
+                            }
+                        });
+
+                    }
+                });
 
             }
         });
-
-        autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        MenuItem refresh = menu.findItem(R.id.menu_search_refresh);
+        refresh.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
-                String placeNode = (String) adapterView.getItemAtPosition(itemIndex);
-                autoComplete.setText(placeNode);
-                tvTitle.setText(placeNode);
-                dao_post.getDataByPlace(categoryNode,placeNode, new FirebaseCallback(){
+            public boolean onMenuItemClick(MenuItem item) {
+                dao_post.getDataUser(categoryNode, new FirebaseCallback(){
                     @Override
-                    public void postListPlace(List<Post> postList) {
+                    public void postListUser(List<Post> postList) {
                         adapterPost = new Adapter_LV_PostUser(getActivity(),postList);
                         listView.setAdapter(adapterPost);
+                        tvTitle.setText(categoryNode);
                     }
                 });
+                return false;
             }
         });
 

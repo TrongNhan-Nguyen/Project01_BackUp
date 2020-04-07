@@ -42,7 +42,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -150,7 +149,7 @@ public class Fragment_EditPost extends Fragment {
             } else if (categoryOldPost.equalsIgnoreCase("journey diary")) {
                 category = "Trải Nghiệm";
             }
-            idPost = oldPost.getId();
+            idPost = oldPost.getIdPost();
             int position = adapterSpinner.getPosition(category);
             acPlace.setText(oldPost.getPlace());
             spnCategory.setSelection(position);
@@ -364,14 +363,15 @@ public class Fragment_EditPost extends Fragment {
         final String pointToNode;
         final String categoryNode = spnCategory.getSelectedItem().toString();
         final String placeNode = acPlace.getText().toString();
-        post.setId(oldPost.getId());
+        post.setIdPost(oldPost.getIdPost());
         post.setAddress(etAddress.getText().toString());
         post.setDescription(etDescription.getText().toString());
         post.setPubDate(tvPubDate.getText().toString());
-        post.setUser(tvUser.getText().toString());
+        post.setEmailUser(tvUser.getText().toString());
         post.setTittle(etTitle.getText().toString());
         post.setLongPubDate(longPubDate());
         post.setUrlAvatarUser(String.valueOf(user.getPhotoUrl()));
+        post.setIdUser(user.getUid());
 
         if (categoryNode.equalsIgnoreCase("Ăn Uống")) {
             pointToNode = "restaurants";
@@ -395,8 +395,8 @@ public class Fragment_EditPost extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dao_post.insertAdmin(pointToNode, placeNode, post, imgPost);
-                    dao_content.deleteUser(oldPost.getId());
-                    dao_post.deleteUser(pointToNode, placeNode, oldPost.getId());
+                    dao_content.deleteUser(oldPost.getIdPost());
+                    dao_post.deleteUser(pointToNode, placeNode, oldPost.getIdPost());
                     currentFragment(categoryNode);
                     toast("Bài viết đang trong trạng thái chờ kiểm duyệt");
                 }
@@ -421,11 +421,11 @@ public class Fragment_EditPost extends Fragment {
                         Uri uri = listContent.get(i).getUriImage();
                         upload.setUrlImage(listContent.get(i).getUrlImage());
                         upload.setDescription(listContent.get(i).getDescription());
-                        dao_content.insertAdmin(post.getId(), upload, uri);
+                        dao_content.insertAdmin(post.getIdPost(), upload, uri);
                     }
                     currentFragment(categoryNode);
-                    dao_content.deleteUser(oldPost.getId());
-                    dao_post.deleteUser(pointToNode, placeNode, oldPost.getId());
+                    dao_content.deleteUser(oldPost.getIdPost());
+                    dao_post.deleteUser(pointToNode, placeNode, oldPost.getIdPost());
                     toast("Bài viết đang trong trạng thái chờ kiểm duyệt");
                 }
             });

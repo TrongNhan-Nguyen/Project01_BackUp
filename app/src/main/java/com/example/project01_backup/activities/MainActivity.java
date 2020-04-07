@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
+import com.example.project01_backup.dao.DAO_Places;
 import com.example.project01_backup.fragment.Fragment_Accommodations;
 import com.example.project01_backup.fragment.Fragment_AddPost;
 import com.example.project01_backup.fragment.Fragment_BeautifulPlaces;
@@ -28,6 +29,7 @@ import com.example.project01_backup.fragment.Fragment_Feedback;
 import com.example.project01_backup.fragment.Fragment_Restaurant;
 import com.example.project01_backup.fragment.Fragment_Tab_UserInfo;
 import com.example.project01_backup.fragment.Fragment_UserInfo;
+import com.example.project01_backup.model.Places;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -86,7 +88,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             tvEmail.setText(currentUser.getEmail());
         }
     }
-
+    private void insertPlaces(){
+        DAO_Places dao_places = new DAO_Places(this);
+        String[] placeList = {"Da Lat","Sapa","Dong Nai","Can Tho", "Vung Tau","Quy Nhon","Da Nang",
+                            "Ca Mau", "TP.HCM", "Ha Noi","Long An","Dong Nai"};
+        for (int i =0; i<placeList.length; i++){
+            Places places = new Places();
+            places.setName(placeList[i]);
+            dao_places.insert(places);
+        }
+    }
     private void runtimePermission() {
         Dexter.withActivity(this)
                 .withPermissions(

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,7 +25,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class DAO_Post {
@@ -50,15 +48,15 @@ public class DAO_Post {
     public void insertAdmin(String categoryNode, String placeNode, final Post post, ImageView imageView){
         dbPost = dbAdmin.child(categoryNode).child(placeNode);
         final String id;
-        if (post.getId() == null){
+        if (post.getIdPost() == null){
             id = dbPost.push().getKey();
         }else {
-            id = post.getId();
+            id = post.getIdPost();
         }
 
         final StorageReference storageReference = FirebaseStorage.getInstance()
                 .getReference("Post/" + id);
-        post.setId(id);
+        post.setIdPost(id);
         post.setPlace(placeNode);
         post.setCategory(categoryNode);
         imageView.setDrawingCacheEnabled(true);
@@ -87,10 +85,10 @@ public class DAO_Post {
     }
     public void insertUser(final Post post, ImageView imageView){
         dbPost = dbUser.child(post.getCategory()).child(post.getPlace());
-        final String id = post.getId();
+        final String id = post.getIdPost();
         final StorageReference storageReference = FirebaseStorage.getInstance()
                 .getReference("Post/" + id);
-        post.setId(id);
+        post.setIdPost(id);
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
@@ -180,7 +178,7 @@ public class DAO_Post {
                     for (DataSnapshot ds1 : ds.getChildren()){
                         for (DataSnapshot ds2 : ds1.getChildren()){
                             Post post = ds2.getValue(Post.class);
-                            if (post.getUser().equalsIgnoreCase(email)){
+                            if (post.getEmailUser().equalsIgnoreCase(email)){
                                 postList.add(post);
                             }
                         }

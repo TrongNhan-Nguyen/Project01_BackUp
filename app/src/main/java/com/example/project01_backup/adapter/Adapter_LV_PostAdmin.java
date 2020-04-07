@@ -5,11 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -17,19 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
-import com.example.project01_backup.activities.AdminActivity;
-import com.example.project01_backup.activities.MainActivity;
 import com.example.project01_backup.dao.DAO_Content;
 import com.example.project01_backup.dao.DAO_Post;
-import com.example.project01_backup.fragment.Fragment_Censorship;
-import com.example.project01_backup.fragment.Fragment_Post_Detail;
 import com.example.project01_backup.model.Content;
 import com.example.project01_backup.model.FirebaseCallback;
 import com.example.project01_backup.model.Post;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -117,7 +107,7 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
         final ListView lvContent = (ListView) dialog.findViewById(R.id.dCensorship_lvContent);
         final List<Content> listContent = new ArrayList<>();
 
-        tvEmail.setText(post.getUser());
+        tvEmail.setText(post.getEmailUser());
         tvPubDate.setText(post.getPubDate());
         tvTitle.setText(post.getTittle());
         tvAddress.setText(post.getAddress());
@@ -141,10 +131,10 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
                     public void onClick(DialogInterface dialog1, int which) {
                         dao_post.insertUser(post,imgPost);
                         for (Content content : listContent){
-                            dao_content.insertUser(post.getId(),content);
+                            dao_content.insertUser(post.getIdPost(),content);
                         }
-                        dao_post.deleteAdmin(post.getCategory(), post.getPlace(), post.getId());
-                        dao_content.deleteAdmin(post.getId());
+                        dao_post.deleteAdmin(post.getCategory(), post.getPlace(), post.getIdPost());
+                        dao_content.deleteAdmin(post.getIdPost());
                         dialog.dismiss();
 
 
@@ -168,8 +158,8 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
                 dialogDelete.setNegativeButton("XÓA", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
-                        dao_post.deleteAdmin(post.getCategory(), post.getPlace(), post.getId());
-                        dao_content.deleteAdmin(post.getId());
+                        dao_post.deleteAdmin(post.getCategory(), post.getPlace(), post.getIdPost());
+                        dao_content.deleteAdmin(post.getIdPost());
                         dialog.dismiss();
                     }
                 });
@@ -185,7 +175,7 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
             }
         });
 
-        dao_content.getDataAdmin(post.getId(),new FirebaseCallback(){
+        dao_content.getDataAdmin(post.getIdPost(),new FirebaseCallback(){
             @Override
             public void contentListAdmin(List<Content> contentList) {
                 for (Content content : contentList){

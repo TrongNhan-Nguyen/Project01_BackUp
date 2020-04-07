@@ -84,9 +84,9 @@ public class Fragment_PostListAdmin extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Post post = listPost.get(position);
-                        dao_post.deleteUser(post.getCategory(),post.getPlace(),post.getId());
-                        dao_content.deleteUser(post.getId());
-                        dao_comment.deleteByIdPost(post.getId());
+                        dao_post.deleteUser(post.getCategory(),post.getPlace(),post.getIdPost());
+                        dao_content.deleteUser(post.getIdPost());
+                        dao_comment.deleteByIdPost(post.getIdPost());
                     }
                 });
                 dialog.setPositiveButton("HỦY", new DialogInterface.OnClickListener() {

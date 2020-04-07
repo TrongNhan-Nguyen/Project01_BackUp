@@ -7,4 +7,9 @@
         android:icon="@drawable/search"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+    <item
+        android:id="@+id/menu_search_refresh"
+        android:title="Refresh"
+        android:icon="@drawable/ic_refresh_black_24dp"
+        app:showAsAction="always"/>
 </menu>
