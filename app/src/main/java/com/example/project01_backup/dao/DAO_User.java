@@ -1,6 +1,7 @@
 package com.example.project01_backup.dao;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -66,6 +67,26 @@ public class DAO_User {
                     if (user.getType().equalsIgnoreCase("User")){
                         userList.add(user);
                     }
+                }
+                firebaseCallback.userList(userList);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void getAllData(final FirebaseCallback firebaseCallback) {
+        final List<User> userList = new ArrayList<>();
+        dbUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userList.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    User user = ds.getValue(User.class);
+                    userList.add(user);
                 }
                 firebaseCallback.userList(userList);
             }

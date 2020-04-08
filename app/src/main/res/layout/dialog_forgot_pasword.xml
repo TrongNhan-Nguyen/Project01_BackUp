@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent">
+    
+    <TextView
+        android:text="Need help with your password?"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="Enter the email you use for this app, and we'll help you find your password"
+        android:gravity="center"
+        android:textSize="13sp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/dForgot_etEmail"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border_tv"
+        android:hint="Enter your email"
+        android:paddingHorizontal="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <EditText
+        android:id="@+id/dForgot_etPass"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border_tv"
+        android:hint="***********"
+        android:paddingHorizontal="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <Button
+        android:id="@+id/dForgot_btnNext"
+        android:text="NEXT"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/background_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/dForgot_btnCancel"
+        android:text="cancel"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/background_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
