@@ -229,7 +229,4 @@ public class Fragment_Post_Detail extends Fragment {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 
-    private void log(String s) {
-        Log.d("log", s);
-    }
 }

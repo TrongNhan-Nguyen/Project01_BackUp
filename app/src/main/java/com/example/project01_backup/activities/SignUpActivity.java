@@ -101,9 +101,9 @@ public class SignUpActivity extends AppCompatActivity {
                 String pass = etPassword.getText().toString();
                 String pass2 = etConfirmPass.getText().toString();
                 if (displayName.isEmpty() || email.isEmpty() || pass.isEmpty() || pass2.isEmpty()){
-                    toast("Vui lòng diền đầy đủ thông tin");
+                    toast("Please, fill up the form");
                 }else if (!pass2.equals(pass)){
-                    toast("Mật khẩu xác nhận không đúng vui lòng kiểm tra lại");
+                    toast("Password confirmation doesn't match Password");
                 }else {
                     dialog.show();
                     createUser(displayName,email,pass);
@@ -150,7 +150,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                         }else {
-                            toast("Lỗi");
+                            toast("Error!");
                             dialog.dismiss();
                         }
                     }
@@ -178,7 +178,7 @@ public class SignUpActivity extends AppCompatActivity {
                             insert.setLongCreated(longCreated());
                             dao_user.insert(insert);
                             dialog.dismiss();
-                            toast("Register complete");
+                            toast("Sign up successful");
                             finish();
                             startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
                         }
@@ -187,9 +187,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private void log(String s){
-        Log.d("log",s);
-    }
     private void toast(String s){
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }

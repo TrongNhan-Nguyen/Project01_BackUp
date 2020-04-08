@@ -127,8 +127,8 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dialogCensorship = new AlertDialog.Builder(context);
-                dialogCensorship.setMessage("Cho phép thị bài viết này cùng các nội dung liên quan!");
-                dialogCensorship.setNegativeButton("CHO PHÉP", new DialogInterface.OnClickListener() {
+                dialogCensorship.setMessage("Allow users to access this article!");
+                dialogCensorship.setNegativeButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
                         dao_post.insertUser(post,imgPost);
@@ -142,7 +142,7 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
 
                     }
                 });
-                dialogCensorship.setPositiveButton("HỦY", new DialogInterface.OnClickListener() {
+                dialogCensorship.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
 
@@ -156,8 +156,8 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dialogDelete = new AlertDialog.Builder(context);
-                dialogDelete.setMessage("Xóa bài viết này cùng các nội dung liên quan!");
-                dialogDelete.setNegativeButton("XÓA", new DialogInterface.OnClickListener() {
+                dialogDelete.setMessage("Delete an article?");
+                dialogDelete.setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
                         dao_post.deleteAdmin(post.getCategory(), post.getPlace(), post.getIdPost());
@@ -166,7 +166,7 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
                     }
                 });
 
-                dialogDelete.setPositiveButton("HỦY", new DialogInterface.OnClickListener() {
+                dialogDelete.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

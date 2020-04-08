@@ -208,10 +208,10 @@ public class Fragment_AddPost extends Fragment {
             public void onClick(View v) {
                 String description = dEtDescription.getText().toString();
                 if (imgContent.getDrawable() == null) {
-                    toast("Vui lòng chọn hình ảnh");
+                    toast("Please, choose a picture");
 
                 } else if (description.isEmpty()) {
-                    toast("Vui lòng thêm mô tả");
+                    toast("Please, add a description");
                 } else {
                     content.setDescription(dEtDescription.getText().toString());
                     contentList.add(content);
@@ -272,10 +272,10 @@ public class Fragment_AddPost extends Fragment {
             public void onClick(View v) {
                 String description = dEtDescription.getText().toString();
                 if (imgContent.getDrawable() == null) {
-                    toast("Vui lòng chọn hình ảnh");
+                    toast("Please, choose a picture");
 
                 } else if (description.isEmpty()) {
-                    toast("Vui lòng thêm mô tả");
+                    toast("Please, add a description");
                 } else {
                     content.setDescription(dEtDescription.getText().toString());
                     adapterContent = new Adapter_LV_Content(getActivity(), contentList);
@@ -336,7 +336,7 @@ public class Fragment_AddPost extends Fragment {
         post.setPubDate(tvPubDate.getText().toString());
         post.setEmailUser(tvUser.getText().toString());
         post.setTittle(etTitle.getText().toString());
-        post.setLongPubDate(timeStamp());
+        post.setLongPubDate(longPubDate());
         post.setUrlAvatarUser(String.valueOf(user.getPhotoUrl()));
         post.setIdUser(user.getUid());
         if (etTitle.getText().toString().isEmpty() ||
@@ -344,21 +344,19 @@ public class Fragment_AddPost extends Fragment {
                 etDescription.getText().toString().isEmpty() ||
                 etAddress.getText().toString().isEmpty() ||
                 imgPost.getDrawable() == null) {
-            toast("Vui lòng thêm hình hoặc điền đầy đủ các thông tin cần thiết");
+            toast("Please, fill up the form");
         } else if (contentList.size() == 0) {
-            dialog.setMessage("Bài viết hiện tại chưa có thông tin mô tả chi tiết," +
-                    " bạn thể thêm thông tin hoặc bỏ qua bước này để tiếp tục đăng" +
-                    "bài viết.");
+            dialog.setMessage("The article has no detailed description. Still submit?");
 
-            dialog.setNegativeButton("ĐĂNG BÀI", new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton("SUBMIT", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dao_post.insertAdmin(categoryNode, placeNode, post, imgPost);
-                    toast("Bài viết đang trong trạng thái chờ kiểm duyệt!");
+                    toast("Pending moderation!");
                     currentFragment(categoryNode);
                 }
             });
-            dialog.setPositiveButton("HUỶ", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -366,10 +364,9 @@ public class Fragment_AddPost extends Fragment {
             });
             dialog.show();
         } else {
-            dialog.setMessage("Vui lòng kiểm tra lại toàn bộ thông tin trước khi đăng" +
-                    " bài viết");
+            dialog.setTitle("Submit an Article?");
 
-            dialog.setNegativeButton("ĐĂNG BÀI", new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton("SUBMIT", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dao_post.insertAdmin(categoryNode, placeNode, post, imgPost);
@@ -379,11 +376,11 @@ public class Fragment_AddPost extends Fragment {
                         upload.setDescription(contentList.get(i).getDescription());
                         dao_content.insertAdmin(post.getIdPost(), upload, uri);
                     }
-                    toast("Bài viết đang trong trạng thái chờ kiểm duyệt!");
+                    toast("Pending moderation!");
                     currentFragment(categoryNode);
                 }
             });
-            dialog.setPositiveButton("HUỶ", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -422,15 +419,12 @@ public class Fragment_AddPost extends Fragment {
 
     }
 
-    private void log(String s) {
-        Log.d("log", s);
-    }
 
     private void toast(String s) {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 
-    private long timeStamp() {
+    private long longPubDate() {
         Calendar calendar = Calendar.getInstance();
         return calendar.getTimeInMillis();
     }

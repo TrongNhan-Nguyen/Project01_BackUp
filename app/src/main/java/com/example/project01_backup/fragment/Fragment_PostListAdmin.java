@@ -87,8 +87,8 @@ public class Fragment_PostListAdmin extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                dialog.setMessage("Bạn có muốn xóa bài viết này cùng toàn bộ nội dung liên quan");
-                dialog.setNegativeButton("XÓA", new DialogInterface.OnClickListener() {
+                dialog.setMessage("Delete an article");
+                dialog.setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Post post = listPost.get(position);
@@ -97,7 +97,7 @@ public class Fragment_PostListAdmin extends Fragment {
                         dao_comment.deleteByIdPost(post.getIdPost());
                     }
                 });
-                dialog.setPositiveButton("HỦY", new DialogInterface.OnClickListener() {
+                dialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

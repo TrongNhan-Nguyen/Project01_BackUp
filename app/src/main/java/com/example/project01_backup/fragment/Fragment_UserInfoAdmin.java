@@ -110,9 +110,8 @@ public class Fragment_UserInfoAdmin extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                dialog.setMessage("Tài khoản sau khi xóa sẽ mất toàn quyền truy cập thông tin cá nhân" +
-                        " cũng như các tính năng khác!!");
-                dialog.setNegativeButton("XÓA", new DialogInterface.OnClickListener() {
+                dialog.setMessage("Delete account!");
+                dialog.setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         spotDialog.show();
@@ -132,7 +131,7 @@ public class Fragment_UserInfoAdmin extends Fragment {
                                                         .replace(R.id.admin_FrameLayout, new Fragment_UserList())
                                                         .commit();
                                                 spotDialog.dismiss();
-                                                toast("Đã xóa tài khoản");
+                                                toast("Account was deleted");
                                             }
                                         });
                                     }
@@ -141,7 +140,7 @@ public class Fragment_UserInfoAdmin extends Fragment {
                                 });
                     }
                 });
-                dialog.setPositiveButton("HỦY", new DialogInterface.OnClickListener() {
+                dialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

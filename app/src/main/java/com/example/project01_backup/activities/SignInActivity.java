@@ -65,7 +65,7 @@ public class SignInActivity extends AppCompatActivity {
                 final String email = etEmail.getText().toString();
                 String pass = etPass.getText().toString();
                 if (email.isEmpty() || pass.isEmpty()) {
-                    toast("Vui lòng điền đầy đủ thông tin");
+                    toast("Please, fill up the form");
                 } else {
                     password = pass;
                     mAuth.signInWithEmailAndPassword(email, pass)
@@ -80,7 +80,7 @@ public class SignInActivity extends AppCompatActivity {
                                         finish();
                                         startActivity(intent);
                                     } else {
-                                        toast("Lỗi đăng nhập");
+                                        toast("Error!");
                                     }
                                 }
                             });
@@ -125,7 +125,7 @@ public class SignInActivity extends AppCompatActivity {
                 final String birthday = dEtBirthDay.getText().toString();
                 final String phone = dEtPhone.getText().toString();
                 if (email.isEmpty() || birthday.isEmpty() || phone.isEmpty()) {
-                    toast("Please fill up this form!");
+                    toast("Please, fill up the form!");
                     return;
                 }
                 dao_user.getAllData(new FirebaseCallback() {

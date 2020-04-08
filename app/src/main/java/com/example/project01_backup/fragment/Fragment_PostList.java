@@ -118,8 +118,8 @@ public class Fragment_PostList extends Fragment {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder dialogDelete = new AlertDialog.Builder(getActivity());
-                dialogDelete.setMessage("Bạn có muốn xóa bài viết này cùng toàn bộ nội dung liên quan");
-                dialogDelete.setNegativeButton("XÓA", new DialogInterface.OnClickListener() {
+                dialogDelete.setMessage("Delete an article?");
+                dialogDelete.setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
                         dao_post.deleteUser(post.getCategory(),post.getPlace(),post.getIdPost());
@@ -128,7 +128,7 @@ public class Fragment_PostList extends Fragment {
                         dialog.dismiss();
                     }
                 });
-                dialogDelete.setPositiveButton("HỦY", new DialogInterface.OnClickListener() {
+                dialogDelete.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
                         dialog.dismiss();

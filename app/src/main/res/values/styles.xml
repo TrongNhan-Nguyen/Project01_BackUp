@@ -9,7 +9,7 @@
     </style>
 
     <style name="NavigationTheme" parent="AppTheme">
-        <item name="listPreferredItemHeightSmall">40dp</item><!-- menu item height- vary as u need -->
+        <item name="listPreferredItemHeightSmall">38dp</item><!-- menu item height- vary as u need -->
     </style>
 
 </resources>

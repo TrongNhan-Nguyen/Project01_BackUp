@@ -139,11 +139,10 @@ public class Fragment_BeautifulPlaces extends Fragment {
         inflater.inflate(R.menu.menu_search_places,menu);
         MenuItem search = menu.findItem(R.id.menu_search_places);
         final SearchView searchView = (SearchView) search.getActionView();
-        searchView.setQueryHint("Vui lòng nhập tên địa điểm");
+        searchView.setQueryHint("Please, enter a location");
         final SearchView.SearchAutoComplete autoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        autoComplete.setBackgroundColor(Color.WHITE);
-        autoComplete.setTextColor(Color.BLACK);
-        autoComplete.setDropDownBackgroundResource(android.R.color.holo_blue_light);
+        autoComplete.setTextColor(Color.WHITE);
+        autoComplete.setDropDownBackgroundResource(android.R.color.white);
         autoComplete.setThreshold(1);
         dao_places.getData(new FirebaseCallback(){
             @Override

@@ -93,7 +93,7 @@ public class Fragment_UserList extends Fragment {
         inflater.inflate(R.menu.menu_search_places, menu);
         MenuItem search = menu.findItem(R.id.menu_search_places);
         SearchView searchView = (SearchView) search.getActionView();
-        searchView.setQueryHint("Nhập tên user cần tìm kiếm");
+        searchView.setQueryHint("Enter a username");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

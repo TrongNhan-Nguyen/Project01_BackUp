@@ -235,7 +235,6 @@ public class Fragment_UserInfo extends Fragment {
                 update.setPassword(pass);
 
                 updateInfo(name, pass);
-//                test(email,pass);
                 dialog.dismiss();
             }
         });
@@ -287,11 +286,12 @@ public class Fragment_UserInfo extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    toast("Cập nhật thành công");
+                                    toast("Your account has been successfully updated!");
                                     dao_user.insert(update);
                                     spotDialog.dismiss();
                                 }else {
-                                    toast("cập nhật thất bại");
+                                    toast("Error");
+                                    spotDialog.dismiss();
                                 }
 
                             }

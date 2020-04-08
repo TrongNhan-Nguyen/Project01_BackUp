@@ -235,10 +235,10 @@ public class Fragment_EditPost extends Fragment {
             public void onClick(View v) {
                 String description = dEtDescription.getText().toString();
                 if (imgContent.getDrawable() == null) {
-                    toast("Vui lòng chọn hình ảnh");
+                    toast("Please, choose a picture");
 
                 } else if (description.isEmpty()) {
-                    toast("Vui lòng thêm mô tả");
+                    toast("Please, add a description");
                 } else {
                     content.setDescription(dEtDescription.getText().toString());
                     listContent.add(content);
@@ -298,10 +298,10 @@ public class Fragment_EditPost extends Fragment {
             public void onClick(View v) {
                 String description = etDescription.getText().toString();
                 if (imgContent.getDrawable() == null) {
-                    toast("Vui lòng chọn hình ảnh");
+                    toast("Please, choose a picture");
 
                 } else if (description.isEmpty()) {
-                    toast("Vui lòng thêm mô tả");
+                    toast("Please, add a description");
                 } else {
                     content.setDescription(dEtDescription.getText().toString());
                     listContent.add(index, content);
@@ -370,23 +370,21 @@ public class Fragment_EditPost extends Fragment {
 
         if (etTitle.getText().toString().isEmpty() || etDescription.getText().toString().isEmpty() ||
                 etAddress.getText().toString().isEmpty() || (imgPost.getDrawable() == null)) {
-            toast("Vui lòng chọn hình ảnh cũng như điền đầy đủ thông tin cần thiết");
+            toast("Please, fill up the form");
         } else if (listContent.size() == 0) {
-            dialog.setMessage("Bài viết hiện tại chưa có thông tin mô tả chi tiết," +
-                    " bạn thể thêm thông tin hoặc bỏ qua bước này để tiếp tục đăng" +
-                    "bài viết.");
+            dialog.setMessage("The article has no detailed description. Still submit?.");
 
-            dialog.setNegativeButton("ĐĂNG BÀI", new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton("SUBMIT", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dao_post.insertAdmin(categoryNode, placeNode, post, imgPost);
                     dao_content.deleteUser(oldPost.getIdPost());
                     dao_post.deleteUser(categoryNode, placeNode, oldPost.getIdPost());
                     currentFragment(categoryNode);
-                    toast("Bài viết đang trong trạng thái chờ kiểm duyệt");
+                    toast("Pending moderation!");
                 }
             });
-            dialog.setPositiveButton("HUỶ", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -394,10 +392,9 @@ public class Fragment_EditPost extends Fragment {
             });
             dialog.show();
         } else {
-            dialog.setMessage("Vui lòng kiểm tra lại toàn bộ thông tin trước khi đăng" +
-                    " bài viết");
+            dialog.setTitle("Submit an Article?");
 
-            dialog.setNegativeButton("ĐĂNG BÀI", new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton("SUBMIT", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dao_post.insertAdmin(categoryNode, placeNode, post, imgPost);
@@ -411,10 +408,10 @@ public class Fragment_EditPost extends Fragment {
                     currentFragment(categoryNode);
                     dao_content.deleteUser(oldPost.getIdPost());
                     dao_post.deleteUser(categoryNode, placeNode, oldPost.getIdPost());
-                    toast("Bài viết đang trong trạng thái chờ kiểm duyệt");
+                    toast("Pending moderation!");
                 }
             });
-            dialog.setPositiveButton("HUỶ", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 

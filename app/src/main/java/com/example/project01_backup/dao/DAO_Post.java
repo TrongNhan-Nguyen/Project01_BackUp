@@ -111,7 +111,6 @@ public class DAO_Post {
                     public void onSuccess(Uri uri) {
                         post.setUrlImage(String.valueOf(uri));
                         dbPost.child(id).setValue(post);
-                        toast("Thêm thành công");
                     }
                 });
             }
