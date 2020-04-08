@@ -37,7 +37,7 @@
                             android:layout_width="0dp"
                             android:hint="Places"
                             android:layout_height="wrap_content"
-                            android:layout_weight="5"
+                            android:layout_weight="4"
                             android:textSize="15sp" />
 
 
@@ -47,7 +47,7 @@
                             android:layout_marginTop="3dp"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:layout_weight="5"
+                            android:layout_weight="6"
                             android:textSize="15sp" />
 
                     </LinearLayout>
@@ -142,7 +142,7 @@
             app:layout_collapseMode="pin"
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
-            android:background="#DCD9D9"
+            android:background="#C8C7C7"
             android:layout_height="20dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 

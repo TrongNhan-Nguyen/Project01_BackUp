@@ -24,6 +24,7 @@ import com.example.project01_backup.fragment.Fragment_BeautifulPlaces;
 import com.example.project01_backup.fragment.Fragment_JourneyDiary;
 import com.example.project01_backup.fragment.Fragment_Restaurant;
 import com.example.project01_backup.fragment.Fragment_Tab_UserInfo;
+import com.example.project01_backup.fragment.Fragment_UserInfo;
 import com.example.project01_backup.model.Places;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void initView() {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser!=null){
+            Toast.makeText(this, "Hello " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+        }
         drawerLayout = (DrawerLayout) findViewById(R.id.main_Drawer);
         navigationView = (NavigationView) findViewById(R.id.main_Navigation);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void insertPlaces(){
         DAO_Places dao_places = new DAO_Places(this);
         String[] placeList = {"Da Lat","Sapa","Dong Nai","Can Tho", "Vung Tau","Quy Nhon","Da Nang",
-                            "Ca Mau", "TP.HCM", "Ha Noi","Long An","Dong Nai"};
+                            "Ca Mau", "TP HCM", "Ha Noi","Long An"};
         for (int i =0; i<placeList.length; i++){
             Places places = new Places();
             places.setName(placeList[i]);
@@ -180,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_drawer_About:
                 break;
             case R.id.menu_drawer_Exit:
+                finishAffinity();
                 break;
 
         }

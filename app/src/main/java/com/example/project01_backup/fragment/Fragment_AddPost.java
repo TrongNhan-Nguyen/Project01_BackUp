@@ -340,6 +340,7 @@ public class Fragment_AddPost extends Fragment {
         post.setUrlAvatarUser(String.valueOf(user.getPhotoUrl()));
         post.setIdUser(user.getUid());
         if (etTitle.getText().toString().isEmpty() ||
+                acPlace.getText().toString().isEmpty()||
                 etDescription.getText().toString().isEmpty() ||
                 etAddress.getText().toString().isEmpty() ||
                 imgPost.getDrawable() == null) {

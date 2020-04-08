@@ -28,6 +28,22 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"/>
     <EditText
+        android:id="@+id/dForgot_etPhone"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border_tv"
+        android:hint="Enter your phone numbers"
+        android:paddingHorizontal="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <EditText
+        android:id="@+id/dForgot_etBirthDay"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border_tv"
+        android:hint="Enter your birthday"
+        android:paddingHorizontal="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <EditText
         android:id="@+id/dForgot_etPass"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_tv"

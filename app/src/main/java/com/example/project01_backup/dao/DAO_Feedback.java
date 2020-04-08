@@ -24,6 +24,11 @@ public class DAO_Feedback {
     Fragment fragment;
     DatabaseReference dbFeedback;
 
+    public DAO_Feedback(Context context) {
+        this.context = context;
+        this.dbFeedback = FirebaseDatabase.getInstance().getReference("feedback");
+    }
+
     public DAO_Feedback(Context context, Fragment fragment) {
         this.context = context;
         this.fragment = fragment;
@@ -37,7 +42,7 @@ public class DAO_Feedback {
             @Override
             public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                 if (databaseError == null){
-                    toast("Đã gửi feedback cho quản trị viên");
+                    toast("Thank you for your feedback");
                 }
             }
         });
@@ -61,6 +66,12 @@ public class DAO_Feedback {
 
             }
         });
+    }
+
+    public void delete(String idFeedBack){
+        if (idFeedBack != null){
+            dbFeedback.child(idFeedBack).removeValue();
+        }
     }
 
     private void toast(String s){

@@ -57,19 +57,18 @@ public class Fragment_Admin extends Fragment {
         cvMain = (CardView) view.findViewById(R.id.fAdmin_cvMain);
         cvLogout = (CardView) view.findViewById(R.id.fAdmin_cvLogout);
         cvExit = (CardView) view.findViewById(R.id.fAdmin_cvExit);
-
         tvName = (TextView) view.findViewById(R.id.fAdmin_tvName);
         imgAvatar = (CircleImageView) view.findViewById(R.id.fAdmin_imgAvatar);
+
         if (intent != null){
             name = intent.getStringExtra("name");
             urlAvatar = intent.getStringExtra("avatar");
             email = intent.getStringExtra("email");
             pass = intent.getStringExtra("pass");
-            tvName.setText(name);
+            tvName.setText(email);
             try {
-
-            }catch (Exception e){
                 Picasso.get().load(Uri.parse(urlAvatar)).into(imgAvatar);
+            }catch (Exception e){
             }
         }
 
@@ -77,7 +76,7 @@ public class Fragment_Admin extends Fragment {
         cvExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                getActivity().finishAffinity();
             }
         });
 

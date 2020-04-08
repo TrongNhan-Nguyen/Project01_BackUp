@@ -25,6 +25,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class DAO_Post {
@@ -158,6 +160,18 @@ public class DAO_Post {
                     }
 
                 }
+                Collections.sort(postList, new Comparator<Post>() {
+                    @Override
+                    public int compare(Post o1, Post o2) {
+                        if (o1.getLongPubDate() > o2.getLongPubDate()){
+                            return -1;
+                        } else if (o1.getLongPubDate() < o2.getLongPubDate()) {
+                            return 1;
+                        }else {
+                            return 0;
+                        }
+                    }
+                });
                 firebaseCallback.postListUser(postList);
             }
 
@@ -184,6 +198,18 @@ public class DAO_Post {
                         }
                     }
                 }
+                Collections.sort(postList, new Comparator<Post>() {
+                    @Override
+                    public int compare(Post o1, Post o2) {
+                        if (o1.getLongPubDate() > o2.getLongPubDate()){
+                            return -1;
+                        } else if (o1.getLongPubDate() < o2.getLongPubDate()) {
+                            return 1;
+                        }else {
+                            return 0;
+                        }
+                    }
+                });
                 firebaseCallback.postListUser(postList);
             }
 
@@ -205,6 +231,18 @@ public class DAO_Post {
                             Post post = ds.getValue(Post.class);
                             postList.add(post);
                         }
+                        Collections.sort(postList, new Comparator<Post>() {
+                            @Override
+                            public int compare(Post o1, Post o2) {
+                                if (o1.getLongPubDate() > o2.getLongPubDate()){
+                                    return -1;
+                                } else if (o1.getLongPubDate() < o2.getLongPubDate()) {
+                                    return 1;
+                                }else {
+                                    return 0;
+                                }
+                            }
+                        });
                         firebaseCallback.postListPlace(postList);
 
                     }

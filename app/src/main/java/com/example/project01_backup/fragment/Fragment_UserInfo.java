@@ -133,8 +133,9 @@ public class Fragment_UserInfo extends Fragment {
     }
 
     private void dialogFeedback(){
-        Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog_add_feedback);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final EditText etFeedback = (EditText) dialog.findViewById(R.id.dAddFeedback_etFeedback);
         ImageView imgPost = (ImageView) dialog.findViewById(R.id.dAddFeedback_imgPost);
         final Feedback feedback = new Feedback();
@@ -142,7 +143,7 @@ public class Fragment_UserInfo extends Fragment {
             @Override
             public void onClick(View v) {
                 if (etFeedback.getText().toString().isEmpty()){
-                    toast("Vui lòng nhập nội dung");
+                    toast("Add your feedback");
                 }else {
                     feedback.setContentFeedBack(etFeedback.getText().toString());
                     feedback.setStringPubDate(stringPubDate());
@@ -151,6 +152,7 @@ public class Fragment_UserInfo extends Fragment {
                     feedback.setUriAvatarUser(String.valueOf(currentUser.getPhotoUrl()));
                     feedback.setIdUser(currentUser.getUid());
                     dao_feedback.inset(feedback);
+                    dialog.dismiss();
                 }
             }
         });
@@ -176,13 +178,17 @@ public class Fragment_UserInfo extends Fragment {
         btnClear = (Button) dialog.findViewById(R.id.dEditInfo_btnClear);
         btnCancel = (Button) dialog.findViewById(R.id.dEditInfo_btnCancel);
 
-        etName.setText(update.getName());
-        tvEmail.setText(update.getEmail());
-        etPass.setText(update.getPassword());
-        etDOB.setText(update.getBirthDay());
-        etPhone.setText(update.getPhoneNumber());
-        etAddress.setText(update.getAddress());
-        Picasso.get().load(Uri.parse(update.getUriAvatar())).into(imgAvatarUser);
+        try {
+            etName.setText(update.getName());
+            tvEmail.setText(update.getEmail());
+            etPass.setText(update.getPassword());
+            etDOB.setText(update.getBirthDay());
+            etPhone.setText(update.getPhoneNumber());
+            etAddress.setText(update.getAddress());
+            Picasso.get().load(Uri.parse(update.getUriAvatar())).into(imgAvatarUser);
+        }catch (Exception e){
+
+        }
 
         imgAvatarUser.setOnClickListener(new View.OnClickListener() {
             @Override

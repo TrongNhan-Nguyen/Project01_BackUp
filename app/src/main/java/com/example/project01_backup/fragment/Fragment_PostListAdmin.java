@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
@@ -31,6 +32,7 @@ import java.util.List;
 public class Fragment_PostListAdmin extends Fragment {
     private View view;
     private ListView lvPost;
+    private TextView tvNothing;
     private Adapter_LV_PostUser adapterPost;
     private DAO_Post dao_post;
     private List<Post> listPost;
@@ -51,12 +53,18 @@ public class Fragment_PostListAdmin extends Fragment {
         dao_comment = new DAO_Comment(getActivity(),this);
         User user = Fragment_Tab_UserInfoAdmin.user;
         lvPost = (ListView) view.findViewById(R.id.fPostListAdmin_lvPost);
+        tvNothing = (TextView) view.findViewById(R.id.fPostListAdmin_tvNothing);
         dao_post.getDataByUser(user.getEmail(), new FirebaseCallback(){
             @Override
             public void postListUser(List<Post> postList) {
                 listPost = new ArrayList<>(postList);
                 adapterPost = new Adapter_LV_PostUser(getActivity(), listPost);
                 lvPost.setAdapter(adapterPost);
+                if (postList.size()>0){
+                    tvNothing.setVisibility(View.GONE);
+                }else {
+                    tvNothing.setVisibility(View.VISIBLE);
+                }
             }
         });
 

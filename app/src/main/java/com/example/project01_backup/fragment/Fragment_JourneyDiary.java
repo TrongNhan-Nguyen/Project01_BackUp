@@ -41,7 +41,7 @@ public class Fragment_JourneyDiary extends Fragment {
     private DAO_Places dao_places;
     private DAO_Post dao_post;
     private List<String> placeNames;
-    private TextView tvTitle;
+    private TextView tvTitle, tvNothing;
     private ListView listView;
     private Adapter_LV_PostUser adapterPost;
     private FirebaseUser user;
@@ -58,7 +58,7 @@ public class Fragment_JourneyDiary extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_blog, container, false);
+        view = inflater.inflate(R.layout.fragment_journey_diary, container, false);
         initView();
         return view;
     }
@@ -67,16 +67,15 @@ public class Fragment_JourneyDiary extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         dao_post = new DAO_Post(getActivity(), this);
         dao_places = new DAO_Places(getActivity(), this);
-        tvTitle = (TextView) view.findViewById(R.id.fBlog_tvTitle);
-        fbaAdd = (FloatingActionButton) view.findViewById(R.id.fBlog_fabAddPost);
-        listView = (ListView) view.findViewById(R.id.fBlog_lvPost);
+        tvTitle = (TextView) view.findViewById(R.id.fJDiary_tvTitle);
+        tvNothing = (TextView) view.findViewById(R.id.fJDiary_tvNothing);
+        fbaAdd = (FloatingActionButton) view.findViewById(R.id.fJDiary_fabAddPost);
+        listView = (ListView) view.findViewById(R.id.fJDiary_lvPost);
         categoryNode = "Journey Diary";
         dao_post.getDataUser(categoryNode, new FirebaseCallback(){
             @Override
             public void postListUser(List<Post> postList) {
-                listPost = new ArrayList<>(postList);
-                adapterPost = new Adapter_LV_PostUser(getActivity(),listPost);
-
+                refreshLV(postList);
                 listView.setAdapter(adapterPost);
             }
         });
@@ -114,8 +113,17 @@ public class Fragment_JourneyDiary extends Fragment {
         });
 
         placeNames = new ArrayList<>();
+    }
 
-
+    private void refreshLV(List<Post> postList){
+        listPost = new ArrayList<>(postList);
+        adapterPost = new Adapter_LV_PostUser(getActivity(),listPost);
+        listView.setAdapter(adapterPost);
+        if (postList.size()>0){
+            tvNothing.setVisibility(View.GONE);
+        }else {
+            tvNothing.setVisibility(View.VISIBLE);
+        }
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -131,8 +139,8 @@ public class Fragment_JourneyDiary extends Fragment {
         final SearchView searchView = (SearchView) search.getActionView();
         searchView.setQueryHint("Vui lòng nhập tên địa điểm");
         final SearchView.SearchAutoComplete autoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        autoComplete.setBackgroundColor(Color.BLUE);
-        autoComplete.setTextColor(Color.GREEN);
+        autoComplete.setBackgroundColor(Color.WHITE);
+        autoComplete.setTextColor(Color.BLACK);
         autoComplete.setDropDownBackgroundResource(android.R.color.holo_blue_light);
         autoComplete.setThreshold(1);
         dao_places.getData(new FirebaseCallback() {
@@ -153,8 +161,7 @@ public class Fragment_JourneyDiary extends Fragment {
                         dao_post.getDataByPlace(categoryNode,placeNode, new FirebaseCallback(){
                             @Override
                             public void postListPlace(List<Post> postList) {
-                                adapterPost = new Adapter_LV_PostUser(getActivity(),postList);
-                                listView.setAdapter(adapterPost);
+                                refreshLV(postList);
                             }
                         });
                     }
@@ -169,8 +176,7 @@ public class Fragment_JourneyDiary extends Fragment {
                 dao_post.getDataUser(categoryNode, new FirebaseCallback(){
                     @Override
                     public void postListUser(List<Post> postList) {
-                        adapterPost = new Adapter_LV_PostUser(getActivity(),postList);
-                        listView.setAdapter(adapterPost);
+                        refreshLV(postList);
                         tvTitle.setText(categoryNode);
                     }
                 });

@@ -48,12 +48,7 @@ public class Fragment_Post_Detail extends Fragment {
     private ImageView  imgPost, imgContent, imgComment;
     private CircleImageView imgAvatar;
     private TextView tvTitle, tvPubDate, tvDescription, tvAddress, tvEmail;
-    private EditText etComment;
-
-    private ListView lvComment, lvContent;
     private FirebaseUser currentUser;
-    private Button btnPost;
-    private RecyclerView recyclerView;
     private Post post;
     private Adapter_LV_Comment adapterComment;
     private Adapter_LV_Content adapterContent;
@@ -126,12 +121,20 @@ public class Fragment_Post_Detail extends Fragment {
         final Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Material_NoActionBar_Fullscreen);
         dialog.setContentView(R.layout.dialog_content_post);
         TextView tvDone = (TextView) dialog.findViewById(R.id.dContentPost_tvDone);
+        final TextView tvNothing = (TextView) dialog.findViewById(R.id.dContentPost_tvNothing);
+
         final ListView listView = (ListView) dialog.findViewById(R.id.dContentPost_lvContent);
         dao_content.getDataUser(post.getIdPost(), new FirebaseCallback() {
             @Override
             public void contentListUser(List<Content> contentList) {
                 adapterContent = new Adapter_LV_Content(getActivity(), contentList);
                 listView.setAdapter(adapterContent);
+                if (contentList.size()>0){
+                    tvNothing.setVisibility(View.GONE);
+                }else {
+                    tvNothing.setVisibility(View.VISIBLE);
+                }
+
             }
         });
 
@@ -160,6 +163,7 @@ public class Fragment_Post_Detail extends Fragment {
         comment.setLongPubDate(longPubDate());
         final EditText etComment = (EditText) dialog.findViewById(R.id.dCommentPost_etComment);
         TextView tvDone = (TextView) dialog.findViewById(R.id.dCommentPost_tvDone);
+        final TextView tvNothing = (TextView) dialog.findViewById(R.id.dCommentPost_tvNothing);
         ImageView imgPost = (ImageView) dialog.findViewById(R.id.dCommentPost_imgPost);
         LinearLayout layoutComment = (LinearLayout) dialog.findViewById(R.id.dCommentPost_layoutComment);
         final ListView lvComment = (ListView) dialog.findViewById(R.id.dCommentPost_lvComment);
@@ -191,8 +195,14 @@ public class Fragment_Post_Detail extends Fragment {
         dao_comment.getData(post.getIdPost(), new FirebaseCallback(){
             @Override
             public void commentList(List<Comment> commentList) {
+                if (commentList.size()>0){
+                    tvNothing.setVisibility(View.GONE);
+                }else {
+                    tvNothing.setVisibility(View.VISIBLE);
+                }
                 adapterComment = new Adapter_LV_Comment(getActivity(),commentList);
                 lvComment.setAdapter(adapterComment);
+
 
             }
         });

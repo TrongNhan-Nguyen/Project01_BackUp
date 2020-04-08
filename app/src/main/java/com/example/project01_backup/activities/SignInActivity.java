@@ -45,6 +45,7 @@ public class SignInActivity extends AppCompatActivity {
         dao_user = new DAO_User(this);
         etEmail = (EditText) findViewById(R.id.signIn_etEmail);
         etPass = (EditText) findViewById(R.id.signIn_etPass);
+        etPass = (EditText) findViewById(R.id.signIn_etPass);
         btnLogIn = (Button) findViewById(R.id.signIn_btnLogin);
         btnJustGo = (Button) findViewById(R.id.signIn_btnJustGo);
         tvSignUp = (TextView) findViewById(R.id.signIn_tvSignUp);
@@ -63,23 +64,22 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String email = etEmail.getText().toString();
                 String pass = etPass.getText().toString();
-                if (email.isEmpty() || pass.isEmpty()){
+                if (email.isEmpty() || pass.isEmpty()) {
                     toast("Vui lòng điền đầy đủ thông tin");
-                }else {
+                } else {
                     password = pass;
-                    mAuth.signInWithEmailAndPassword(email,pass)
+                    mAuth.signInWithEmailAndPassword(email, pass)
                             .addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()){
-                                        toast("Đăng nhập thành công");
+                                    if (task.isSuccessful()) {
                                         Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                                         intent.putExtra("pass", password);
                                         intent.putExtra("email", email);
                                         startActivity(intent);
                                         finish();
                                         startActivity(intent);
-                                    }else {
+                                    } else {
                                         toast("Lỗi đăng nhập");
                                     }
                                 }
@@ -105,35 +105,40 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
-    private void dialogForgot(){
+    private void dialogForgot() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_forgot_pasword);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        final EditText etEmail = (EditText) dialog.findViewById(R.id.dForgot_etEmail);
-        final EditText etPass = (EditText) dialog.findViewById(R.id.dForgot_etPass);
+        final EditText dEtEmail = (EditText) dialog.findViewById(R.id.dForgot_etEmail);
+        final EditText dEtPass = (EditText) dialog.findViewById(R.id.dForgot_etPass);
+        final EditText dEtPhone = (EditText) dialog.findViewById(R.id.dForgot_etPhone);
+        final EditText dEtBirthDay = (EditText) dialog.findViewById(R.id.dForgot_etBirthDay);
         Button btnNext = (Button) dialog.findViewById(R.id.dForgot_btnNext);
         Button btnCancel = (Button) dialog.findViewById(R.id.dForgot_btnCancel);
-        etPass.setKeyListener(null);
+        dEtPass.setKeyListener(null);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String email = etEmail.getText().toString();
-                if (email.isEmpty()){
-                    toast("Vui lòng nhập email");
+                final String email = dEtEmail.getText().toString();
+                final String birthday = dEtBirthDay.getText().toString();
+                final String phone = dEtPhone.getText().toString();
+                if (email.isEmpty() || birthday.isEmpty() || phone.isEmpty()) {
+                    toast("Please fill up this form!");
                     return;
                 }
-                dao_user.getAllData(new FirebaseCallback(){
+                dao_user.getAllData(new FirebaseCallback() {
                     @Override
                     public void userList(List<User> userList) {
-                        for (User user : userList){
-                            if (user.getEmail().equals(email)){
-                                etPass.setText("Your password: " + user.getPassword());
+                        for (User user : userList) {
+                            if (user.getEmail().equals(email) && user.getBirthDay().equals(birthday)
+                                    && user.getPhoneNumber().equals(phone)) {
+                                dEtPass.setText("Your password: " + user.getPassword());
                                 return;
                             }
                         }
-                        etPass.setText("Couldn't find your email");
+                        dEtPass.setText("Couldn't find your email");
                     }
                 });
 
@@ -152,10 +157,11 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
-    private void log (String s){
-        Log.d("log",s);
+    private void log(String s) {
+        Log.d("log", s);
     }
-    private void toast (String s){
+
+    private void toast(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 }

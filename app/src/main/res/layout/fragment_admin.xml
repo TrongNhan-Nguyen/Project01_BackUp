@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="QUẢN TRỊ VIÊN"
+                android:text="Administrator"
+                android:fontFamily="@font/nabila"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -66,8 +67,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
-                android:text="Kiểm Duyệt Bài Viết"
-                android:textColor="#0B0B0B" />
+                android:text="Censorship"
+                android:fontFamily="@font/nabila"
+                android:textColor="@color/colorPrimary" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -90,8 +92,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
-                android:text="Quản Lý Người Dùng"
-                android:textColor="#0B0B0B" />
+                android:text="User management"
+                android:fontFamily="@font/nabila"
+                android:textColor="@color/colorPrimary" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -114,8 +117,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
-                android:text="Phản Hồi Người dùng"
-                android:textColor="#0B0B0B" />
+                android:text="Feedback"
+                android:fontFamily="@font/nabila"
+                android:textColor="@color/colorPrimary" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -139,8 +143,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
-                android:text="Đăng Xuất"
-                android:textColor="#0B0B0B" />
+                android:text="Sign Out"
+                android:fontFamily="@font/nabila"
+                android:textColor="@color/colorPrimary" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -164,8 +169,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
-                android:text="Giao Diện Chính"
-                android:textColor="#0B0B0B" />
+                android:text="User Interface"
+                android:fontFamily="@font/nabila"
+                android:textColor="@color/colorPrimary" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -189,8 +195,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="5dp"
-                android:text="Thoát"
-                android:textColor="#0B0B0B" />
+                android:text="Exit App"
+                android:fontFamily="@font/nabila"
+                android:textColor="@color/colorPrimary" />
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
