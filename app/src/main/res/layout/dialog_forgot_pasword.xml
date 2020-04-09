@@ -23,7 +23,7 @@
         android:id="@+id/dForgot_etEmail"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_tv"
-        android:hint="Enter your email"
+        android:hint="Enter your email (Required)"
         android:paddingHorizontal="3dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"/>
@@ -31,7 +31,7 @@
         android:id="@+id/dForgot_etPhone"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_tv"
-        android:hint="Enter your phone numbers"
+        android:hint="Enter your phone numbers (Required)"
         android:paddingHorizontal="3dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"/>
@@ -39,7 +39,7 @@
         android:id="@+id/dForgot_etBirthDay"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_tv"
-        android:hint="Enter your birthday"
+        android:hint="Enter your birthday dd/MM/yyyy (Required)"
         android:paddingHorizontal="3dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"/>

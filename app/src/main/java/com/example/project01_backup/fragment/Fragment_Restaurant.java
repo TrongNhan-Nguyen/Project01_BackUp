@@ -117,6 +117,7 @@ public class Fragment_Restaurant extends Fragment {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.main_FrameLayout, addPost)
+                        .addToBackStack(null)
                         .commit();
             }
         });

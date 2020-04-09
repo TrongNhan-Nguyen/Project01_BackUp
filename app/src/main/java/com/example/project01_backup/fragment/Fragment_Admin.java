@@ -76,6 +76,7 @@ public class Fragment_Admin extends Fragment {
         cvExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 getActivity().finishAffinity();
             }
         });

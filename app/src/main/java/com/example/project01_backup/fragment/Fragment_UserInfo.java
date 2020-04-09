@@ -1,5 +1,6 @@
 package com.example.project01_backup.fragment;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -178,6 +180,14 @@ public class Fragment_UserInfo extends Fragment {
         btnClear = (Button) dialog.findViewById(R.id.dEditInfo_btnClear);
         btnCancel = (Button) dialog.findViewById(R.id.dEditInfo_btnCancel);
 
+        etDOB.setKeyListener(null);
+        etDOB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker(etDOB);
+            }
+        });
+
         try {
             etName.setText(update.getName());
             tvEmail.setText(update.getEmail());
@@ -233,7 +243,6 @@ public class Fragment_UserInfo extends Fragment {
                 update.setAddress(address);
                 update.setPhoneNumber(phone);
                 update.setPassword(pass);
-
                 updateInfo(name, pass);
                 dialog.dismiss();
             }
@@ -300,7 +309,22 @@ public class Fragment_UserInfo extends Fragment {
                 });
 
     }
+    private void datePicker(final EditText et){
+        final Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
 
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    et.setText(format.format(calendar.getTime()));
+            }
+        },year,month,day);
+
+        dialog.show();
+    }
     private void toast(String s) {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }

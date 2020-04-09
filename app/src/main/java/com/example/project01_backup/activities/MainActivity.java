@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 break;
             case R.id.menu_drawer_Exit:
+                FirebaseAuth.getInstance().signOut();
                 finishAffinity();
                 break;
 

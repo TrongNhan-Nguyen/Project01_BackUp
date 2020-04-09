@@ -109,6 +109,7 @@ public class Fragment_BeautifulPlaces extends Fragment {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.main_FrameLayout,addPost)
+                        .addToBackStack(null)
                         .commit();
             }
         });
