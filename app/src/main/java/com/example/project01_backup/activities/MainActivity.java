@@ -91,8 +91,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     private void insertPlaces(){
         DAO_Places dao_places = new DAO_Places(this);
-        String[] placeList = {"Da Lat","Sapa","Dong Nai","Can Tho", "Vung Tau","Quy Nhon","Da Nang",
-                            "Ca Mau", "TP HCM", "Ha Noi","Long An"};
+        String[] placeList = {"An Ging", "Vung Tau", "Bac Giang", "Bac Kan","Bac Lieu","Bac Ninh",
+        "Ben Tre", "Binh Dinh", "Binh Duong", "Binh Phuoc", "Binh Thuan", "Ca Mau", "Cao Bang",
+        "Dak Lak", "Dak Nong", "Dien Bien", "Dong Nai", "Dong Thap", "Gia Lai", "Ha Giang","Ha Nam",
+        "Ha Tinh", "Hai Duong", "Hau Gian","Hoa Binh", "Hung Yen","Khanh Hoa","Kien Giang", "Kon Tum",
+        "Lai Chau", "Lam Dong", "Lang Son","Lao Cai","Long An", "Nam Dinh","Nghe An", "Ninh Binh",
+        "Ninh Thuan","Phu Tho","Quang Binh", "Quang Nam","Quang Ngai","Quang Ninh", "Quang Tri",
+        "Soc Trang","Son La","Tay Ninh", "Thai Binh", "Thai Binh","Thai Nguyen","Thanh Hoa","Thua Thien Hue",
+        "Tien Giang","Tra Vinh","Tuyen Quang","Vinh Long", "Vinh Phuc","Yen Bai", "Phu Yen","Ha Noi",
+        "TP HCM", "Da Nang","Can Tho","Hai Phong","Da Lat","Phu Quoc","Nha Trang"};
         for (int i =0; i<placeList.length; i++){
             Places places = new Places();
             places.setName(placeList[i]);

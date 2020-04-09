@@ -42,7 +42,7 @@ public class DAO_Places {
         dbPlaces.child(id).setValue(places, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                toast("insert successful");
+
             }
         });
     }
