@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingHorizontal="3dp"
     android:layout_width="match_parent"
@@ -66,28 +67,29 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/dEditInfo_btnUpdate"
-            android:backgroundTint="#4AA6EC"
+            app:cornerRadius="10dp"
             android:textColor="#FFFFFF"
             android:text="UPDATE"
             android:textSize="12sp"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/dEditInfo_btnClear"
             android:text="CLEAR"
-            android:backgroundTint="#4AA6EC"
+            app:cornerRadius="10dp"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
+            android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/dEditInfo_btnCancel"
             android:text="Cancel"
-            android:backgroundTint="#4AA6EC"
+            app:cornerRadius="10dp"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
             android:layout_weight="1"

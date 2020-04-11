@@ -36,10 +36,12 @@
         android:layout_height="wrap_content"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fAccommodations_fabAddPost"
-        android:background="#34A8FF"
-        android:src="@drawable/add_post"
-        android:layout_marginBottom="3dp"
-        android:layout_marginRight="3dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_add_white"
+        app:maxImageSize="30dp"
+        app:tint="@android:color/white"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
         app:fabSize="mini"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"/>
     <ImageView
         android:id="@+id/dAddFeedback_imgPost"
-        android:src="@drawable/post"
+        android:src="@drawable/ic_send_black_24dp"
         android:layout_alignParentRight="true"
         android:layout_alignBottom="@+id/dAddFeedback_etFeedback"
         android:layout_width="40dp"

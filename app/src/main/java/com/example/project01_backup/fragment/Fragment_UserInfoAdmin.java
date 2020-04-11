@@ -129,6 +129,7 @@ public class Fragment_UserInfoAdmin extends Fragment {
                                                         .getSupportFragmentManager()
                                                         .beginTransaction()
                                                         .replace(R.id.admin_FrameLayout, new Fragment_UserList())
+                                                        .addToBackStack(null)
                                                         .commit();
                                                 spotDialog.dismiss();
                                                 toast("Account was deleted");

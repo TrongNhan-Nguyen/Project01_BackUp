@@ -46,7 +46,7 @@ public class SignInActivity extends AppCompatActivity {
         etEmail = (EditText) findViewById(R.id.signIn_etEmail);
         etPass = (EditText) findViewById(R.id.signIn_etPass);
         etPass = (EditText) findViewById(R.id.signIn_etPass);
-        btnLogIn = (Button) findViewById(R.id.signIn_btnLogin);
+        btnLogIn = (Button) findViewById(R.id.signIn_btnSignIn);
         btnJustGo = (Button) findViewById(R.id.signIn_btnJustGo);
         tvSignUp = (TextView) findViewById(R.id.signIn_tvSignUp);
         tvForgot = (TextView) findViewById(R.id.signIn_tvForgot);

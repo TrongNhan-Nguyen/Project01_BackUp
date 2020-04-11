@@ -11,24 +11,31 @@
        android:fontFamily="@font/nabila"
        android:textStyle="bold"
        android:textColor="@color/colorPrimary"
-       android:textSize="25sp"
+       android:textSize="35sp"
        android:layout_centerHorizontal="true"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"/>
+    <ImageView
+        android:scaleType="fitXY"
+        android:alpha="0.6"
+        android:src="@drawable/bg_main"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="350dp"/>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/signIn_cvContainer"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="40dp"
+        app:strokeColor="#000000"
+        app:strokeWidth="1dp"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/colorPrimaryDark"
         android:layout_marginHorizontal="10dp"
+        app:contentPadding="15dp"
         android:layout_below="@+id/signIn_tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="vertical"
-            android:layout_marginHorizontal="2dp"
-            android:layout_marginVertical="2dp"
             android:background="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -70,57 +77,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-    <Button
-        android:id="@+id/signIn_btnLogin"
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/signIn_btnSignIn"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/signIn_cvContainer"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        app:cornerRadius="10dp"
+        android:textSize="20sp"
         android:backgroundTint="@color/colorPrimary"
-        android:background="@drawable/background_btn"
-        android:text="Log in"/>
+        android:text="Sign in"/>
     <TextView
-        android:id="@+id/signIn_tvOr"
-        android:text="Or"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/signIn_btnLogin"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
+        android:id="@+id/signIn_tvSignUp"
+        android:text="New here. Create account"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_below="@+id/signIn_btnSignIn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/signIn_btnJustGo"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        app:cornerRadius="10dp"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/signIn_tvOr"
-        android:layout_marginTop="5dp"
+        android:layout_below="@+id/signIn_tvSignUp"
+        android:textSize="20sp"
         android:backgroundTint="@color/colorPrimary"
-        android:background="@drawable/background_btn"
         android:text="Just Go"/>
-    <LinearLayout
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="If this first time you sign in on this app, you'll need to click 'SIGN UP' or 'JUST GO'"
-            android:textStyle="italic"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/signIn_tvSignUp"
-            android:text="SIGN UP"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginBottom="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+
 
 </RelativeLayout>

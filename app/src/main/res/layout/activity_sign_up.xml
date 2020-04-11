@@ -18,100 +18,76 @@
         android:layout_height="wrap_content"/>
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/signUp_imgAvatar"
-        android:src="@drawable/avatar_facebook"
+        android:src="@drawable/ic_person_black_24dp"
         android:layout_below="@+id/signUp_tvTitle"
+        app:civ_border_width="1dp"
         android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
-    <ImageView
-        android:id="@+id/signUp_imgChangeAvatar"
-        android:src="@drawable/ic_camera_black_24dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="141dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signUp_etDisplayName"
-        android:hint="Display Name"
-        android:gravity="center"
-        android:background="@drawable/border_tv"
-        android:layout_marginHorizontal="5dp"
-        android:textSize="14dp"
-        android:layout_marginTop="20dp"
         android:layout_below="@+id/signUp_imgAvatar"
+        app:errorEnabled="true"
         android:layout_width="match_parent"
-        android:layout_height="40dp"/>
-
-    <EditText
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:hint="Display Name"
+            android:background="#FFFFFF"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signUp_etEmail"
-        android:hint="Email"
-        android:background="@drawable/border_tv"
-        android:layout_marginHorizontal="5dp"
-        android:textSize="14dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
         android:layout_below="@+id/signUp_etDisplayName"
+        app:errorEnabled="true"
         android:layout_width="match_parent"
-        android:layout_height="40dp"/>
-    <EditText
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:hint="Email"
+            android:background="#FFFFFF"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signUp_etPassword"
-        android:hint="Password"
-        android:background="@drawable/border_tv"
-        android:layout_marginHorizontal="5dp"
-        android:textSize="14dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:inputType="textPassword"
         android:layout_below="@+id/signUp_etEmail"
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true"
         android:layout_width="match_parent"
-        android:layout_height="40dp"/>
-    <EditText
-        android:id="@+id/signUp_etConfirmPassword"
-        android:hint="Confirm Password"
-        android:background="@drawable/border_tv"
-        android:layout_marginHorizontal="5dp"
-        android:textSize="14dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:inputType="textPassword"
-        android:layout_below="@+id/signUp_etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:hint="Pass"
+            android:background="#FFFFFF"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/signUp_btnRegister"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        app:cornerRadius="10dp"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/signUp_etConfirmPassword"
+        android:layout_below="@+id/signUp_etPassword"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/colorPrimary"
-        android:background="@drawable/background_btn"
         android:text="Sign Up"/>
-    <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="You already have an account and don't need to create a new one. You're ready to sign in."
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/signUp_tvSignIn"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
-            android:text="SIGN IN HERE"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/signUp_tvSignIn"
+        android:textSize="18sp"
+        android:layout_below="@+id/signUp_btnRegister"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimary"
+        android:text="You had account. Sign in here"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 
 </RelativeLayout>

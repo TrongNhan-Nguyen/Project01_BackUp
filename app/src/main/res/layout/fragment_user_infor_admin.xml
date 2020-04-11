@@ -146,15 +146,15 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/fUserInfoAdmin_btnDelete"
         android:text="DELETE ACCOUNT"
-        app:cornerRadius="5dp"
+        app:cornerRadius="10dp"
         android:textColor="#ffffff"
         android:layout_gravity="center_horizontal"
         android:backgroundTint="#4AA6EC"
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="50dp"/>
 
 </LinearLayout>

@@ -19,14 +19,14 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        progressBar = (ProgressBar) findViewById(R.id.welcome_Progressbar);
-        progressBar.setProgress(0);
-        progressBar.setMax(40);
+//        progressBar = (ProgressBar) findViewById(R.id.welcome_Progressbar);
+//        progressBar.setProgress(0);
+//        progressBar.setMax(40);
         count = new CountDownTimer(3000,500) {
             @Override
             public void onTick(long millisUntilFinished) {
-                current = progressBar.getProgress();
-                progressBar.setProgress(current + 5);
+//                current = progressBar.getProgress();
+//                progressBar.setProgress(current + 5);
             }
 
             @Override

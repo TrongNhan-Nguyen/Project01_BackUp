@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="5dp"
-    android:layout_width="match_parent" 
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     
     <TextView
@@ -39,7 +40,7 @@
         android:id="@+id/dForgot_etBirthDay"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_tv"
-        android:hint="Enter your birthday dd/MM/yyyy (Required)"
+        android:hint="Enter your birthday(Required)"
         android:paddingHorizontal="3dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"/>
@@ -51,25 +52,26 @@
         android:paddingHorizontal="3dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"/>
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/dForgot_btnNext"
         android:text="NEXT"
-        android:backgroundTint="@color/colorPrimary"
+        app:cornerRadius="10dp"
         android:textColor="#FFFFFF"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/background_btn"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"/>
-    <Button
+        android:layout_height="60dp"/>
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/dForgot_btnCancel"
         android:text="cancel"
+        app:cornerRadius="10dp"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="#FFFFFF"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/background_btn"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="60dp"/>
 
 </LinearLayout>

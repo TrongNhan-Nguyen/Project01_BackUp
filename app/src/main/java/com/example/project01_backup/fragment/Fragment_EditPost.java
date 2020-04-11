@@ -366,6 +366,7 @@ public class Fragment_EditPost extends Fragment {
         post.setLongPubDate(longPubDate());
         post.setUrlAvatarUser(String.valueOf(user.getPhotoUrl()));
         post.setIdUser(user.getUid());
+        post.setDisplayName(user.getDisplayName());
 
 
         if (etTitle.getText().toString().isEmpty() || etDescription.getText().toString().isEmpty() ||

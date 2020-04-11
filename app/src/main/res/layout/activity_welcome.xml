@@ -9,12 +9,13 @@
         android:id="@+id/welcome_imgLogo"
         android:src="@drawable/logo1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:layout_width="200dp"
-        android:layout_height="200dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"/>
     <TextView
+        android:id="@+id/welcome_tvTitle"
         android:text="Is't time to go with me"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:fontFamily="@font/nabila"
         android:layout_below="@+id/welcome_imgLogo"
         android:layout_marginTop="3dp"
@@ -22,15 +23,22 @@
         android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
-    <ProgressBar
-        android:id="@+id/welcome_Progressbar"
-        android:layout_alignParentBottom="true"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/colorPrimaryDark"
-        android:layout_marginBottom="10dp"
+    <ImageView
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_main"
+        android:layout_below="@+id/welcome_tvTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_alignParentBottom="true"
+        android:layout_height="480dp"/>
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/welcome_Progressbar"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
+<!--        android:indeterminate="true"-->
+<!--        android:indeterminateTint="@color/colorPrimaryDark"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
 
 </RelativeLayout>

@@ -155,8 +155,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="3dp"
         android:layout_marginBottom="3dp"
-        android:background="#34A8FF"
-        android:src="@drawable/add"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_add_white"
+        app:maxImageSize="30dp"
+        app:tint="@android:color/white"
         app:fabSize="mini" />
     <ListView
         android:id="@+id/fEditPost_lvContent"

@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,8 +42,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
 
 public class SignUpActivity extends AppCompatActivity {
-    private EditText etDisplayName, etEmail, etPassword, etConfirmPass;
-    private ImageView imgChangeAvatar;
+
+    private TextInputLayout etDisplayName, etEmail, etPassword;
+
     private TextView tvSignIn;
     private CircleImageView imgAvatar;
     private Button btnSignUp;
@@ -65,12 +67,12 @@ public class SignUpActivity extends AppCompatActivity {
         dao_user = new DAO_User(this);
         insert = new User();
         mAuth = FirebaseAuth.getInstance();
-        etDisplayName = (EditText) findViewById(R.id.signUp_etDisplayName);
-        etEmail = (EditText) findViewById(R.id.signUp_etEmail);
-        etPassword = (EditText) findViewById(R.id.signUp_etPassword);
-        etConfirmPass = (EditText) findViewById(R.id.signUp_etConfirmPassword);
+        etDisplayName = (TextInputLayout) findViewById(R.id.signUp_etDisplayName);
+        etEmail = (TextInputLayout) findViewById(R.id.signUp_etEmail);
+        etPassword = (TextInputLayout) findViewById(R.id.signUp_etPassword);
+
         imgAvatar = (CircleImageView) findViewById(R.id.signUp_imgAvatar);
-        imgChangeAvatar = (ImageView) findViewById(R.id.signUp_imgChangeAvatar);
+
         btnSignUp = (Button) findViewById(R.id.signUp_btnRegister);
         tvSignIn = (TextView) findViewById(R.id.signUp_tvSignIn);
         tvSignIn.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         dialog = new SpotsDialog(this);
 
-        imgChangeAvatar.setOnClickListener(new View.OnClickListener() {
+        imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -96,19 +98,19 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String displayName = etDisplayName.getText().toString();
-                String email = etEmail.getText().toString();
-                String pass = etPassword.getText().toString();
-                String pass2 = etConfirmPass.getText().toString();
-                if (displayName.isEmpty() || email.isEmpty() || pass.isEmpty() || pass2.isEmpty()){
-                    toast("Please, fill up the form");
-                }else if (!pass2.equals(pass)){
-                    toast("Password confirmation doesn't match Password");
-                }else {
+                String displayName = etDisplayName.getEditText().getText().toString();
+                String email = etEmail.getEditText().getText().toString();
+                String pass = etPassword.getEditText().getText().toString();
+                if (displayName.isEmpty()){
+                    etDisplayName.setError("Field can't be empty");
+                }if (email.isEmpty()){
+                    etEmail.setError("Field can't be empty");
+                }if (pass.isEmpty()){
+                    etPassword.setError("Field cant' be empty");
+                }if (!displayName.isEmpty() && !email.isEmpty() && !pass.isEmpty()){
                     dialog.show();
                     createUser(displayName,email,pass);
                 }
-
 
             }
         });

@@ -97,7 +97,7 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
         dialog.setContentView(R.layout.dialog_censorship);
         final Post post = postList.get(index);
         TextView tvDone = (TextView) dialog.findViewById(R.id.dCensorship_tvDone);
-        TextView tvEmail = (TextView) dialog.findViewById(R.id.dCensorship_tvEmail);
+        TextView tvEmail = (TextView) dialog.findViewById(R.id.dCensorship_tvDisplayName);
         TextView tvPubDate = (TextView) dialog.findViewById(R.id.dCensorship_tvPubDate);
         TextView tvTitle = (TextView) dialog.findViewById(R.id.dCensorship_tvTitle);
         TextView tvAddress = (TextView) dialog.findViewById(R.id.dCensorship_tvAddress);
@@ -109,7 +109,7 @@ public class Adapter_LV_PostAdmin extends BaseAdapter {
         final ListView lvContent = (ListView) dialog.findViewById(R.id.dCensorship_lvContent);
         final List<Content> listContent = new ArrayList<>();
 
-        tvEmail.setText(post.getEmailUser());
+        tvEmail.setText(post.getDisplayName());
         tvPubDate.setText(post.getPubDate());
         tvTitle.setText(post.getTittle());
         tvAddress.setText(post.getAddress());

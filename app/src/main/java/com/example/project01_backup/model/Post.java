@@ -3,7 +3,7 @@ package com.example.project01_backup.model;
 import java.io.Serializable;
 
 public class Post implements Serializable {
-    private String idPost, idUser ,emailUser, urlImage,urlAvatarUser;
+    private String idPost, idUser, displayName ,emailUser, urlImage,urlAvatarUser;
     private String place, category, tittle, address, description, pubDate;
     private long longPubDate;
 
@@ -101,5 +101,13 @@ public class Post implements Serializable {
 
     public void setIdUser(String idUser) {
         this.idUser = idUser;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

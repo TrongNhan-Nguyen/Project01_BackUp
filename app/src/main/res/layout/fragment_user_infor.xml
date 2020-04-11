@@ -150,28 +150,27 @@
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:gravity="center"
+        android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/fUserInfo_btnEdit"
             android:text="Edit profile"
-            app:cornerRadius="5dp"
+            app:cornerRadius="10dp"
             android:textColor="#ffffff"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:backgroundTint="#4AA6EC"
-            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
             android:layout_width="170dp"
-            android:layout_height="wrap_content"/>
-        <Button
+            android:layout_height="50dp"/>
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/fUserInfo_btnFeedBack"
             android:text="Send Feedback"
-            app:cornerRadius="5dp"
+            app:cornerRadius="10dp"
             android:textColor="#ffffff"
+            android:layout_marginLeft="5dp"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:backgroundTint="#4AA6EC"
-            android:layout_marginLeft="10dp"
             android:layout_width="170dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="50dp"/>
     </LinearLayout>
 
 

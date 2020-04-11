@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="3dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.google.android.material.appbar.AppBarLayout
@@ -60,7 +61,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="5dp" />
                     <TextView
-                        android:id="@+id/dCensorship_tvEmail"
+                        android:id="@+id/dCensorship_tvDisplayName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/dCensorship_layoutHeader"
@@ -88,7 +89,6 @@
                     <ImageView
                         android:id="@+id/dCensorship_imgPost"
                         android:scaleType="fitXY"
-                        android:background="#ff0"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginTop="5dp"
@@ -101,7 +101,7 @@
                         android:textColor="#020202"
                         android:layout_below="@+id/dCensorship_imgPost"
                         android:text="@string/title"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -111,7 +111,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/dCensorship_tvTitle"
                         android:text="@string/address"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -122,7 +122,7 @@
                         android:layout_below="@+id/dCensorship_tvAddress"
                         android:layout_marginBottom="3dp"
                         android:text="@string/descriptions"
-                        android:textSize="13sp" />
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </ScrollView>
 
