@@ -59,7 +59,6 @@
         android:textColor="#FFFFFF"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/background_btn"
         android:layout_width="200dp"
         android:layout_height="60dp"/>
     <com.google.android.material.button.MaterialButton
@@ -70,7 +69,6 @@
         android:textColor="#FFFFFF"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/background_btn"
         android:layout_width="200dp"
         android:layout_height="60dp"/>
 
