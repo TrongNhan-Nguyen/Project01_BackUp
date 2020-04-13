@@ -7,6 +7,7 @@ public class Post implements Serializable {
     private String place, category, tittle, address, description, pubDate;
     private long longPubDate;
 
+
     public String getIdPost() {
         return idPost;
     }

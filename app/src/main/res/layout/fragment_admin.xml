@@ -14,7 +14,11 @@
             android:id="@+id/fAdmin_layout_Header"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/bg_gradient">
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/background_admin">
 
             <TextView
                 android:id="@+id/fAdmin_tvTile"
@@ -22,10 +26,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Administrator"
                 android:fontFamily="@font/nabila"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
+                android:text="Administrator"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -34,18 +38,17 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/fAdmin_tvTile"
                 android:layout_alignLeft="@+id/fAdmin_tvTile"
-                android:layout_marginTop="3dp"
-                android:textColor="#043A7C"
-                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textSize="20dp"
                 android:textStyle="italic" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/fAdmin_imgAvatar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginTop="17dp"
+                android:layout_marginRight="33dp" />
         </RelativeLayout>
 
         <androidx.cardview.widget.CardView

@@ -3,22 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingHorizontal="5dp"
     android:layout_height="match_parent"
+    android:paddingHorizontal="5dp"
     tools:context=".fragment.Fragment_AddPost">
+
     <com.google.android.material.appbar.AppBarLayout
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:fitsSystemWindows="true"
-            android:background="#FFFFFF"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <RelativeLayout
                     android:id="@+id/fAddPost_layoutContainer"
                     android:layout_width="match_parent"
@@ -35,19 +39,19 @@
                         <AutoCompleteTextView
                             android:id="@+id/fAddPost_acPlace"
                             android:layout_width="0dp"
-                            android:hint="Places"
                             android:layout_height="wrap_content"
                             android:layout_weight="4"
+                            android:hint="Places"
                             android:textSize="15sp" />
 
 
                         <Spinner
                             android:id="@+id/fAddPost_spnCategory"
-                            android:hint="Tên thể loại"
-                            android:layout_marginTop="3dp"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
+                            android:layout_marginTop="3dp"
                             android:layout_weight="6"
+                            android:hint="Tên thể loại"
                             android:textSize="15sp" />
 
                     </LinearLayout>
@@ -57,20 +61,20 @@
                         android:id="@+id/fAddPost_imgAvatarUser"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/avatar_facebook"
                         android:layout_below="@+id/fAddPost_layoutTitle"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/avatar_facebook" />
 
                     <TextView
                         android:id="@+id/fAddPost_tvUser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nguyễn Trọng Nhân"
                         android:layout_below="@+id/fAddPost_layoutTitle"
                         android:layout_marginLeft="3dp"
                         android:layout_marginTop="10dp"
                         android:layout_toRightOf="@+id/fAddPost_imgAvatarUser"
-                        android:textSize="12sp"
+                        android:text="Nguyễn Trọng Nhân"
+                        android:textSize="15sp"
                         android:textStyle="italic" />
 
                     <TextView
@@ -81,69 +85,67 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="10dp"
                         android:text="20/20/2020"
-                        android:textSize="12sp"
+                        android:textSize="15sp"
                         android:textStyle="italic" />
 
                     <ImageView
                         android:id="@+id/fAddPost_imgPost"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="250dp"
-                        android:src="@drawable/add_image"
                         android:layout_below="@+id/fAddPost_imgAvatarUser"
-                        android:layout_marginTop="5dp"
-                        android:scaleType="fitXY" />
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_image" />
 
                     <EditText
                         android:id="@+id/fAddPost_etTitle"
                         android:layout_width="match_parent"
-                        android:hint="Title..."
-                        android:paddingVertical="3dp"
-                        android:paddingHorizontal="5dp"
                         android:layout_height="30dp"
-                        android:gravity="top"
-                        android:background="@drawable/border_tv"
                         android:layout_below="@+id/fAddPost_imgPost"
                         android:layout_marginTop="3dp"
+                        android:gravity="top"
+                        android:hint="Title..."
+                        android:paddingHorizontal="5dp"
+                        android:paddingVertical="3dp"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/fAddPost_etAddress"
-                        android:hint="Address..."
-                        android:paddingVertical="3dp"
-                        android:gravity="top"
-                        android:background="@drawable/border_tv"
                         android:layout_width="match_parent"
-                        android:paddingHorizontal="5dp"
                         android:layout_height="30dp"
                         android:layout_below="@+id/fAddPost_etTitle"
                         android:layout_marginTop="3dp"
-                        android:textSize="13sp"
+                        android:gravity="top"
+                        android:hint="Address..."
+                        android:paddingHorizontal="5dp"
+                        android:paddingVertical="3dp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/fAddPost_etDescription"
-                        android:hint="Descriptions..."
-                        android:gravity="top"
-                        android:paddingVertical="3dp"
-                        android:paddingHorizontal="5dp"
-                        android:background="@drawable/border_tv"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:layout_below="@+id/fAddPost_etAddress"
                         android:layout_marginTop="3dp"
-                        android:textSize="13sp" />
+                        android:gravity="top"
+                        android:hint="Descriptions..."
+                        android:paddingHorizontal="5dp"
+                        android:paddingVertical="3dp"
+                        android:textSize="15sp" />
                 </RelativeLayout>
 
             </ScrollView>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
         <androidx.appcompat.widget.Toolbar
-            app:layout_collapseMode="pin"
-            android:layout_gravity="bottom"
             android:layout_width="match_parent"
-            android:background="#C8C7C7"
             android:layout_height="20dp"
+            android:layout_gravity="bottom"
+            android:background="#C8C7C7"
+            app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -151,29 +153,29 @@
 
     <ListView
         android:id="@+id/fAddPost_lvContent"
-        android:dividerHeight="10dp"
-        android:divider="@color/fui_transparent"
-        android:stackFromBottom="true"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fAddPost_layoutContainer"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:divider="@color/fui_transparent"
+        android:dividerHeight="10dp"
+        android:stackFromBottom="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fAddPost_fabAddContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|end"
         android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
         android:layout_marginRight="3dp"
         android:layout_marginBottom="3dp"
         android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_add_white"
+        app:fabSize="mini"
         app:maxImageSize="30dp"
-        app:tint="@android:color/white"
-        app:fabSize="mini" />
+        app:tint="@android:color/white" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

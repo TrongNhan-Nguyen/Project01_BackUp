@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/fBeautifulPlace_tvNothing"
         android:text="Nothing to show here"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_centerInParent="true"

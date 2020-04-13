@@ -99,7 +99,7 @@ public class Fragment_Post_Detail extends Fragment {
             }
         });
 
-        String email = post.getEmailUser();
+        String email = post.getDisplayName();
         String pubDate = post.getPubDate();
         String title = post.getTittle();
         String address = post.getAddress();
@@ -154,7 +154,7 @@ public class Fragment_Post_Detail extends Fragment {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         final Comment comment = new Comment();
         if (currentUser != null){
-            comment.setEmailUser(currentUser.getEmail());
+            comment.setDisplayName(currentUser.getDisplayName());
             comment.setUriAvatarUser(String.valueOf(currentUser.getPhotoUrl()));
             comment.setIdUser(currentUser.getUid());
         }
@@ -206,8 +206,6 @@ public class Fragment_Post_Detail extends Fragment {
 
             }
         });
-
-
         dialog.show();
 
     }

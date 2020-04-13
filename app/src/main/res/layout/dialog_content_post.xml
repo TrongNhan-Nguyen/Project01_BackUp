@@ -21,7 +21,7 @@
         android:layout_alignParentRight="true"
         android:textStyle="bold"
         android:textColor="#090909"
-        android:textSize="18sp"
+        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <ListView

@@ -348,7 +348,6 @@ public class Fragment_AddPost extends Fragment {
             toast("Please, fill up the form");
         } else if (contentList.size() == 0) {
             dialog.setMessage("The article has no detailed description. Still submit?");
-
             dialog.setNegativeButton("SUBMIT", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -470,7 +469,6 @@ public class Fragment_AddPost extends Fragment {
             imgContent.setImageURI(data.getData());
             content.setUriImage(data.getData());
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 

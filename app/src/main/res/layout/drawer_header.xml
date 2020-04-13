@@ -2,9 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/colorAccent"
+    android:background="@drawable/background_admin"
     android:layout_width="match_parent"
-    android:layout_height="140dp">
+    android:layout_height="160dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/header_imgAvatar"
@@ -21,7 +21,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:text="TEAM 2-2K"
-        android:textSize="15sp"
+        android:textSize="20dp"
+        android:textColor="@color/white"
         android:textStyle="bold" />
 
     <TextView
@@ -30,7 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="team22k@gmail.com"
-        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:textSize="20dp"
         android:textStyle="italic" />
 
 </LinearLayout>

@@ -65,7 +65,7 @@ public class Adapter_LV_Comment extends BaseAdapter {
         CircleImageView imgAvatar = (CircleImageView) convertView.findViewById(R.id.raw_comment_imgAvatar);
         final ImageView imgMore = (ImageView) convertView.findViewById(R.id.raw_comment_imgMore);
         final Comment comment = commentList.get(position);
-        tvEmail.setText(comment.getEmailUser());
+        tvEmail.setText(comment.getDisplayName());
         tvPubDate.setText(comment.getPubDate());
         tvComment.setText(comment.getContentComment());
         Picasso.get().load(Uri.parse(comment.getUriAvatarUser())).into(imgAvatar);

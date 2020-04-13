@@ -16,17 +16,19 @@
         android:layout_height="wrap_content"/>
     <TextView
         android:text="Comment"
-        android:textSize="18sp"
-        android:textColor="#090909"
+        android:textSize="20dp"
+        android:textColor="@color/black"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
+        android:textStyle="bold"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/dCommentPost_tvDone"
         android:text="Done"
         android:layout_alignParentRight="true"
-        android:textColor="#090909"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
         android:layout_marginRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -40,10 +42,8 @@
             android:id="@+id/dCommentPost_etComment"
             android:hint="Add your comment..."
             android:paddingHorizontal="5dp"
-            android:paddingVertical="3dp"
-            android:textSize="13sp"
+            android:textSize="18sp"
             android:gravity="top"
-            android:background="@drawable/border_tv"
             android:layout_weight="8"
             android:layout_width="0dp"
             android:layout_height="40dp"/>

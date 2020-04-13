@@ -1,9 +1,17 @@
 package com.example.project01_backup.model;
 
 public class Comment {
-    private String idComment, idPost ,idUser , emailUser;
+    private String idComment, idPost ,idUser , emailUser, displayName;
     private String pubDate,contentComment, uriAvatarUser;
     private long longPubDate;
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 
     public String getIdComment() {
         return idComment;

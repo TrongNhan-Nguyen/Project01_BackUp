@@ -29,7 +29,7 @@
         android:layout_below="@+id/welcome_tvTitle"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_height="480dp"/>
+        android:layout_height="450dp"/>
 
 <!--    <ProgressBar-->
 <!--        android:id="@+id/welcome_Progressbar"-->

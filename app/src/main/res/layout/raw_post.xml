@@ -2,18 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="3dp"
+    android:paddingHorizontal="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
-        app:cardCornerRadius="5dp"
+    <com.google.android.material.card.MaterialCardView
+        app:cardCornerRadius="20dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:background="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:id="@+id/raw_post_layoutHeader"
                 android:layout_width="match_parent"
@@ -34,6 +36,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="3dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:layout_toRightOf="@+id/raw_post_imgAvatarUser"
                     android:text="Nguyễn Trọng Nhân" />
@@ -43,10 +47,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="15dp"
                     android:text="28/03/2020"
-                    android:textColor="#131313"
-                    android:textSize="13sp"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
                     android:textStyle="italic|bold" />
             </RelativeLayout>
 
@@ -63,20 +67,22 @@
                 <TextView
                     android:id="@+id/raw_post_tvTitle"
                     android:layout_width="match_parent"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="3dp"
                     android:text="@string/title"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/raw_post_tvAddress"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/raw_post_tvTitle"
                     android:layout_marginBottom="3dp"
                     android:text="@string/address"
-                    android:textSize="12sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -88,9 +94,10 @@
                 android:layout_height="200dp"
                 android:layout_below="@+id/raw_post_layoutContainer"
                 android:background="#AAECEC"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                />
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 
 </RelativeLayout>

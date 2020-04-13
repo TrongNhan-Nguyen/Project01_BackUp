@@ -1,77 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="5dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Need help with your password?"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:textStyle="bold" />
+
     <TextView
-        android:text="Enter the email you use for this app, and we'll help you find your password"
-        android:gravity="center"
-        android:textSize="13sp"
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Enter the email you use for this app, and we'll help you find your password"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
     <EditText
         android:id="@+id/dForgot_etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_tv"
         android:hint="Enter your email (Required)"
-        android:paddingHorizontal="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:paddingHorizontal="3dp" />
+
     <EditText
         android:id="@+id/dForgot_etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_tv"
         android:hint="Enter your phone numbers (Required)"
-        android:paddingHorizontal="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:paddingHorizontal="3dp" />
+
     <EditText
         android:id="@+id/dForgot_etBirthDay"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_tv"
         android:hint="Enter your birthday(Required)"
-        android:paddingHorizontal="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:paddingHorizontal="3dp" />
+
     <EditText
         android:id="@+id/dForgot_etPass"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/border_tv"
         android:hint="***********"
-        android:paddingHorizontal="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:paddingHorizontal="3dp" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/dForgot_btnNext"
-        android:text="NEXT"
-        app:cornerRadius="10dp"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/background_btn"
         android:layout_width="200dp"
-        android:layout_height="60dp"/>
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_btn"
+        android:text="NEXT"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="10dp" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/dForgot_btnCancel"
-        android:text="cancel"
-        app:cornerRadius="10dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/background_btn"
         android:layout_width="200dp"
-        android:layout_height="60dp"/>
+        android:textSize="20dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_btn"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="cancel"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="10dp" />
 
 </LinearLayout>
