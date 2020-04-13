@@ -14,7 +14,6 @@
         <RelativeLayout
             android:id="@+id/fDetail_layoutContainer"
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="10dp"
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/fDetail_imgPost"
@@ -53,24 +52,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:text="28/03/2020"
-                android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textColor="#090909"
+                android:textSize="13sp"
                 android:textStyle="italic" />
             <TextView
                 android:id="@+id/fDetail_tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="3dp"
                 android:layout_marginTop="15dp"
                 android:layout_toRightOf="@+id/fDetail_imgAvatarUser"
                 android:text="nhan@gmail.com"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                />
+                android:textColor="#020202"
+                android:textSize="13sp"
+                android:textStyle="italic" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/fDetail_imgAvatarUser"
@@ -83,7 +81,6 @@
                 android:id="@+id/fDetail_tvTitle"
                 android:layout_width="match_parent"
                 android:layout_toLeftOf="@id/fDetail_imgContents"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/fDetail_imgPost"
                 android:text="@string/title"
@@ -94,7 +91,6 @@
                 android:id="@+id/fDetail_tvAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:layout_below="@+id/fDetail_tvTitle"
                 android:text="@string/address"
                 android:textSize="18sp"
@@ -107,7 +103,6 @@
                 android:layout_below="@+id/fDetail_tvAddress"
                 android:layout_marginBottom="3dp"
                 android:text="@string/descriptions"
-                android:textColor="@color/black"
                 android:textSize="16sp" />
         </RelativeLayout>
     </ScrollView>
