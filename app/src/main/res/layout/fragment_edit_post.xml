@@ -91,10 +91,11 @@
 
                     <ImageView
                         android:id="@+id/fEditPost_imgPost"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="250dp"
                         android:layout_below="@+id/fEditPost_imgAvatarUser"
                         android:layout_centerHorizontal="true"
+                        android:scaleType="fitXY"
                         android:src="@drawable/add_image" />
 
                     <EditText
