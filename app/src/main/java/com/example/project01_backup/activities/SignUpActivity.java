@@ -110,6 +110,8 @@ public class SignUpActivity extends AppCompatActivity {
                 }if (!displayName.isEmpty() && !email.isEmpty() && !pass.isEmpty()){
                     dialog.show();
                     createUser(displayName,email,pass);
+                }if (imgAvatar.getDrawable() == null){
+                    toast("Choose another picture");
                 }
 
             }
