@@ -155,7 +155,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 });
 
                             }catch (Exception e) {
-                                toast("Error");
+                                toast("Error!");
                                 dialog.dismiss();
                             }
 
