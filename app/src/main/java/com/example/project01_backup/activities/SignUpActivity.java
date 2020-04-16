@@ -128,38 +128,32 @@ public class SignUpActivity extends AppCompatActivity {
                                     .getReference().child("AvatarUser/" + uID);
                             imgAvatar.setDrawingCacheEnabled(true);
                             imgAvatar.buildDrawingCache();
-                            Bitmap bitmap ;
-                            ByteArrayOutputStream bAOS = null;
-                            byte[] data = new byte[0];
-                            try {
-                                bitmap = ((BitmapDrawable) imgAvatar.getDrawable()).getBitmap();;
-                                bAOS = new ByteArrayOutputStream();
-                                bitmap.compress(Bitmap.CompressFormat.PNG, 100, bAOS);
-                                data = bAOS.toByteArray();
-                                UploadTask uploadTask = storageReference.putBytes(data);
-                                uploadTask.addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        // Handle unsuccessful uploads
-                                    }
-                                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                            @Override
-                                            public void onSuccess(Uri uri) {
-                                                updateUser(name,uri,mAuth.getCurrentUser());
-                                            }
-                                        });
-                                    }
-                                });
-
-                            }catch (Exception e) {
-                                toast("Error!");
-                                dialog.dismiss();
-                            }
+                            Bitmap bitmap = ((BitmapDrawable) imgAvatar.getDrawable()).getBitmap();
+                            ByteArrayOutputStream bAOS = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bAOS);
+                            byte[] data = bAOS.toByteArray();
+                            UploadTask uploadTask = storageReference.putBytes(data);
+                            uploadTask.addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle unsuccessful uploads
+                                }
+                            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            updateUser(name,uri,mAuth.getCurrentUser());
+                                        }
+                                    });
+                                }
+                            });
 
 
+                        }else {
+                            toast("Error!");
+                            dialog.dismiss();
                         }
                     }
                 });
