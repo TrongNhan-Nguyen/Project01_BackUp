@@ -135,7 +135,7 @@ public class Fragment_AddPost extends Fragment {
 
 
         setPubDate(tvPubDate);
-        tvUser.setText(user.getEmail());
+        tvUser.setText(user.getDisplayName());
         Picasso.get().load(user.getPhotoUrl()).into(imgAvatarUser);
 
 

@@ -127,19 +127,19 @@ public class Fragment_Admin extends Fragment {
 
     private void reAuth(){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-//        if (email != null && pass!=null){
-//            mAuth.signInWithEmailAndPassword(email,pass)
-//                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                            getActivity().finish();
-//
-//                        }
-//                    });
-//        }else {
-//            getActivity().finish();
-//        }
-        getActivity().finish();
+        if (email != null && pass!=null){
+            mAuth.signInWithEmailAndPassword(email,pass)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            getActivity().finish();
+
+                        }
+                    });
+        }else {
+            getActivity().finish();
+        }
+
 
 
 

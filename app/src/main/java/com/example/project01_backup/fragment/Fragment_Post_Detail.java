@@ -157,6 +157,7 @@ public class Fragment_Post_Detail extends Fragment {
             comment.setDisplayName(currentUser.getDisplayName());
             comment.setUriAvatarUser(String.valueOf(currentUser.getPhotoUrl()));
             comment.setIdUser(currentUser.getUid());
+            comment.setEmailUser(currentUser.getEmail());
         }
 
         comment.setPubDate(stringPubDate());

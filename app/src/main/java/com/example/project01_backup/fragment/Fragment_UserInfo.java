@@ -318,6 +318,7 @@ public class Fragment_UserInfo extends Fragment {
         DatePickerDialog dialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    calendar.set(year,month,dayOfMonth);
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                     et.setText(format.format(calendar.getTime()));
             }

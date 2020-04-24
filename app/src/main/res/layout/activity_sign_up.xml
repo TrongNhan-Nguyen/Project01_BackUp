@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"/>
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/signUp_imgAvatar"
-        android:src="@drawable/ic_person_black_24dp"
+        android:src="@drawable/avatar_facebook"
         android:layout_below="@+id/signUp_tvTitle"
         app:civ_border_width="1dp"
         android:layout_marginTop="5dp"

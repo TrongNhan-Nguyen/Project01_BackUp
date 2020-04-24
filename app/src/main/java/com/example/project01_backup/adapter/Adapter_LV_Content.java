@@ -54,8 +54,6 @@ public class Adapter_LV_Content extends BaseAdapter {
             imgContent.setImageURI(content.getUriImage());
         }
 
-
-
         return convertView;
     }
 }
