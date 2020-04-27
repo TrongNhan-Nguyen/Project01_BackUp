@@ -9,8 +9,11 @@ import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,14 +21,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project01_backup.R;
+import com.example.project01_backup.dao.DAO_Feedback;
 import com.example.project01_backup.dao.DAO_Places;
+import com.example.project01_backup.dao.DAO_Post;
 import com.example.project01_backup.fragment.Fragment_Accommodations;
 import com.example.project01_backup.fragment.Fragment_BeautifulPlaces;
 import com.example.project01_backup.fragment.Fragment_JourneyDiary;
 import com.example.project01_backup.fragment.Fragment_Restaurant;
 import com.example.project01_backup.fragment.Fragment_Tab_UserInfo;
 import com.example.project01_backup.fragment.Fragment_UserInfo;
+import com.example.project01_backup.model.Feedback;
+import com.example.project01_backup.model.FirebaseCallback;
 import com.example.project01_backup.model.Places;
+import com.example.project01_backup.model.Post;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseUser currentUser;
     private String password;
     private String email;
+    private TextView number;
+    private DAO_Post dao_post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initView() {
+        dao_post = new DAO_Post(this);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser!=null){
             Toast.makeText(this, "Hello " + currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
@@ -75,6 +86,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         replaceFragment(new Fragment_Restaurant());
         showInfo();
         hideAdmin();
+        MenuItem admin = navigationView.getMenu().findItem(R.id.menu_drawer_Admin);
+        number = (TextView) admin.getActionView();
+        number.setGravity(Gravity.CENTER_VERTICAL);
+        number.setTypeface(null, Typeface.BOLD);
+        number.setTextColor(Color.RED);
+        dao_post.getDataAdmin(new FirebaseCallback(){
+            @Override
+            public void postListAdmin(List<Post> postList) {
+                if (postList.size() == 0){
+                    number.setText("");
+                }else {
+                    number.setText(postList.size()+"");
+                }
+            }
+        });
     }
 
     private void showInfo() {

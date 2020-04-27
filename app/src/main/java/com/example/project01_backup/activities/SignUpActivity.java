@@ -181,6 +181,7 @@ public class SignUpActivity extends AppCompatActivity {
                             dao_user.insert(insert);
                             dialog.dismiss();
                             toast("Sign up successful");
+                            FirebaseAuth.getInstance().signOut();
                             finish();
                             startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
                         }

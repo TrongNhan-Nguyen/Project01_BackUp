@@ -142,6 +142,7 @@ public class Adapter_LV_Comment extends BaseAdapter {
         final EditText etComment = (EditText) dialog.findViewById(R.id.dEditComment_etComment);
         ImageView imgPost = (ImageView) dialog.findViewById(R.id.dEditComment_imgPost);
         final Comment comment = commentList.get(index);
+        etComment.setText(comment.getContentComment());
         imgPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

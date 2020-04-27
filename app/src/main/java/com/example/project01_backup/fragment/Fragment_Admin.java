@@ -65,7 +65,7 @@ public class Fragment_Admin extends Fragment {
             urlAvatar = intent.getStringExtra("avatar");
             email = intent.getStringExtra("email");
             pass = intent.getStringExtra("pass");
-            tvName.setText(email);
+            tvName.setText(name);
             try {
                 Picasso.get().load(Uri.parse(urlAvatar)).into(imgAvatar);
             }catch (Exception e){
