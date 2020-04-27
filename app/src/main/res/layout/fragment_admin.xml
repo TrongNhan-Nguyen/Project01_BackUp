@@ -39,8 +39,8 @@
                 android:layout_below="@+id/fAdmin_tvTile"
                 android:layout_alignLeft="@+id/fAdmin_tvTile"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="italic" />
+                android:textSize="25dp"
+                android:textStyle="bold" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/fAdmin_imgAvatar"

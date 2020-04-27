@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dao_post = new DAO_Post(this);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser!=null){
-            Toast.makeText(this, "Hello " + currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Hello " + currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
         }
         drawerLayout = (DrawerLayout) findViewById(R.id.main_Drawer);
         navigationView = (NavigationView) findViewById(R.id.main_Navigation);

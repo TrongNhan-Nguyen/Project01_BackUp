@@ -23,7 +23,6 @@
     <EditText
         android:id="@+id/dForgot_etEmail"
         android:layout_marginTop="10dp"
-        android:background="@drawable/border_tv"
         android:hint="Enter your email (Required)"
         android:paddingHorizontal="3dp"
         android:layout_width="match_parent"
@@ -31,7 +30,6 @@
     <EditText
         android:id="@+id/dForgot_etPhone"
         android:layout_marginTop="10dp"
-        android:background="@drawable/border_tv"
         android:hint="Enter your phone numbers (Required)"
         android:paddingHorizontal="3dp"
         android:layout_width="match_parent"
@@ -39,7 +37,6 @@
     <EditText
         android:id="@+id/dForgot_etBirthDay"
         android:layout_marginTop="10dp"
-        android:background="@drawable/border_tv"
         android:hint="Enter your birthday(Required)"
         android:paddingHorizontal="3dp"
         android:layout_width="match_parent"
@@ -47,7 +44,6 @@
     <EditText
         android:id="@+id/dForgot_etPass"
         android:layout_marginTop="10dp"
-        android:background="@drawable/border_tv"
         android:hint="***********"
         android:paddingHorizontal="3dp"
         android:layout_width="match_parent"
